@@ -1,3 +1,4 @@
+use c9;
 
 DROP TABLE IF EXISTS ajax_chat_online;
 CREATE TABLE ajax_chat_online (

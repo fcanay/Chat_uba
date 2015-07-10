@@ -20,13 +20,13 @@ $config = array();
 // Database connection values:
 $config['dbConnection'] = array();
 // Database hostname:
-$config['dbConnection']['host'] = 'localhost';
+$config['dbConnection']['host'] = 'fcanay-chat_uba-1669950';
 // Database username:
-$config['dbConnection']['user'] = 'root';
+$config['dbConnection']['user'] = 'fcanay';
 // Database password:
 $config['dbConnection']['pass'] = '';
 // Database name:
-$config['dbConnection']['name'] = 'chat';
+$config['dbConnection']['name'] = 'c9';
 // Database type:
 $config['dbConnection']['type'] = null;
 // Database link:
