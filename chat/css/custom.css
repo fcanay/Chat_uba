@@ -1,0 +1,117 @@
+/*
+ * @package AJAX_Chat
+ * @author Sebastian Tschan
+ * @author Philip Nicolcev
+ * @copyright (c) Sebastian Tschan
+ * @license Modified MIT License
+ * @link https://blueimp.net/ajax/
+ */
+
+/* Custom CSS - enter css overrides for all styles below */
+/* e.g. suppose you want to hide the logout button and the channel / style / language selectors*/
+
+#content #chatList {
+	top:185px;
+	/*width:70%;*/
+	/*right:290px;*/
+}
+
+#content #onlineListContainer {
+	top:185px;
+	/*width:300px;*/
+
+}
+
+/*class="ui-slider-handle ui-state-default ui-corner-all"*/
+/*, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default */
+
+
+.ui-widget-content {
+	border: 1px solid #aaaaaa;
+	background: #0066B9;
+	background-size: cover;
+}
+.ui-widget-header
+{
+	background: transparent;
+}
+
+/*.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+		border: 1px solid gray;	
+}*/
+
+
+
+#content #opinionBarContainer
+{
+	top:185px;
+	position:absolute;
+	right:230px;
+	border-color:#0066B9;
+	bottom: 150px;
+	border-width: 1px;
+	border-style: solid;
+	width:50px;
+	text-align:center;
+}
+
+
+#content #clockContainer {
+	position:absolute;
+	right:40px;
+	top:10px;
+	width: 22px;
+	height: 22px;
+}
+
+
+
+
+#content #logoutChannelContainer{
+	top:150px;
+		
+}
+
+#content #messageContainer {
+	position:absolute;
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+	text-align:center;
+	/*
+	right:0px;
+	bottom:0px;
+	*/
+	top:60px;
+	font-size:20px;
+	overflow:auto;
+	
+}
+
+#content #helpContainer{
+	top:0px;
+}
+
+#content #copyright {
+	right:50px;
+	top:18px;
+}
+#content #statusIconContainer {
+	right:12px;
+	top:12px;
+}
+
+#content #settingsContainer {
+	top:66px;
+}
+
+#content #bbCodeContainer
+{
+	width:80%;
+	border-color:#0066B9;
+	height: 35px;
+	bottom: 40px;
+	border-width: 1px;
+	border-style: solid;
+
+}
