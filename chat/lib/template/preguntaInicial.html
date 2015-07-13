@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="[CONTENT_ENCODING/]"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[LANG_CODE/]" lang="[LANG_CODE/]" dir="[BASE_DIRECTION/]">
+
+<head>
+	<meta http-equiv="Content-Type" content="[CONTENT_TYPE/]" />
+	<title>[LANG]title[/LANG]</title>
+	<style type="text/css">
+		body {
+			padding:0;
+			margin:0;
+		}
+	</style>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
+  <script>
+
+  $(function() {
+    $("#slider-horizontal").slider({
+    	range: "min",
+      	step: 5,
+      	min: 0,
+      	max: 100,
+      	value: [OPINION_VALUE/],
+      	slide: function( event, ui ) {
+        	ajaxChat.sendMessage("/opinion_change "+ui.value+" "+ajaxChat.getDatetime());
+        	$( "#amount" ).val( ui.value );
+      	}     
+    });
+
+    $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+  });
+  </script>
+  </head>
+
+  <body>
+    <div id="messageContainer">
+      <h1>Valore la posición  y expresela en la barra de abajo</h1>
+    </div>
+
+    </div>
+        
+      [OMIT]<div id="emoticonsContainer" dir="ltr"></div>[/OMIT]
+
+      <div id="bbCodeContainer" style="display:none;">
+        Opinion
+        <div id='opinion_container' style="height:100%;"> 
+            <div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
+              <div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+              <div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+              <div style="width:33%;float:left;"></div>
+            </div>
+            <div id="slider-horizontal" style="width:85%;top:-8px;float:left;left:50px;"></div>
+               </div>
+               <div class='' style="display:none;">
+          <p>
+            <label for="amount">Opinion</label>
+            <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
+          </p>
+        </div>
+
+      </div>
+
+      <div>
+        <a rel="stylesheet" href="loggedIn.html"> Listo <a/>
+
+      </div>
+
+  </body>
