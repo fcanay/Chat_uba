@@ -34,35 +34,177 @@
     $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
   </script>
-  </head>
 
-  <body>
-    <div id="messageContainer">
-      <h1>Valore la posición  y expresela en la barra de abajo</h1>
-    </div>
 
-    <div id="bbCodeContainer" style="display:none;">
-        Opinion
-        <div id='opinion_container' style="height:100%;"> 
-            <div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
-              <div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-              <div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-              <div style="width:33%;float:left;"></div>
-            </div>
-            <div id="slider-horizontal" style="width:85%;top:-8px;float:left;left:50px;"></div>
-          </div>
-            <div class='' style="display:none;">
-              <p>
-                <label for="amount">Opinion</label>
-                <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
-              </p>
-            </div>
-    </div>
-      
+	[STYLE_SHEETS/]
+	<!--[if lt IE 7]>
+		<link rel="stylesheet" type="text/css" href="css/ie5-6.css"/>
+		<script type="text/javascript">
+			var isIElt7 = true;
+		</script>
+	<![endif]-->
+	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/custom.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/config.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/FABridge.js" type="text/javascript" charset="UTF-8"></script>
+	<script type="text/javascript">
+		// <![CDATA[
+			function toggleContainer(containerID, hideContainerIDs) {
+				if(hideContainerIDs) {
+					for(var i=0; i<hideContainerIDs.length; i++) {
+						ajaxChat.showHide(hideContainerIDs[i], 'none');	
+					}
+				}		
+				ajaxChat.showHide(containerID);
+				if(typeof arguments.callee.styleProperty == 'undefined') {
+					if(typeof isIElt7 != 'undefined') {
+						arguments.callee.styleProperty = 'marginRight';
+					} else {
+						arguments.callee.styleProperty = 'right';
+					}
+				}
+				var containerWidth = document.getElementById(containerID).offsetWidth;
+				if(containerWidth) {
+					document.getElementById('chatList').style[arguments.callee.styleProperty] = (containerWidth+28)+'px';	
+				} else {
+					document.getElementById('chatList').style[arguments.callee.styleProperty] = '20px';
+				}				
+			}
 
-      <div>
-        <a rel="stylesheet" href="loggedIn.html"> Listo <a/>
+			function initialize() {
+			/*	ajaxChat.updateButton('audio', 'audioButton');
+				ajaxChat.updateButton('autoScroll', 'autoScrollButton');
+				document.getElementById('bbCodeSetting').checked = ajaxChat.getSetting('bbCode');
+				document.getElementById('bbCodeImagesSetting').checked = ajaxChat.getSetting('bbCodeImages');
+				document.getElementById('bbCodeColorsSetting').checked = ajaxChat.getSetting('bbCodeColors');
+				document.getElementById('hyperLinksSetting').checked = ajaxChat.getSetting('hyperLinks');
+				document.getElementById('lineBreaksSetting').checked = ajaxChat.getSetting('lineBreaks');
+				document.getElementById('emoticonsSetting').checked = ajaxChat.getSetting('emoticons');
+				document.getElementById('autoFocusSetting').checked = ajaxChat.getSetting('autoFocus');
+				document.getElementById('maxMessagesSetting').value = ajaxChat.getSetting('maxMessages');
+				document.getElementById('wordWrapSetting').checked = ajaxChat.getSetting('wordWrap');
+				document.getElementById('maxWordLengthSetting').value = ajaxChat.getSetting('maxWordLength');
+				document.getElementById('dateFormatSetting').value = ajaxChat.getSetting('dateFormat');
+				document.getElementById('persistFontColorSetting').checked = ajaxChat.getSetting('persistFontColor');
+				for(var i=0; i<document.getElementById('audioVolumeSetting').options.length; i++) {
+					if(document.getElementById('audioVolumeSetting').options[i].value == ajaxChat.getSetting('audioVolume')) {
+						document.getElementById('audioVolumeSetting').options[i].selected = true;
+						break;
+					}
+				}
+				ajaxChat.fillSoundSelection('soundReceiveSetting', ajaxChat.getSetting('soundReceive'));
+				ajaxChat.fillSoundSelection('soundSendSetting', ajaxChat.getSetting('soundSend'));
+				ajaxChat.fillSoundSelection('soundEnterSetting', ajaxChat.getSetting('soundEnter'));
+				ajaxChat.fillSoundSelection('soundLeaveSetting', ajaxChat.getSetting('soundLeave'));
+				ajaxChat.fillSoundSelection('soundChatBotSetting', ajaxChat.getSetting('soundChatBot'));
+				ajaxChat.fillSoundSelection('soundErrorSetting', ajaxChat.getSetting('soundError'));
+				ajaxChat.fillSoundSelection('soundPrivateSetting', ajaxChat.getSetting('soundPrivate'));
+				document.getElementById('blinkSetting').checked = ajaxChat.getSetting('blink');
+				document.getElementById('blinkIntervalSetting').value = ajaxChat.getSetting('blinkInterval');
+				document.getElementById('blinkIntervalNumberSetting').value = ajaxChat.getSetting('blinkIntervalNumber');*/
+			}
 
-      </div>
+			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
+			ajaxChatConfig.sessionName = '[SESSION_NAME/]';
+			ajaxChatConfig.cookieExpiration = parseInt('[COOKIE_EXPIRATION/]');
+			ajaxChatConfig.cookiePath = '[COOKIE_PATH/]';
+			ajaxChatConfig.cookieDomain = '[COOKIE_DOMAIN/]';
+			ajaxChatConfig.cookieSecure = '[COOKIE_SECURE/]';
+			ajaxChatConfig.chatBotName = decodeURIComponent('[CHAT_BOT_NAME/]');
+			ajaxChatConfig.chatBotID = '[CHAT_BOT_ID/]';
+			ajaxChatConfig.allowUserMessageDelete = parseInt('[ALLOW_USER_MESSAGE_DELETE/]');
+			ajaxChatConfig.inactiveTimeout = parseInt('[INACTIVE_TIMEOUT/]');
+			ajaxChatConfig.privateChannelDiff = parseInt('[PRIVATE_CHANNEL_DIFF/]');
+			ajaxChatConfig.privateMessageDiff = parseInt('[PRIVATE_MESSAGE_DIFF/]');
+			ajaxChatConfig.showChannelMessages = parseInt('[SHOW_CHANNEL_MESSAGES/]');
+			ajaxChatConfig.messageTextMaxLength = parseInt('[MESSAGE_TEXT_MAX_LENGTH/]');
+			ajaxChatConfig.socketServerEnabled = parseInt('[SOCKET_SERVER_ENABLED/]');
+			ajaxChatConfig.socketServerHost = decodeURIComponent('[SOCKET_SERVER_HOST/]');
+			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
+			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
+		
 
-  </body>
+			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
+			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+		// ]]>
+	</script>
+</head>
+
+<body>
+	<div id="content">
+		<div id="headlineContainer">
+			<h1>[LANG]title[/LANG]</h1>
+		</div>
+		<div id="logoutChannelContainer">
+  			<div style="float:left;">
+  				<input type="[LOGOUT_BUTTON_TYPE/]" id="logoutButton" value="[LANG]logout[/LANG]" onclick="ajaxChat.logout();"/>
+  			</div>
+			<div style="display:[SWITCH_CHANNEL_BUTTON_DIV/];float:left;">
+			<label for="channelSelection">[LANG]channel[/LANG]:</label>
+			<select id="channelSelection" onchange="ajaxChat.switchChannel(this.options[this.selectedIndex].value);">[CHANNEL_OPTIONS/]</select>
+			</div>
+			<div style="display:[STYLE_OPTION_DISPLAY/];float:left;">
+				&nbsp;<label for="styleSelection">[LANG]style[/LANG]:</label>
+				<select id="styleSelection" onchange="ajaxChat.setActiveStyleSheet(ajaxChat.getSelectedStyle());">[STYLE_OPTIONS/]</select>
+			</div>
+		
+  		</div>
+	
+		
+		<div id="clockContainer">
+			<div id="chronometer"></div>
+		</div>
+		<!--[if lt IE 7]>
+			<div></div>
+		<![endif]-->
+		<div id="chessImg">
+		  <img src="img/chess.png" width="300" height="300"/>
+		</div>
+		
+		<div id="messageContainer">
+			<h1>Valore la posición  y expresela en la barra de abajo</h1>
+		</div>
+
+			<div id="bbCodeContainer" style="display:none;">
+				Opinion
+				<div id='opinion_container' style="height:100%;"> 
+						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
+							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+							<div style="width:33%;float:left;"></div>
+						</div>
+						<div id="slider-horizontal" style="width:85%;top:-8px;float:left;left:50px;"></div>
+	             </div>
+	             <div class='' style="display:none;">
+					<p>
+					  <label for="amount">Opinion</label>
+					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
+					</p>
+				</div>
+
+			</div>
+			
+			<div id="submitButtonContainer" style="display:none;">
+				<input type="button" id="submitButton" value="Listo" onclick="ajaxChat.sendMessageWrapper('/submit_initial_opinion');"/>
+			</div>
+				
+			
+
+	  	<div id="helpContainer" style="display:none;">
+ 			[TEMPLATE]help[/TEMPLATE]
+ 		
+	  	</div>
+	  	<div id="settingsContainer" style="display:none;">
+	  	[OMIT][TEMPLATE]settings[/TEMPLATE][/OMIT]
+	  	</div>
+		
+	</div>
+	<div id="flashInterfaceContainer"></div>
+	
+	<div>
+        <a rel="stylesheet" href="loggedIn.html"> Listo </a>
+  </div>
+</body>
+
+</html>

@@ -6,10 +6,9 @@
  * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
-
 // Ajax Chat backend logic:
 class AJAXChat {
-
+	
 	var $db;
 	var $_config;
 	var $_requestVars;
@@ -23,6 +22,7 @@ class AJAXChat {
 	var $_sessionNew;
 	var $_onlineUsersData;
 	var $_bannedUsersData;
+	var $_opinionInicial;
 	
 	function __construct() {
 		$this->initialize();
@@ -43,6 +43,7 @@ class AJAXChat {
 		
 		// Handle the browser request and send the response content:
 		$this->handleRequest();
+		$this->_opinionInicial = false;
 	}
 
 	function initConfig() {
@@ -154,7 +155,7 @@ class AJAXChat {
 		// Initialize the view:
 		$this->initView();
 
-		if($this->getView() == 'chat') {
+		if($this->getView() == 'chat' or $this->getView() == 'pregInicial') {
 			$this->initChatViewSession();
 		} else if($this->getView() == 'logs') {
 			$this->initLogsViewSession();
@@ -328,7 +329,19 @@ class AJAXChat {
 	function getTemplateFileName($pass= false) {
 		switch($this->getView()) {
 			case 'chat':
-				return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
+				if($this->getUserRole() == AJAX_CHAT_ADMIN){
+					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
+				}
+				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').'WHERE userID = '.$this->getUserID().';'; 
+				// Create a new SQL query:
+				$result = $this->db->sqlQuery($sql);
+				switch($result->fetch()['state']) {
+				case 0: //ESPERA INICIAL
+					
+				case 1: //CHAT
+					$result->free();
+					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
+					
 			case 'logs':
 				return AJAX_CHAT_PATH.'lib/template/logs.html';
 			default:
@@ -351,6 +364,7 @@ class AJAXChat {
 	function getView() {
 		return $this->_view;
 	}
+	
 
 	function hasAccessTo($view) {
 		switch($view) {
@@ -674,7 +688,7 @@ class AJAXChat {
 	
 	function initMessageHandling() {
 		// Don't handle messages if we are not in chat view:
-		if($this->getView() != 'chat') {
+		if($this->getView() != 'chat' and $this->getView() != 'pregInicial') {
 			return;
 		}
 
@@ -1927,6 +1941,7 @@ class AJAXChat {
 
 	function getXMLMessages() {
 		switch($this->getView()) {
+			case 'pregInicial':
 			case 'chat':
 				return $this->getChatViewXMLMessages();
 			case 'teaser':

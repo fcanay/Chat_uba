@@ -8,7 +8,7 @@
  */
 
 class CustomAJAXChat extends AJAXChat {
-
+	
 	function __construct($handle_request = true)
 	{
 	   	if(!$handle_request)
@@ -569,6 +569,12 @@ class CustomAJAXChat extends AJAXChat {
 				$pairCombinator->reset();
 				return true;
 			break;
+			case '/submit_initial_opinion':
+				//Guardar opinion inicial
+				$this->_opinionInicial = true;
+				
+			break;
+			
 		}
 
 	}

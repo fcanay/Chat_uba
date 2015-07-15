@@ -1579,9 +1579,14 @@ var ajaxChat = {
 							+ this.encodeText(text);				
 			this.makeRequest(this.ajaxURL,'POST',message);
 		}
-		this.dom['inputField'].value = '';
-		this.dom['inputField'].focus();
+		//this.dom['inputField'].value = '';
+		//this.dom['inputField'].focus();
 		this.updateMessageLengthCounter();
+	},
+	
+	changeView: function(text){
+		this.makeRequest(this.ajaxURL,'POST','view='+text);
+		this.makeRequest(this.ajaxURL,'GET',null);
 	},
 	
 	parseInputMessage: function(text) {
