@@ -147,12 +147,12 @@ $config['chatBotID'] = 2147483647;
 $config['chatBotName'] = 'ChatBot';
 
 // Minutes until a user is declared inactive (last status update) - the minimum is 2 minutes:
-$config['inactiveTimeout'] = 2;
+$config['inactiveTimeout'] = 200000;
 // Interval in minutes to check for inactive users:
-$config['inactiveCheckInterval'] = 5;
+$config['inactiveCheckInterval'] = 500000;
 
 // Defines if messages are shown which have been sent before the user entered the channel:
-$config['requestMessagesPriorChannelEnter'] = true;
+$config['requestMessagesPriorChannelEnter'] = false;
 // Defines an array of channelIDs (e.g. array(0, 1)) for which the previous setting is always true (will be ignored if set to null):
 $config['requestMessagesPriorChannelEnterList'] = null;
 // Max time difference in hours for messages to display on each request:
@@ -167,7 +167,7 @@ $config['userNameMaxLength'] = 16;
 // Max messageText length:
 $config['messageTextMaxLength'] = 1040;
 // Defines the max number of messages a user may send per minute:
-$config['maxMessageRate'] = 20;
+$config['maxMessageRate'] = 2000000;
 
 // Defines the default time in minutes a user gets banned if kicked from a moderator without ban minutes parameter:
 $config['defaultBanTime'] = null;

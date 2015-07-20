@@ -9,8 +9,11 @@
 
 class CustomAJAXChat extends AJAXChat {
 	
-	function __construct($handle_request = true)
+	var $_html;
+	
+	function __construct($html,$handle_request = true)
 	{
+		$this->_html = $html;
 	   	if(!$handle_request)
 	   	{
 	   		// Initialize configuration settings:
@@ -32,6 +35,26 @@ class CustomAJAXChat extends AJAXChat {
 
 
 	}
+
+		function getTemplateFileName($pass= false) {
+		switch($this->getView()) {
+			case 'chat':
+				if($this->getUserRole() == AJAX_CHAT_ADMIN){
+					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
+				}
+				
+				return AJAX_CHAT_PATH.'lib/template/'. $this->_html;
+				
+			case 'logs':
+				return AJAX_CHAT_PATH.'lib/template/logs.html';
+			default:
+				if($pass)
+					return AJAX_CHAT_PATH.'lib/template/loggedOutPass.html';
+				else
+					return AJAX_CHAT_PATH.'lib/template/loggedOut.html';
+		}
+	}
+
 
 	function generateValidUsername()
 	{
@@ -443,12 +466,20 @@ class CustomAJAXChat extends AJAXChat {
 	function replaceCustomTemplateTags($tag, $tagContent) {
 		switch($tag)
 		{
+			case 'LAST_ID':
+				return $this->getLastID();
 			case 'OPINION_VALUE':
 				$val =  $this->getUserData("opinionValue");
 				if($val !== false) return $val;
 				else return 50;
 			break;
-
+			
+			case 'OPINION_VALUE-OPONENT':
+				$val =  $this->getOponentOpinion();
+				if($val !== false) return $val;
+				else return 50;
+			break;
+			
 			case 'LOGOUT_BUTTON_TYPE':
 
 				if($this->getConfig('showLogoutButton') || $this->isAdmin()) return "button";
@@ -473,13 +504,35 @@ class CustomAJAXChat extends AJAXChat {
 
 		}
 	}
+	
+	function getOponentOpinion(){
+		$query = 'SELECT opinionValue FROM ajax_chat_online WHERE channel = '
+		. $this->getUserData('channel') . ' AND userID != ' .$this->getUserID() . ';';
+		$result = $this->db->query($sql);
+		
+		$row = $result->fetch();
+		return $row['opinionValue'];
+	}
+	
+	function getLastID(){
+		$query = 'SELECT max(id) as last_id FROM ajax_chat_messages WHERE channel = '
+		 . $this->getUserData('channel') . ' ;';
+		$result = $this->db->query($query);
+		if(!$result->error() and $result->numRows() > 0){
+			$row = $result->fetch();
+			return $row['last_id'];
+		}
+		else{
+			return 0;
+		}
+	}
 
 	function isAdmin()
 	{
 		return $this->getUserRole() == AJAX_CHAT_ADMIN;
 	}
 
-	function addOpinionChange($value, $client_time)
+	function addOpinionModified($value, $client_time)
 	{
 		$sql = 'UPDATE
 					'.$this->getDataBaseTable('online').'
@@ -490,7 +543,16 @@ class CustomAJAXChat extends AJAXChat {
 					
 		$result = $this->db->query($sql);
 	
-		return $this->db->query("INSERT INTO `chat`.`opinion_changes` (`userID` ,`channelID` ,`value`,`before` ,`client_time` ,`server_time`) VALUES ('".$this->getUserID()."', '0', {$value}, ".$this->getUserData("opinionValue").", '{$client_time}', NOW())");
+	}
+	
+	function addOpinionChange($value, $client_time){
+		
+		$query = "INSERT INTO `opinion_changes` (`userID` ,`channelID` ,`value`,`before` ,`client_time` ,`server_time`) VALUES ('";
+		$query .= $this->getUserID()."', '0', {$value}, ".$this->getUserData("opinionValue").", '{$client_time}', NOW())";
+		$result = $this->db->query($query);
+		
+		return $result;
+		
 	}
 		
 
@@ -532,12 +594,23 @@ class CustomAJAXChat extends AJAXChat {
 				return true;
 			break;
 
+			case '/init_exp':
+				$this->initializeGame($textParts);
+				//$this->parseCustomCommands('/init_game',array('/init_game'));
+				//$this->changeUsersToState(1);
+				$this->insertChatBotMessageInAllChannels("/start_exp");
+				return true;
+			break;
 
-			case '/opinion_change':
-				$this->addOpinionChange($textParts[1], $textParts[2]." ".$textParts[3]);
+			case '/opinion_modified':
+				$this->addOpinionModified($textParts[1], $textParts[2]." ".$textParts[3]);
 				//$this->insertChatBotMessage($this->getPrivateMessageID(),"Cambiaste de opinion a {$textParts[1]} en momento".$textParts[2]." ".$textParts[3]);		
 				return true;
 			break;
+			
+			case '/opinion_change':
+				$this->addOpinionChange($textParts[1], $textParts[2]." ".$textParts[3]);
+				return true;
 
 			case '/restart_clock':
 				$this->insertChatBotMessageInAllChannels("/restart_clock");
@@ -577,6 +650,26 @@ class CustomAJAXChat extends AJAXChat {
 			
 		}
 
+	}
+
+	function changeUsersToState($state){
+		$sql = 'UPDATE
+					'.$this->getDataBaseTable('online').'
+				SET
+					state 	= ' . $state .
+				' WHERE
+					userID != '.$this->db->makeSafe($this->getUserID()).';';
+					
+		// Create a new SQL query:
+		$result = $this->db->sqlQuery($sql);
+		
+		// Stop if an error occurs:
+		if($result->error()) {
+			echo $result->getError();
+			die();
+		}
+		
+		return true;
 	}
 
 	function insertChatBotMessageInAllChannels($message)

@@ -6,6 +6,7 @@
  * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
+
 // Ajax Chat backend logic:
 class AJAXChat {
 	
@@ -332,16 +333,18 @@ class AJAXChat {
 				if($this->getUserRole() == AJAX_CHAT_ADMIN){
 					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
 				}
-				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').'WHERE userID = '.$this->getUserID().';'; 
+				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').' WHERE userID = '.$this->getUserID().';'; 
 				// Create a new SQL query:
 				$result = $this->db->sqlQuery($sql);
-				switch($result->fetch()['state']) {
-				case 0: //ESPERA INICIAL
-					
-				case 1: //CHAT
-					$result->free();
+				$row = $result->fetch();
+				switch($row['state']) {
+				case 0:
+					return AJAX_CHAT_PATH.'lib/template/espera.html';
+				case 1:
+					//$result->free();
 					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
 					
+				}
 			case 'logs':
 				return AJAX_CHAT_PATH.'lib/template/logs.html';
 			default:
@@ -410,7 +413,7 @@ class AJAXChat {
 		if($this->isUserOnline($userData['userID']) || $this->isUserNameInUse($userData['userName'])) {
 			if($userData['userRole'] == AJAX_CHAT_USER || $userData['userRole'] == AJAX_CHAT_MODERATOR || $userData['userRole'] == AJAX_CHAT_ADMIN) {
 				// Set the registered user inactive and remove the inactive users so the user can be logged in again:
-				$this->setInactive($userData['userID'], $userData['userName']);
+				//$this->setInactive($userData['userID'], $userData['userName']);
 				$this->removeInactive();
 			} else {
 				$this->addInfoMessage('errorUserInUse');
@@ -3124,6 +3127,7 @@ class AJAXChat {
 	}
 	
 	function getPrivateMessageID($userID=null) {
+		return 0; //TODO cambia
 		if($userID === null) {
 			$userID = $this->getUserID();
 		}

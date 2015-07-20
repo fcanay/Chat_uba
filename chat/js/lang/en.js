@@ -8,6 +8,9 @@
 
 // Ajax Chat language Object:
 var ajaxChatLang = {
+	startGame: 'Crear set de rondas',
+	startChatRound : 'Lanzar ronda de chats',
+	rrorInvalidCountUsers: 'Error: La cantidad de usuarios es impar (%s).',
 	
 	login: '%s logs into the Chat.',
 	logout: '%s logs out of the Chat.',

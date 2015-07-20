@@ -25,7 +25,7 @@ require(AJAX_CHAT_PATH.'lib/classes.php');
 
 
 // Initialize the chat:
-$ajaxChat = new CustomAJAXChat('espera.html');
+$ajaxChat = new CustomAJAXChat('ronda.html');
 
 
 
