@@ -11,25 +11,31 @@
 
 // Example - Overriding the replaceCustomCommands method:
 ajaxChat.replaceCustomCommands = function(text, textParts) {
-	switch(textParts[0])
-	{
+	
+	if(ajaxChat.isCustomCommand(textParts[0])){
+		switch(textParts[0])
+		{
 		case '/start_exp':
-			window.location.replace("opinion.php");
+			if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("opinion.php");
 			return false;
 			
-		case '/ronda':
-			window.location.replace("ronda.php");
+		case '/round':
+			if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("ronda.php");
+			return false;
+		
+		case '/change_opinion':
+			if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("cambiarOpinion.php");
 			return false;
 		
 		case '/restart_clock':
 			ajaxChat.restartChronometer(0);
 			//return "restarteado!";
 		case '/start_opinion':
-			ajaxChat.startOpinion();
+			if(this.userRole !== '2' && this.userRole !== '3') ajaxChat.startOpinion();
 			return false;
 		break;
 		case '/end_opinion':
-			ajaxChat.endOpinion();
+			if(this.userRole !== '2' && this.userRole !== '3') ajaxChat.endOpinion();
 			return false;
 		break;
 
@@ -46,11 +52,8 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 			if(this.userRole !== '2' && this.userRole !== '3')  ajaxChat.goToExitScreen();
 			return false;
 		break;
-
-
-
+		}
 	}
-	
 	return text;
 }
 
@@ -150,13 +153,13 @@ ajaxChat.getUserNodeStringItems =  function(encodedUserName, userID, isInline) {
 			if(this.userRole === '2' || this.userRole === '3') { //admin y moderadores
 				menu	+= '<li>---------------------</li>';
 				menu	+= '<li>Inicialización</li>';
-				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/init_exp\');">1) Iniciar Experimento </a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/init_exp\');ajaxChat.restartChronometer(0);">1) Iniciar Experimento </a></li>';
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/init_game\');">1 a) Calcular rondas de chat</a></li>';
-				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/ask_initial_opinion\');">1 b) Pedir opinion inicial</a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/ask_initial_opinion\');ajaxChat.restartChronometer(0);">1 b) Pedir opinion inicial</a></li>';
 				menu	+= '<li>---------------------</li>';
 				menu	+= '<li>Rondas</li>';
-				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/round\');">3 a) Avanzar un paso</a></li>';
-				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/close_round\');">3 b) Pedir opinion <br />(y avisar fin de ronda)</a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/round\');ajaxChat.restartChronometer(0);">3 a) Avanzar un paso</a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/close_round\');ajaxChat.restartChronometer(0);">3 b) Pedir opinion <br />(y avisar fin de ronda)</a></li>';
 				menu	+= '<li>---------------------</li>';
 				menu	+= '<li>Barra de opinión</li>';
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/start_opinion\');">Habilitar</a></li>';
@@ -191,7 +194,8 @@ ajaxChat.sendMessageWrapperIfConfirm = function(message, confirmation_message)
 ajaxChat.kickAll = function()
 {
 	if(!confirm("Deslogueará a todos los usuarios. Está serguro que desea continuar?")) return false;
-	var id, userName;
+	this.sendMessageWrapper('/kick_all');
+	/*var id, userName;
 	for(var i = 0; i < this.usersList.length; i++)
 	{
 
@@ -200,5 +204,5 @@ ajaxChat.kickAll = function()
 			userName = this.getUserNameFromUserID(this.usersList[i]);
 			this.sendMessageWrapper("/kick "+userName);
 		}
-	}
+	}*/
 }

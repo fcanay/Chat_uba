@@ -311,9 +311,9 @@ class CustomAJAXChat extends AJAXChat {
 			$current_round = $pairCombinator->currentRound();
 
 			for($i=0; $i < $n; $i++) { 
-				$this->insertChatBotMessage($channels[$i]["id"], "/restart_clock");
-				$this->insertChatBotMessage($channels[$i]["id"], "/end_opinion");
-				$this->insertChatBotMessage($channels[$i]["id"], "/open_chatbox");
+				//$this->insertChatBotMessage($channels[$i]["id"], "/restart_clock");
+				//$this->insertChatBotMessage($channels[$i]["id"], "/end_opinion");
+				//$this->insertChatBotMessage($channels[$i]["id"], "/open_chatbox");
 				$this->insertChatBotMessage($channels[$i]["id"], $this->getLangAndReplace("roundStartMessage", array("CURRENT_ROUND" => $current_round, "USER1" => $usersDataByID[$roundPairs[$i][0]]["userName"], "USER2" => $usersDataByID[$roundPairs[$i][1]]["userName"] )));		
 				$this->switchOtherUsersChannel($channels[$i]["name"], $usersDataByID[$roundPairs[$i][0]]);
 				$this->switchOtherUsersChannel($channels[$i]["name"], $usersDataByID[$roundPairs[$i][1]]);	
@@ -474,7 +474,7 @@ class CustomAJAXChat extends AJAXChat {
 				else return 50;
 			break;
 			
-			case 'OPINION_VALUE-OPONENT':
+			case 'OPINION_VALUE_OPONENT':
 				$val =  $this->getOponentOpinion();
 				if($val !== false) return $val;
 				else return 50;
@@ -506,9 +506,10 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getOponentOpinion(){
-		$query = 'SELECT opinionValue FROM ajax_chat_online WHERE channel = '
-		. $this->getUserData('channel') . ' AND userID != ' .$this->getUserID() . ';';
-		$result = $this->db->query($sql);
+		$query = 'SELECT opinionValue FROM ajax_chat_online WHERE channel = ';
+		$query .= $this->getUserData('channel') . ' AND userID != ' .$this->getUserID() . ';';
+		$result = $this->db->query($query);
+		//return $query;
 		
 		$row = $result->fetch();
 		return $row['opinionValue'];
@@ -569,8 +570,10 @@ class CustomAJAXChat extends AJAXChat {
 				if($currentRound !== false)
 				{
 					$this->insertChatBotMessage("0", "/restart_clock");
-					$this->insertChatBotMessage("0", "/end_opinion");					
-					$this->insertChatBotMessage("0", "/open_chatbox");					
+					//$this->insertChatBotMessage("0", "/end_opinion");					
+					//$this->insertChatBotMessage("0", "/open_chatbox");					
+					$this->insertChatBotMessageInAllChannels("/round");					
+
 					$this->insertChatBotMessage("0", $this->getLangAndReplace("roundStartPublicMessage", array("CURRENT_ROUND" => $currentRound)));		
 				}
 		
@@ -584,9 +587,9 @@ class CustomAJAXChat extends AJAXChat {
 					return true;
 			break;
 			case '/close_round':
-				$this->insertChatBotMessageInAllChannels("/restart_clock");
-				$this->insertChatBotMessageInAllChannels("/start_opinion");
-				$this->insertChatBotMessageInAllChannels($this->getLang("closePhaseMessage"));
+				//$this->insertChatBotMessageInAllChannels("/restart_clock");
+				$this->insertChatBotMessageInAllChannels("/change_opinion");
+				//$this->insertChatBotMessageInAllChannels($this->getLang("closePhaseMessage"));
 				return true;
 			break;
 			case '/init_game':
@@ -647,11 +650,45 @@ class CustomAJAXChat extends AJAXChat {
 				$this->_opinionInicial = true;
 				
 			break;
+			case '/kick_all':
+				$this->kickAll();
+			break;
 			
 		}
 
 	}
-
+	
+	function needUpdate(){
+		
+	}
+	
+	function statusUpdated(){
+		
+	}
+	
+	function kickAll(){
+		$sql = 'SELECT userName FROM
+					'.$this->getDataBaseTable('online').'
+				WHERE
+					userRole = 1;';
+					
+		// Create a new SQL query:
+		$result = $this->db->sqlQuery($sql);
+		
+		// Stop if an error occurs:
+		if($result->error()) {
+			echo $result->getError();
+			die();
+		}
+		
+		if($result->numRows() > 0) {
+			while($row = $result->fetch()) {
+				$this->kickUser($row['userName']);
+			}
+		}
+		
+		return true;
+	}
 	function changeUsersToState($state){
 		$sql = 'UPDATE
 					'.$this->getDataBaseTable('online').'

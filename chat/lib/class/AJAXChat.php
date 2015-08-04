@@ -253,7 +253,7 @@ class AJAXChat {
 	}
 
 	function handleRequest() {
-		if($this->getRequestVar('ajax')) {
+		if($this->getRequestVar('ajax') ) {
 			if($this->isLoggedIn()) {
 				// Parse info requests (for current userName, etc.):
 				$this->parseInfoRequests();
@@ -333,7 +333,7 @@ class AJAXChat {
 				if($this->getUserRole() == AJAX_CHAT_ADMIN){
 					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
 				}
-				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').' WHERE userID = '.$this->getUserID().';'; 
+				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').'WHERE userID = '.$this->getUserID().';'; 
 				// Create a new SQL query:
 				$result = $this->db->sqlQuery($sql);
 				$row = $result->fetch();
@@ -3127,7 +3127,7 @@ class AJAXChat {
 	}
 	
 	function getPrivateMessageID($userID=null) {
-		return 0; //TODO cambia
+		//return 0; //TODO cambiar
 		if($userID === null) {
 			$userID = $this->getUserID();
 		}

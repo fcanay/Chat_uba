@@ -116,6 +116,16 @@
 
 }
 
+#content #bbCodeContainerOponent
+{
+	width:80%;
+	border-color:#0066B9;
+	height: 35px;
+	border-width: 1px;
+	border-style: solid;
+
+}
+
 #content #chessImg
 {
 	position:absolute;

@@ -16,6 +16,7 @@
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
+  
   <script>
 
   $(function() {
@@ -24,33 +25,14 @@
       	step: 5,
       	min: 0,
       	max: 100,
-      	value: [OPINION_VALUE/],
-      	/*slide: function( event, ui ) {
-        	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
-        	$( "#amount" ).val( ui.value );
-      	}    */ 
-    });
-
-    $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
-  });
-  </script>
-  
-  <script>
-
-  $(function() {
-    $("#slider-horizontal-oponente").slider({
-    	range: "min",
-      	step: 5,
-      	min: 0,
-      	max: 100,
       	value: [OPINION_VALUE_OPONENT/],
-      	/*slide: function( event, ui ) {
-        	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
-        	$( "#amount" ).val( ui.value );
-      	}  */   
+      	slide: function( event, ui ) {
+        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	//$( "#amount" ).val( ui.value );
+      	}   
     });
 
-    $( "#amount" ).val( $( "#slider-horizontal-oponente" ).slider( "value" ) );
+    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
   </script>
 
@@ -178,30 +160,13 @@
 		<!--[if lt IE 7]>
 			<div></div>
 		<![endif]-->
-		<div id="bbCodeContainer" style="display:none;">
-				Opinion otro jugador
-				<div id='opinion_container' style="height:100%;"> 
-						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
-							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-							<div style="width:33%;float:left;"></div>
-						</div>
-						<div id="slider-horizontal-oponente" style="width:85%;top:-8px;float:left;left:50px;"></div>
-	             </div>
-	             <div class='' style="display:none;">
-					<p>
-					  <label for="amount">Opinion</label>
-					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
-					</p>
-				</div>
-		</div>		
 		<div id="chessImg">
-		  <img src="img/chess.png" width="300" height="300"/>
+		  <img src="img/ts.png" width="800" height="400"/>
 		</div>
 		
 
-			<div id="bbCodeContainer" style="display:none;">
-				Opinion
+			<div id="bbCodeContainer" style="display:block;">
+				Opinion oponente
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
@@ -212,7 +177,7 @@
 	             </div>
 	             <div class='' style="display:none;">
 					<p>
-					  <label for="amount">Opinion</label>
+					  <label for="amount">Opinion otro jugador</label>
 					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
 					</p>
 				</div>

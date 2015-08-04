@@ -17,6 +17,11 @@ define('AJAX_CHAT_GUEST',		0);
 // AJAX Chat config parameters:
 $config = array();
 
+// Tiempo para expresar su opinion
+$config['opinionTime'] = 20;
+// Tiempo de duracion de una ronda
+$config['roundTime'] = 30;
+
 // Database connection values:
 $config['dbConnection'] = array();
 // Database hostname:

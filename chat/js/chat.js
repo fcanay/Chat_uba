@@ -146,9 +146,9 @@ var ajaxChat = {
 		this.socketServerHost		= config['socketServerHost'];
 		this.socketServerPort		= config['socketServerPort'];
 		this.socketServerChatID		= config['socketServerChatID'];
-		if (typeof config['lastID'] !== 'undefined'){
+		/*if (typeof config['lastID'] !== 'undefined'){
 			this.lastID 			= config['lastID'];
-		}
+		}*/
 		this.DOMbuffering			= false;
 		this.DOMbuffer				= "";
 		this.retryTimerDelay 		= (this.inactiveTimeout*6000 - this.timerRate)/4 + this.timerRate;
@@ -2053,8 +2053,8 @@ var ajaxChat = {
 					return this.replaceCommandRoll(textParts);
 				case '/nick':
 					return this.replaceCommandNick(textParts);
-				case '/round':
-					return this.replaceCommandRound(textParts);
+				//case '/round':
+				//	return this.replaceCommandRound(textParts);
 					
 				case '/error':
 					return this.replaceCommandError(textParts);

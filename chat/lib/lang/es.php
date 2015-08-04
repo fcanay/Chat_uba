@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  * @package AJAX_Chat
  * @author Sebastian Tschan
@@ -18,7 +18,10 @@ $lang["redirectedToEndMessage"] = "(Aviso) Los usuarios fueron redirigidos a la 
 $lang["roundStartMessage"] = "Bienvenidos a la Ronda número CURRENT_ROUND. Conversarán entre USER1 y USER2 durante 5 minutos.";
 $lang["roundStartPublicMessage"] = "Comienza la ronda CURRENT_ROUND";
 $lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron calculados correctamente. Ya puede comenzar a lanzar las rondas de chat.";
-
+$lang["initialQuestionPart1"] = 'Tiene ';
+$lang["initialQuestionPart2"] = ' segundos para valuar la posición y expresarla en la barra de abajo';
+$lang["changeOpinionPart1"] = 'Tiene ';
+$lang["changeOpinionPart2"] = ' segundos para cambiar su opinion';
 
 $lang['title'] = 'Chat-room @ UBA';
 $lang['userName'] = 'Usuario';
