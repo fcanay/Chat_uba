@@ -104,6 +104,7 @@ CREATE TABLE `ajax_chat_online` (
   `newChannel` int(11) NOT NULL,
   `opinionValue` int(11) NOT NULL DEFAULT '50',
   `state` int(11) NOT NULL DEFAULT '0',
+  `stateSwitch` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`),
   KEY `userName` (`userName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

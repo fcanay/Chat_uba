@@ -36,7 +36,7 @@ class CustomAJAXChat extends AJAXChat {
 
 	}
 
-		function getTemplateFileName($pass= false) {
+	/*	function getTemplateFileName($pass= false) {
 		switch($this->getView()) {
 			case 'chat':
 				if($this->getUserRole() == AJAX_CHAT_ADMIN){
@@ -53,8 +53,23 @@ class CustomAJAXChat extends AJAXChat {
 				else
 					return AJAX_CHAT_PATH.'lib/template/loggedOut.html';
 		}
-	}
+	}*/
 
+
+	function manageUpdate(){
+		$httpHeader = new AJAXChatHTTPHeader($this->getConfig('contentEncoding'), $this->getConfig('contentType'));
+
+		//$template = new AJAXChatTemplate($this, $this->getTemplateFileName(), $httpHeader->getContentType());
+		// Send HTTP header:
+		$aux = $this->getTemplateFileName();
+		$len = strlen(AJAX_CHAT_PATH.'lib/template/');
+		//$aux = $aux[$len, strlen($aux)-4];
+		$aux = $aux . 'php';
+		$httpHeader->send();
+		echo '<?xml version="1.0" encoding="UTF-8" ?>
+				<!DOCTYPE Edit_Mensaje SYSTEM "Edit_Mensaje.dtd">
+				<update>'.$aux.'</update>';
+	}
 
 	function generateValidUsername()
 	{
@@ -569,11 +584,11 @@ class CustomAJAXChat extends AJAXChat {
 				$currentRound = $this->launchNewRound($textParts);
 				if($currentRound !== false)
 				{
-					$this->insertChatBotMessage("0", "/restart_clock");
+					//$this->insertChatBotMessage("0", "/restart_clock");
 					//$this->insertChatBotMessage("0", "/end_opinion");					
 					//$this->insertChatBotMessage("0", "/open_chatbox");					
-					$this->insertChatBotMessageInAllChannels("/round");					
-
+					//$this->insertChatBotMessageInAllChannels("/round");					
+					$this->changeUsersToState(2);
 					$this->insertChatBotMessage("0", $this->getLangAndReplace("roundStartPublicMessage", array("CURRENT_ROUND" => $currentRound)));		
 				}
 		
@@ -588,7 +603,8 @@ class CustomAJAXChat extends AJAXChat {
 			break;
 			case '/close_round':
 				//$this->insertChatBotMessageInAllChannels("/restart_clock");
-				$this->insertChatBotMessageInAllChannels("/change_opinion");
+				//$this->insertChatBotMessageInAllChannels("/change_opinion");
+				$this->changeUsersToState(3);
 				//$this->insertChatBotMessageInAllChannels($this->getLang("closePhaseMessage"));
 				return true;
 			break;
@@ -600,8 +616,8 @@ class CustomAJAXChat extends AJAXChat {
 			case '/init_exp':
 				$this->initializeGame($textParts);
 				//$this->parseCustomCommands('/init_game',array('/init_game'));
-				//$this->changeUsersToState(1);
-				$this->insertChatBotMessageInAllChannels("/start_exp");
+				$this->changeUsersToState(1);
+				//$this->insertChatBotMessageInAllChannels("/start_exp");
 				return true;
 			break;
 
@@ -659,11 +675,41 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function needUpdate(){
+		$sql = 'SELECT stateSwitch FROM
+					'.$this->getDataBaseTable('online').'
+				WHERE
+					userName = \''.$this->getUserName().'\';';
+					
+		// Create a new SQL query:
+		$result = $this->db->sqlQuery($sql);
 		
+		// Stop if an error occurs:
+		if($result->error()) {
+			echo $result->getError();
+			die();
+		}
+		
+		if($result->numRows() > 0) {
+			$row = $result->fetch();
+			return (1 == $row['stateSwitch']);
+		}
 	}
 	
 	function statusUpdated(){
-		
+		if ( $this->getUserName() !== null) {
+			$sql = 'UPDATE '.$this->getDataBaseTable('online'). 
+					' SET stateSwitch = 0
+					WHERE userName = \''.$this->getUserName().'\';';
+						
+			// Create a new SQL query:
+			$result = $this->db->sqlQuery($sql);
+			
+			// Stop if an error occurs:
+			if($result->error()) {
+				echo $result->getError();
+				die();
+			}
+		}
 	}
 	
 	function kickAll(){
@@ -691,11 +737,12 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	function changeUsersToState($state){
 		$sql = 'UPDATE
-					'.$this->getDataBaseTable('online').'
+					'.$this->getDataBaseTable('online')."
 				SET
-					state 	= ' . $state .
-				' WHERE
-					userID != '.$this->db->makeSafe($this->getUserID()).';';
+					stateSwitch = 1,
+					state 	=  $state 
+				 WHERE
+					userID != 'admin';";
 					
 		// Create a new SQL query:
 		$result = $this->db->sqlQuery($sql);

@@ -16,7 +16,8 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 		switch(textParts[0])
 		{
 		case '/start_exp':
-			if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("opinion.php");
+			//if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("opinion.php");
+			return true;
 			return false;
 			
 		case '/round':
@@ -24,6 +25,7 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 			return false;
 		
 		case '/change_opinion':
+			return true;
 			if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("cambiarOpinion.php");
 			return false;
 		

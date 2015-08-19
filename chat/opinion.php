@@ -8,7 +8,7 @@
  */
 
 // Suppress errors.
-error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting(E_ALL ^ E_NOTICE);
 
 
 
@@ -25,7 +25,7 @@ require(AJAX_CHAT_PATH.'lib/classes.php');
 
 
 // Initialize the chat:
-$ajaxChat = new CustomAJAXChat('opinion.html');
+$ajaxChat = new CustomAJAXChat('espera.html');
 
 
 

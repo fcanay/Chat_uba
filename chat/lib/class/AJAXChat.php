@@ -29,6 +29,7 @@ class AJAXChat {
 		$this->initialize();
 	}
 
+
 	function initialize() {
 		// Initialize configuration settings:
 		$this->initConfig();
@@ -253,7 +254,8 @@ class AJAXChat {
 	}
 
 	function handleRequest() {
-		if($this->getRequestVar('ajax') ) {
+		if($this->getRequestVar('ajax') && !$this->needUpdate()) {
+		//if($this->getRequestVar('ajax')) {
 			if($this->isLoggedIn()) {
 				// Parse info requests (for current userName, etc.):
 				$this->parseInfoRequests();
@@ -266,13 +268,19 @@ class AJAXChat {
 			}
 			// Send chat messages and online user list in XML format:
 			$this->sendXMLMessages();
-		} else if ($this->getRequestVar('pass')) {
+		} else if ($this->getRequestVar('ajax')){
+			$this->manageUpdate();
+			$this->statusUpdated();
+		}
+		else if ($this->getRequestVar('pass')) {
 			$this->sendXHTMLContent($pass = true);
 		}else{
 			// Display XHTML content for non-ajax requests:
 			$this->sendXHTMLContent();
 		}
 	}
+	
+	
 
 	function parseCommandRequests() {
 		if($this->getRequestVar('delete') !== null) {
@@ -333,18 +341,24 @@ class AJAXChat {
 				if($this->getUserRole() == AJAX_CHAT_ADMIN){
 					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
 				}
-				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').'WHERE userID = '.$this->getUserID().';'; 
+				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').'WHERE userID = \''.$this->getUserID().'\';'; 
 				// Create a new SQL query:
 				$result = $this->db->sqlQuery($sql);
 				$row = $result->fetch();
+				//var_dump($row);
+				syslog(LOG_ERR,$row);
+				syslog(LOG_ERR,$row['state']);
 				switch($row['state']) {
 				case 0:
-					return AJAX_CHAT_PATH.'lib/template/espera.html';
+					$res = 'espera.html';
 				case 1:
-					//$result->free();
-					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
-					
+					$res = 'espera.html';
+				case 2:
+					$res = 'ronda.html';
+				case 3:
+					$res = 'cambiarOpinion.html';
 				}
+				return AJAX_CHAT_PATH.'lib/template/'. $res;
 			case 'logs':
 				return AJAX_CHAT_PATH.'lib/template/logs.html';
 			default:

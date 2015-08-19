@@ -857,6 +857,9 @@ var ajaxChat = {
 	},
 	
 	handleXML: function(xmlDoc) {
+		var newDir =  xmlDoc.getElementsByTagName('update');
+		console.log(newDir);
+		//if(newDir.length > 0){window.location.replace(newDir);};
 		this.handleInfoMessages(xmlDoc.getElementsByTagName('info'));
 		this.handleOnlineUsers(xmlDoc.getElementsByTagName('user'));
 		this.handleChatMessages(xmlDoc.getElementsByTagName('message'));

@@ -1,0 +1,7 @@
+-- Ver problema al loggear multiples usuarios al mismo tiempo
+-- Pasar a parametros: nombre de imagen, valores de opinion, tiempo de ronda y opinion
+-- Cambiar el kick all, para q kickea a  los q estan en otros canales
+-- Cuando empieza el experimento no se puede logguear nadie mas
+-- Manejar cantidad impar de personas
+-- Manejar cuando alguien se desconecta en el medio
+-- Al final refirigir a exit
