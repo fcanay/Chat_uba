@@ -61,10 +61,10 @@ class CustomAJAXChat extends AJAXChat {
 
 		//$template = new AJAXChatTemplate($this, $this->getTemplateFileName(), $httpHeader->getContentType());
 		// Send HTTP header:
-		$aux = $this->getTemplateFileName();
-		$len = strlen(AJAX_CHAT_PATH.'lib/template/');
+		//$aux = $this->getTemplateFileName();
+		//$len = strlen(AJAX_CHAT_PATH.'lib/template/');
 		//$aux = $aux[$len, strlen($aux)-4];
-		$aux = $aux . 'php';
+		$aux = 'update plz';
 		$httpHeader->send();
 		echo '<?xml version="1.0" encoding="UTF-8" ?>
 				<!DOCTYPE Edit_Mensaje SYSTEM "Edit_Mensaje.dtd">
@@ -421,7 +421,10 @@ class CustomAJAXChat extends AJAXChat {
 					userID = '.$this->db->makeSafe($otherUser["userID"]).';';
 					
 		$result = $this->db->query($sql);
-		
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 		return true;
 	}
 
@@ -521,11 +524,16 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getOponentOpinion(){
-		$query = 'SELECT opinionValue FROM ajax_chat_online WHERE channel = ';
-		$query .= $this->getUserData('channel') . ' AND userID != ' .$this->getUserID() . ';';
+		$pairCombinator = new PairHandler($this->db);
+		$opponent = $pairCombinator->getOponent($this->getUserID());
+		$query = 'SELECT opinionValue FROM ajax_chat_online WHERE userID = ';
+		$query .= $opponent . ';';
 		$result = $this->db->query($query);
 		//return $query;
-		
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 		$row = $result->fetch();
 		return $row['opinionValue'];
 	}
@@ -558,6 +566,10 @@ class CustomAJAXChat extends AJAXChat {
 					userID = '.$this->db->makeSafe($this->getUserID()).';';
 					
 		$result = $this->db->query($sql);
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 	
 	}
 	
@@ -591,8 +603,9 @@ class CustomAJAXChat extends AJAXChat {
 					$this->changeUsersToState(2);
 					$this->insertChatBotMessage("0", $this->getLangAndReplace("roundStartPublicMessage", array("CURRENT_ROUND" => $currentRound)));		
 				}
-		
-				//$this->insertChatBotMessageInAllChannels("/end_opinion");
+				else{
+					$this->closeExperiment();
+				}
 				return true;
 			break;
 			case '/ask_initial_opinion':
@@ -650,12 +663,7 @@ class CustomAJAXChat extends AJAXChat {
 				$this->insertChatBotMessageInAllChannels("/open_chatbox");
 				return true;				
 			case '/close_experiment':
-				/*dump something to some place & unlog users*/
-				$pairCombinator = new PairHandler($this->db);
-				$pairCombinator->saveAndReset();
-				$this->insertChatBotMessageInAllChannels("/close_experiment");
-				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
-				return true;
+				return $this->closeExperiment();
 			case '/empty_messages':
 				$pairCombinator = new PairHandler($this->db);
 				$pairCombinator->reset();
@@ -672,6 +680,15 @@ class CustomAJAXChat extends AJAXChat {
 			
 		}
 
+	}
+	
+	function closeExperiment(){
+		/*dump something to some place & unlog users*/
+				$pairCombinator = new PairHandler($this->db);
+				$pairCombinator->saveAndReset();
+				$this->insertChatBotMessageInAllChannels("/close_experiment");
+				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
+				return true;
 	}
 	
 	function needUpdate(){

@@ -341,23 +341,33 @@ class AJAXChat {
 				if($this->getUserRole() == AJAX_CHAT_ADMIN){
 					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
 				}
-				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').'WHERE userID = \''.$this->getUserID().'\';'; 
+				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').' WHERE userID ='.$this->db->makeSafe($this->getUserID()).';'; 
 				// Create a new SQL query:
 				$result = $this->db->sqlQuery($sql);
 				$row = $result->fetch();
 				//var_dump($row);
-				syslog(LOG_ERR,$row);
-				syslog(LOG_ERR,$row['state']);
+				//syslog(LOG_ERR,$row);
+				//syslog(LOG_ERR,$row['state']);
+				if($result->error()) {
+				echo $result->getError();
+				die();
+				}
 				switch($row['state']) {
+				//switch(3) {
 				case 0:
 					$res = 'espera.html';
+					break;
 				case 1:
-					$res = 'espera.html';
+					$res = 'opinion.html';
+					break;
 				case 2:
 					$res = 'ronda.html';
+					break;
 				case 3:
 					$res = 'cambiarOpinion.html';
+					break;
 				}
+				$result->free();
 				return AJAX_CHAT_PATH.'lib/template/'. $res;
 			case 'logs':
 				return AJAX_CHAT_PATH.'lib/template/logs.html';

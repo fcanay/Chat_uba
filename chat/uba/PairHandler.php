@@ -354,7 +354,18 @@ class PairHandler
 		return $str."}";	
 	}
 
-
+	function getOponent($player){
+		$played = $this->getPlayedRounds();
+		$all = $this->internal_data["game"];
+		$current = $played[count($played)-1];
+		$round = $all[$current];
+		foreach ($round as $pair){
+			if($pair[0] == $player)return $pair[1];
+			if($pair[1] == $player)return $pair[0];
+		}
+		echo "Error, no se encontro el companiero de ronda";
+		die();
+	}
 	
 
 }

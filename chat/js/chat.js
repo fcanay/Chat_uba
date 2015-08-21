@@ -859,6 +859,10 @@ var ajaxChat = {
 	handleXML: function(xmlDoc) {
 		var newDir =  xmlDoc.getElementsByTagName('update');
 		console.log(newDir);
+		if(newDir.length >= 1){
+			console.log("reload");
+			location.reload(true);
+		}
 		//if(newDir.length > 0){window.location.replace(newDir);};
 		this.handleInfoMessages(xmlDoc.getElementsByTagName('info'));
 		this.handleOnlineUsers(xmlDoc.getElementsByTagName('user'));
@@ -1837,6 +1841,7 @@ var ajaxChat = {
 		clearTimeout(this.timer);
 		var message = 'logout=true';
 		this.makeRequest(this.ajaxURL,'POST',message);
+		location.reload(true);
 	},
 	
 	handleLogout: function(url) {
