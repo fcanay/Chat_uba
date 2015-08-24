@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `chat`
 --
-use c9;
 -- --------------------------------------------------------
 
 --
@@ -158,6 +157,17 @@ CREATE TABLE `opinion_changes` (
   `server_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+DROP TABLE IF EXISTS `opinion_modification`;
+CREATE TABLE `opinion_modification` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `value` int(11) NOT NULL,
+  `ronda` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 

@@ -35,7 +35,7 @@ class PairHandler
 		$obj = new stdClass();
 		$obj->played_rounds = $this->internal_data["played_rounds"];
 		$obj->game = $this->internal_data["game"];
-		$obj->opinion_changes = $this->db->getAssoc("SELECT * FROM opinion_changes");
+		$obj->opinion_changes = $this->db->getAssoc("SELECT * FROM opinion_modification");
 		$obj->messages = $this->db->getAssoc("SELECT * FROM ajax_chat_messages");
 		$obj->users = $this->db->getAssoc("SELECT * FROM ajax_chat_online");
 		$this->db->query("INSERT INTO results(`data`) VALUES('".json_encode($obj)."')");
@@ -51,7 +51,7 @@ class PairHandler
 	{
 		
 		$result = $this->db->query("DELETE FROM current_round_data;");
-		$result = $this->db->query("DELETE FROM opinion_changes;");
+		$result = $this->db->query("DELETE FROM opinion_modification;");
 		$result = $this->db->query("DELETE FROM ajax_chat_messages;");
 		return true;
 	}
@@ -357,14 +357,16 @@ class PairHandler
 	function getOponent($player){
 		$played = $this->getPlayedRounds();
 		$all = $this->internal_data["game"];
-		$current = $played[count($played)-1];
-		$round = $all[$current];
-		foreach ($round as $pair){
-			if($pair[0] == $player)return $pair[1];
-			if($pair[1] == $player)return $pair[0];
+		if(count($played) > 0){
+			$current = $played[count($played)-1];
+			$round = $all[$current];
+			foreach ($round as $pair){
+				if($pair[0] == $player)return $pair[1];
+				if($pair[1] == $player)return $pair[0];
+			}
+			echo "Error, no se encontro el companiero de ronda";
+			die();
 		}
-		echo "Error, no se encontro el companiero de ronda";
-		die();
 	}
 	
 

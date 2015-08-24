@@ -21,6 +21,24 @@
 
   $(function() {
     $("#slider-horizontal").slider({
+    	disabled: true,
+    	range: "min",
+      	step: 5,
+      	min: 0,
+      	max: 100,
+      	value: [OPINION_VALUE/],
+      	slide: function( event, ui ) {
+        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	//$( "#amount" ).val( ui.value );
+      	}   
+    });
+
+    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+  });
+
+  $(function() {
+    $("#slider-horizontal-oponent").slider({
+    	disabled: true,
     	range: "min",
       	step: 5,
       	min: 0,
@@ -138,6 +156,7 @@
 		<div id="headlineContainer">
 			<h1>[LANG]title[/LANG]</h1>
 		</div>
+		[OMIT]
 		<div id="logoutChannelContainer">
   			<div style="float:left;">
   				<input type="[LOGOUT_BUTTON_TYPE/]" id="logoutButton" value="[LANG]logout[/LANG]" onclick="ajaxChat.logout();"/>
@@ -151,7 +170,7 @@
 				<select id="styleSelection" onchange="ajaxChat.setActiveStyleSheet(ajaxChat.getSelectedStyle());">[STYLE_OPTIONS/]</select>
 			</div>
 		
-  		</div>
+  		</div>[/OMIT]
 	
 		
 		<div id="clockContainer">
@@ -166,7 +185,7 @@
 		
 
 			<div id="bbCodeContainer" style="display:block;">
-				Opinion oponente
+				Opinion propia
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
@@ -184,6 +203,25 @@
 
 			</div>
 			
+			<div id="bbCodeContainerOponent" style="display:block;">
+				Opinion usuario [OPONENT_ID/]
+				<div id='opinion_container' style="height:100%;"> 
+						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
+							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+							<div style="width:33%;float:left;"></div>
+						</div>
+						<div id="slider-horizontal-oponent" style="width:85%;top:-8px;float:left;left:50px;"></div>
+	             </div>
+	             <div class='' style="display:none;">
+					<p>
+					  <label for="amount">Opinion otro jugador</label>
+					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
+					</p>
+				</div>
+
+			</div>
+
 			<div id="submitButtonContainer" style="display:none;">
 				<input type="button" id="submitButton" value="Listo" onclick="ajaxChat.sendMessageWrapper('/submit_initial_opinion');"/>
 			</div>

@@ -2996,8 +2996,9 @@ class AJAXChat {
 	}
 	
 	function getConfig($key, $subkey=null) {
-		if($subkey)
+		if($subkey){
 			return $this->_config[$key][$subkey];
+		}
 		else
 			return $this->_config[$key];
 	}

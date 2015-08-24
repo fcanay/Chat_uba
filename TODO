@@ -3,3 +3,4 @@
 -- Cuando empieza el experimento no se puede logguear nadie mas
 -- Manejar cantidad impar de personas
 -- Al final refirigir a exit
+-- Agregar Foreign Key a opinion_modification

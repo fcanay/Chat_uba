@@ -107,6 +107,13 @@
 	padding:3px;
 	padding-left: 0px;
 }
+#content #bbCodeContainerOponent {
+	position:absolute;
+	left:20px;
+	bottom:20px;
+	padding:3px;
+	padding-left: 0px;
+}
 #content #colorCodesContainer {
 	position:absolute;
 	left:20px;
@@ -127,7 +134,7 @@
 	padding:3px;
 	padding-right:0px;
 }
-#content #bbCodeContainer input, #content #logoutButton, #content #submitButton, #loginContent #loginButton {
+#content #bbCodeContainer input,#content #bbCodeContainerOponent input, #content #logoutButton, #content #submitButton, #loginContent #loginButton {
 	padding: 4px 10px;
 }
 #content #colorCodesContainer a {
@@ -274,6 +281,6 @@
 }
 
 /* Misc */
-#content #bbCodeContainer input, #content #optionsContainer input.button, #content #settingsContainer #settingsList input.button, #content #logoutButton, #content #submitButton, #loginContent #loginButton {
+#content #bbCodeContainer input,#content #bbCodeContainerOponent input, #content #optionsContainer input.button, #content #settingsContainer #settingsList input.button, #content #logoutButton, #content #submitButton, #loginContent #loginButton {
 	cursor:pointer;
 }

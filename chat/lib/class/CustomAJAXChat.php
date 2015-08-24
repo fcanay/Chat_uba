@@ -492,6 +492,10 @@ class CustomAJAXChat extends AJAXChat {
 				else return 50;
 			break;
 			
+			case 'OPONENT_ID':
+				$pairCombinator = new PairHandler($this->db);
+				return $pairCombinator->getOponent($this->getUserID());
+				
 			case 'OPINION_VALUE_OPONENT':
 				$val =  $this->getOponentOpinion();
 				if($val !== false) return $val;
@@ -593,6 +597,7 @@ class CustomAJAXChat extends AJAXChat {
 		switch($textParts[0])
 		{
 			case '/round':
+				$this->saveOpinions();
 				$currentRound = $this->launchNewRound($textParts);
 				if($currentRound !== false)
 				{
@@ -682,6 +687,24 @@ class CustomAJAXChat extends AJAXChat {
 
 	}
 	
+	function saveOpinions(){
+		$sql  = "INSERT INTO opinion_modification (userID,value,ronda) ";
+		$sql .= "(SELECT userID,opinionValue,"; 
+		$pairCombinator = new PairHandler($this->db);
+		$sql .= count($pairCombinator->getPlayedRounds());
+		$sql .= " FROM ajax_chat_online WHERE userRole = 1);";
+
+		$result = $this->db->sqlQuery($sql);
+		
+		// Stop if an error occurs:
+		if($result->error()) {
+			echo $result->getError();
+			die();
+		}
+
+
+	}
+
 	function closeExperiment(){
 		/*dump something to some place & unlog users*/
 				$pairCombinator = new PairHandler($this->db);

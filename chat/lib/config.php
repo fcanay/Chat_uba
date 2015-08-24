@@ -25,17 +25,20 @@ $config['roundTime'] = 30;
 // Database connection values:
 $config['dbConnection'] = array();
 // Database hostname:
-$config['dbConnection']['host'] = 'fcanay-chat_uba-1669950';
+$config['dbConnection']['host'] = 'localhost';
 // Database username:
-$config['dbConnection']['user'] = 'fcanay';
+$config['dbConnection']['user'] = 'root';
 // Database password:
-$config['dbConnection']['pass'] = '';
+$config['dbConnection']['pass'] = 'patton55';
 // Database name:
-$config['dbConnection']['name'] = 'c9';
+$config['dbConnection']['name'] = 'chat';
 // Database type:
-$config['dbConnection']['type'] = null;
+$config['dbConnection']['type'] = 'mysqli';
 // Database link:
 $config['dbConnection']['link'] = null;
+
+$config['REDIRECT_URL'] = 'google.com';
+
 
 // Database table names:
 $config['dbTableNames'] = array();
