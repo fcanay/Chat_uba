@@ -16,14 +16,15 @@
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
+  
   <script>
 
   $(function() {
     $("#slider-horizontal").slider({
     	range: "min",
-      	step: 5,
+      	step: 1,
       	min: 0,
-      	max: 100,
+      	max: 8,
       	value: [OPINION_VALUE/],
       	slide: function( event, ui ) {
         	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
@@ -31,8 +32,13 @@
       	}     
     });
 
+    
+
     $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
+
+  
+	
   </script>
 
 
@@ -181,7 +187,7 @@
 	             </div>
 	             <div class='' style="display:none;">
 					<p>
-					  <label for="amount">Opinion</label>
+					  <label for="amount">opinion</label>
 					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
 					</p>
 				</div>

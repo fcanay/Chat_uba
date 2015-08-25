@@ -101,7 +101,7 @@ CREATE TABLE `ajax_chat_online` (
   `ip` varbinary(16) NOT NULL,
   `channelSwitch` tinyint(1) NOT NULL DEFAULT '0',
   `newChannel` int(11) NOT NULL,
-  `opinionValue` int(11) NOT NULL DEFAULT '50',
+  `opinionValue` int(11) NOT NULL DEFAULT '4',
   `state` int(11) NOT NULL DEFAULT '0',
   `stateSwitch` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`),

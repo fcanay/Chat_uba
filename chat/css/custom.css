@@ -105,7 +105,33 @@
 	top:66px;
 }
 
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+	opacity: 1;
+	background-image: none;
+}
+
 #content #bbCodeContainer
+{
+	width:80%;
+	border-color:#0066B9;
+	height: 35px;
+	bottom: 20px;
+	border-width: 1px;
+	border-style: solid;
+
+}
+
+#slider-horizontal label {
+  position: absolute;
+  width: 20px;
+  margin-top: 20px;
+  margin-left: -10px;
+  text-align: center;
+}
+
+#content #bbCodeContainerRonda
 {
 	width:80%;
 	border-color:#0066B9;
