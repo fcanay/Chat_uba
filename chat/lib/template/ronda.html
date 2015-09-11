@@ -18,19 +18,40 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
   
   <script>
-
+//<![CDATA[
   $(function() {
     $("#slider-horizontal").slider({
     	disabled: true,
     	range: "min",
-      	step: 5,
-      	min: 0,
-      	max: 100,
+      	step: [STEP/],
+      	min: [MIN_OPINION/],
+      	max: [MAX_OPINION/],
       	value: [OPINION_VALUE/],
       	slide: function( event, ui ) {
         	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	//$( "#amount" ).val( ui.value );
       	}   
+    }).each(function(){
+		console.log("hola");
+    	//
+		// Add labels to slider whose values 
+		// are specified by min, max and whose
+		// step is set to 1
+		//
+		// Get the options for this slider
+		var opt = $(this).data().uiSlider.options;
+	  
+		// Get the number of possible values
+		var vals = opt.max - opt.min;
+	  
+		// Space out values
+		for (var i = 0; i <= vals; i++) {
+    
+    		var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  
+    		$( "#slider-horizontal" ).append(el);
+    	};
+    	$("#opinion-propia").text("Opinion propia:"+ajaxChatLang.label_names[opt.value]);
     });
 
     //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
@@ -40,10 +61,10 @@
     $("#slider-horizontal-oponent").slider({
     	disabled: true,
     	range: "min",
-      	step: 5,
-      	min: 0,
-      	max: 100,
-      	value: [OPINION_VALUE_OPONENT/],
+      	step: [STEP/],
+      	min: [MIN_OPINION/],
+      	max: [MAX_OPINION/],
+      	value: 2,
       	slide: function( event, ui ) {
         	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	//$( "#amount" ).val( ui.value );
@@ -52,6 +73,7 @@
 
     //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
+  //]]>	
   </script>
 
 
@@ -179,13 +201,13 @@
 		<!--[if lt IE 7]>
 			<div></div>
 		<![endif]-->
-		<div id="chessImg">
-		  <img src="img/ts.png" width="800" height="400"/>
+		<div id="chessImgSmall">
+		  <img src="img/ts.png" width="600" height="300"/>
 		</div>
 		
 
-			<div id="bbCodeContainer" style="display:block; top:60px;">
-				Opinion propia
+			<div id="bbCodeContainer" style="display:block; bottom:15%;">
+				<a id="opinion-propia" >  Opinion propia</a> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
@@ -204,7 +226,7 @@
 			</div>
 			
 			<div id="bbCodeContainerOponent" style="display:block;">
-				Opinion usuario [OPONENT_ID/]
+				<a id="opinion-oponent" >  Opinion usuario 3s</a> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>

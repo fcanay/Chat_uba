@@ -21,6 +21,10 @@ $config = array();
 $config['opinionTime'] = 20;
 // Tiempo de duracion de una ronda
 $config['roundTime'] = 30;
+//Valores posibles de Opinion
+$config['STEP'] = 1;
+$config['MIN_OPINION'] = 0;
+$config['MAX_OPINION'] = 8;
 
 // Database connection values:
 $config['dbConnection'] = array();

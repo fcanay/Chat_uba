@@ -24,7 +24,13 @@
 
 /*class="ui-slider-handle ui-state-default ui-corner-all"*/
 /*, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default */
-
+#slider-horizontal label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    /*text-align: center;*/
+    margin-top: 20px;
+}
 
 .ui-widget-content {
 	border: 1px solid #aaaaaa;
@@ -114,41 +120,52 @@
 
 #content #bbCodeContainer
 {
-	width:80%;
-	border-color:#0066B9;
+	width:100%;
 	height: 35px;
-	bottom: 20px;
+	bottom: 40px;
+	/*border-color:#0066B9;
 	border-width: 1px;
-	border-style: solid;
+	border-style: solid;*/
 
 }
 
-#slider-horizontal label {
-  position: absolute;
-  width: 20px;
-  margin-top: 20px;
-  margin-left: -10px;
-  text-align: center;
-}
 
 #content #bbCodeContainerRonda
 {
 	width:80%;
-	border-color:#0066B9;
 	height: 35px;
 	top: 60px;
+	/*border-color:#0066B9;
 	border-width: 1px;
-	border-style: solid;
+	border-style: solid;*/
 
 }
 
+a.ui-slider-handle
+      {
+        /*background: url("/examples/slider/pdp-sliders-bg.png") no-repeat scroll 0 -195px transparent;
+        border: medium none;
+        border-radius: 0 0 0 0;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        height: 60px;
+        margin-left: -35px;
+        padding: 8px 0 0;*/
+        position: relative;
+        text-decoration: none;
+        text-align: center;
+        top: -40px;
+        width: 70px;
+      }
+
 #content #bbCodeContainerOponent
 {
-	width:80%;
-	border-color:#0066B9;
+	width:100%;
 	height: 35px;
+	/*border-color:#0066B9;
 	border-width: 1px;
-	border-style: solid;
+	border-style: solid;*/
 
 }
 
@@ -157,6 +174,17 @@
 	position:absolute;
 	display: block;
 	top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+
+}
+
+#content #chessImgSmall
+{
+	position:absolute;
+	display: block;
+	top: 35%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)

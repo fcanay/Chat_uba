@@ -9,6 +9,7 @@
 
 // Ajax Chat language Object:
 var ajaxChatLang = {
+	label_names: ['Mate Blancas','Ventaja Decisiva Blanca','Ventaja Blanca','Leve Ventaja Blanca','Parejos','Leve Ventaja Negra','Ventaja Negra','Ventaja Decisiva Negra','Mate Negras'],
 	startGame: 'Crear set de rondas',
 	startChatRound : 'Lanzar ronda de chats',
 	login: '%s entra al Chat.',
@@ -89,7 +90,7 @@ var ajaxChatLang = {
 	errorSocketIO: 'Error: No se ha podido conectar al servidor socket (Error IO Flash).',
 	errorSocketSecurity: 'Error: No se ha podido conectar al servidor socket (Error Seguridad Flash).',
 	errorInvalidCountUsers: 'Error: La cantidad de usuarios es impar (%s).',
-	errorExhaustedCombinations: "Fin de experimento: se acabaron las combinaciones",
+	errorExhaustedCombinations: 'Fin de experimento: se acabaron las combinaciones',
 	errorDOMSyntax: 'Error: Sintaxis DOM No Válida (DOM ID: %s).'
 	
 }

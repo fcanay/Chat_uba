@@ -17,22 +17,44 @@
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
   <script>
-
+//<![CDATA[
   $(function() {
     $("#slider-horizontal").slider({
     	range: "min",
-      	step: 5,
-      	min: 0,
-      	max: 100,
+      	step: [STEP/],
+      	min: [MIN_OPINION/],
+      	max: [MAX_OPINION/],
       	value: [OPINION_VALUE/],
       	slide: function( event, ui ) {
         	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	$( "#amount" ).val( ui.value );
       	}     
+    }).each(function(){
+		console.log("hola");
+    	//
+		// Add labels to slider whose values 
+		// are specified by min, max and whose
+		// step is set to 1
+		//
+		// Get the options for this slider
+		var opt = $(this).data().uiSlider.options;
+	  
+		// Get the number of possible values
+		var vals = opt.max - opt.min;
+	  
+		// Space out values
+		for (var i = 0; i <= vals; i++) {
+    
+    		var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  
+    		$( "#slider-horizontal" ).append(el);
+    	};
+    	$("#opinion").text("Opinion:"+ajaxChatLang.label_names[opt.value]);
     });
 
     $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
+//]]>	
   </script>
 
 
@@ -162,8 +184,8 @@
 		<!--[if lt IE 7]>
 			<div></div>
 		<![endif]-->
-		<div id="chessImg">
-		  <img src="img/ts.png" width="800" height="400"/>
+		<div id="chessImgSmall">
+		  <img src="img/ts.png" width="600" height="300"/>
 		</div>
 		
 		<div id="messageContainer">

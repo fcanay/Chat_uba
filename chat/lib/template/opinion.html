@@ -18,27 +18,55 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
   
   <script>
-
+//<![CDATA[
+	//var label_names = ["Mate Blancas","Ventaja Decisiva Blanca","Ventaja Blanca","Leve Ventaja Blanca","Parejos","Leve Ventaja Negra","Ventaja Negra","Ventaja Decisiva Negra","Mate Negras"];
   $(function() {
     $("#slider-horizontal").slider({
     	range: "min",
-      	step: 1,
-      	min: 0,
-      	max: 8,
+      	step: [STEP/],
+      	min: [MIN_OPINION/],
+      	max: [MAX_OPINION/],
       	value: [OPINION_VALUE/],
       	slide: function( event, ui ) {
         	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	$( "#amount" ).val( ui.value );
-      	}     
+        	$("#opinion").text("Opinion:"+ajaxChatLang.label_names[ui.value]);
+      	},
+      	/*stop: function(){
+      		$(this).find("a").text("");
+      	} */    
+    })
+    .each(function(){
+		console.log("hola");
+    	//
+		// Add labels to slider whose values 
+		// are specified by min, max and whose
+		// step is set to 1
+		//
+		// Get the options for this slider
+		var opt = $(this).data().uiSlider.options;
+	  
+		// Get the number of possible values
+		var vals = opt.max - opt.min;
+	  
+		// Space out values
+		for (var i = 0; i <= vals; i++) {
+    
+    		var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  
+    		$( "#slider-horizontal" ).append(el);
+    	};
+    	$("#opinion").text("Opinion:"+ajaxChatLang.label_names[opt.value]);
     });
 
     
 
     $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+    //$("#opinion").text("Opinion:"+label_names[ui.value]);
   });
 
   
-	
+//]]>	
   </script>
 
 
@@ -175,15 +203,16 @@
 			<h1>[LANG]initialQuestionPart1[/LANG][opinionTime/][LANG]initialQuestionPart2[/LANG]</h1>
 		</div>
 
-			<div id="bbCodeContainer" style="display:block;">
-				Opinion
+			<div id="bbCodeContainer" style="display:block;position:center;">
+				<a id="opinion" >  Opinion </a>
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
 							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
 							<div style="width:33%;float:left;"></div>
 						</div>
-						<div id="slider-horizontal" style="width:85%;top:-8px;float:left;left:50px;"></div>
+						<div id="slider-horizontal" style="width:85%;top:-8px;float:left;left:50px;">
+						</div>
 	             </div>
 	             <div class='' style="display:none;">
 					<p>
