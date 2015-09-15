@@ -27,8 +27,9 @@
       	max: [MAX_OPINION/],
       	value: [OPINION_VALUE/],
       	slide: function( event, ui ) {
-        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
-        	//$( "#amount" ).val( ui.value );
+        	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	$( "#amount" ).val( ui.value );
+        	$("#opinion-propia").text("Opinion:"+ajaxChatLang.label_names[ui.value]);
       	}   
     }).each(function(){
 		//console.log("hola");
