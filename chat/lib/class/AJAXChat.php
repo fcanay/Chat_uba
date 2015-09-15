@@ -366,6 +366,9 @@ class AJAXChat {
 				case 3:
 					$res = 'cambiarOpinion.html';
 					break;
+				case 4:
+					$res = 'end.html';
+					break;
 				}
 				$result->free();
 				return AJAX_CHAT_PATH.'lib/template/'. $res;

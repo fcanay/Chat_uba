@@ -9,6 +9,7 @@
 // Ajax Chat config parameters:
 var ajaxChatConfig = {
 
+
 	// The channelID of the channel to enter on login (the loginChannelName is used if set to null):
 	loginChannelID: null,
 	// The channelName of the channel to enter on login (the default channel is used if set to null):

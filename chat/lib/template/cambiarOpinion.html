@@ -16,6 +16,7 @@
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
+  
   <script>
 //<![CDATA[
   $(function() {
@@ -26,11 +27,11 @@
       	max: [MAX_OPINION/],
       	value: [OPINION_VALUE/],
       	slide: function( event, ui ) {
-        	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
-        	$( "#amount" ).val( ui.value );
-      	}     
+        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	//$( "#amount" ).val( ui.value );
+      	}   
     }).each(function(){
-		console.log("hola");
+		//console.log("hola");
     	//
 		// Add labels to slider whose values 
 		// are specified by min, max and whose
@@ -49,12 +50,32 @@
   
     		$( "#slider-horizontal" ).append(el);
     	};
-    	$("#opinion").text("Opinion:"+ajaxChatLang.label_names[opt.value]);
+    	$("#opinion-propia").text("Opinion propia:"+ajaxChatLang.label_names[opt.value]);
     });
 
-    $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
-//]]>	
+
+  $(function() {
+    $("#slider-horizontal-oponent").slider({
+    	disabled: true,
+    	range: "min",
+      	step: [STEP/],
+      	min: [MIN_OPINION/],
+      	max: [MAX_OPINION/],
+      	value: [OPINION_VALUE_OPONENT/],
+      	oponent: [OPONENT_ID/],
+      	slide: function( event, ui ) {
+        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	//$( "#amount" ).val( ui.value );
+      	}   
+    }).each(function(){
+    	var opt = $(this).data().uiSlider.options;
+    	$("#opinion-oponent").text("Opinion usuario "+opt.oponent +":"+ajaxChatLang.label_names[opt.value]);
+     });
+    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+  });
+  //]]>	
   </script>
 
 
@@ -67,7 +88,7 @@
 	<![endif]-->
 	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/custom.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/cambiarOpinion.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/ronda.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/config.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/FABridge.js" type="text/javascript" charset="UTF-8"></script>
@@ -126,6 +147,7 @@
 				document.getElementById('blinkSetting').checked = ajaxChat.getSetting('blink');
 				document.getElementById('blinkIntervalSetting').value = ajaxChat.getSetting('blinkInterval');
 				document.getElementById('blinkIntervalNumberSetting').value = ajaxChat.getSetting('blinkIntervalNumber');*/
+				ajaxChat.chronometer([changeOpinionTime/]);
 			}
 
 			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
@@ -146,7 +168,6 @@
 			ajaxChatConfig.socketServerHost = decodeURIComponent('[SOCKET_SERVER_HOST/]');
 			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
-			//ajaxChatConfig.lastID = parseInt('LAST_ID');
 		
 
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
@@ -174,16 +195,16 @@
 				<select id="styleSelection" onchange="ajaxChat.setActiveStyleSheet(ajaxChat.getSelectedStyle());">[STYLE_OPTIONS/]</select>
 			</div>
 		
-  		</div>
-  		[/OMIT]
+  		</div>[/OMIT]
 	
-		<div id="chatList" style="display:none"></div>
+		
 		<div id="clockContainer">
 			<div id="chronometer"></div>
 		</div>
 		<!--[if lt IE 7]>
 			<div></div>
 		<![endif]-->
+		
 		<div id="chessImgSmall">
 		  <img src="img/ts.png" width="600" height="300"/>
 		</div>
@@ -192,8 +213,8 @@
 			<h1>[LANG]changeOpinionPart1[/LANG][opinionTime/][LANG]changeOpinionPart2[/LANG]</h1>
 		</div>
 
-			<div id="bbCodeContainer" style="display:block;">
-				Opinion
+			<div id="bbCodeContainer" style="display:block; bottom:15%;">
+				<a id="opinion-propia" >  Opinion propia</a> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
@@ -204,13 +225,32 @@
 	             </div>
 	             <div class='' style="display:none;">
 					<p>
-					  <label for="amount">Opinion</label>
+					  <label for="amount">Opinion otro jugador</label>
 					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
 					</p>
 				</div>
 
 			</div>
 			
+			<div id="bbCodeContainerOponent" style="display:block;">
+				<a id="opinion-oponent" >  Opinion usuario [OPONENT_ID/]s</a> 
+				<div id='opinion_container' style="height:100%;"> 
+						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
+							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+							<div style="width:33%;float:left;"></div>
+						</div>
+						<div id="slider-horizontal-oponent" style="width:85%;top:-8px;float:left;left:50px;"></div>
+	             </div>
+	             <div class='' style="display:none;">
+					<p>
+					  <label for="amount">Opinion otro jugador</label>
+					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
+					</p>
+				</div>
+
+			</div>
+
 			<div id="submitButtonContainer" style="display:none;">
 				<input type="button" id="submitButton" value="Listo" onclick="ajaxChat.sendMessageWrapper('/submit_initial_opinion');"/>
 			</div>
@@ -224,10 +264,9 @@
 	  	<div id="settingsContainer" style="display:none;">
 	  	[OMIT][TEMPLATE]settings[/TEMPLATE][/OMIT]
 	  	</div>
-		
+	  	
 	</div>
-	<div id="flashInterfaceContainer"></div>
-	
+		
 </body>
 
 </html>

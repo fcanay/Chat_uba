@@ -707,9 +707,11 @@ class CustomAJAXChat extends AJAXChat {
 
 	function closeExperiment(){
 		/*dump something to some place & unlog users*/
+				//$this->insertChatBotMessageInAllChannels("/close_experiment");
+				$this->insertChatBotMessage("0", "/restart_admin");
+				$this->changeUsersToState(4);
 				$pairCombinator = new PairHandler($this->db);
 				$pairCombinator->saveAndReset();
-				$this->insertChatBotMessageInAllChannels("/close_experiment");
 				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
 				return true;
 	}

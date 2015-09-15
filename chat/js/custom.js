@@ -53,6 +53,9 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 		case '/close_experiment':
 			if(this.userRole !== '2' && this.userRole !== '3')  ajaxChat.goToExitScreen();
 			return false;
+		case '/restart_admin':
+			if(this.userRole == '2' || this.userRole == '3')  ajaxChat.restart();
+			return false;
 		break;
 		}
 	}
@@ -69,10 +72,88 @@ ajaxChat.getDatetime = function()
 	return '2200-10-10 23:00:00';
 }
 
+ajaxChat.restartCountdown = function(i)
+{
+	clearTimeout(this.timeout);
+	this.countDown(i);
+}
+
 ajaxChat.restartChronometer = function(i)
 {
 	clearTimeout(this.timeout);
 	this.chronometer(i);
+}
+
+
+ajaxChat.nextState = function(state) 
+{
+	//0 Espera
+	//1 Opinion Inicial
+	//2 Ronda
+	//3 Cambio de opinion
+	this.stateFunction(state);
+	if( state != 3){
+		state = state + 1;
+	}
+	else
+	{
+		state = 2;
+	}
+	this.state = state;
+	this.restartCountdown(this.stateTime[state]);
+
+}
+		
+ajaxChat.stateFunction = function(state)
+{
+	switch (state){
+		case 0:
+			this.sendMessageWrapper('/init_exp');
+			break;
+		case 1:
+			this.sendMessageWrapper('/round');
+			break;
+		case 2:
+			this.sendMessageWrapper('/close_round');
+			break;
+		case 3:
+			this.sendMessageWrapper('/round');
+			break;
+	}
+}
+
+ajaxChat.countDown = function (i)
+{
+	/*var today=new Date();
+	var h=today.getHours();
+	var m=today.getMinutes();
+	var s=today.getSeconds();
+	// add a zero in front of numbers<10
+	m=this.checkTime(m);
+	s=this.checkTime(s);
+	*/
+	var mins = 0;
+	var secs = i;
+	if( this.state != 0 && i <= 0){
+		this.nextState(this.state);
+		return;
+	}
+
+
+	while(secs > 59)
+	{
+		secs -= 60;
+		mins += 1;
+    }
+
+	document.getElementById('countdown').innerHTML = this.checkTime(mins)+":"+this.checkTime(secs);
+
+	if(this.state == 0 ){
+		this.timeout=setTimeout(function(){ajaxChat.countDown(i+1)},1000);
+	}
+	else{
+		this.timeout=setTimeout(function(){ajaxChat.countDown(i-1)},1000);
+	}
 }
 
 ajaxChat.chronometer = function (i)
@@ -87,6 +168,7 @@ ajaxChat.chronometer = function (i)
 	*/
 	var mins = 0;
 	var secs = i;
+	
 	while(secs > 59)
 	{
 		secs -= 60;
@@ -94,8 +176,14 @@ ajaxChat.chronometer = function (i)
     }
 
 	document.getElementById('chronometer').innerHTML = this.checkTime(mins)+":"+this.checkTime(secs);
+	if(i>0){
+		this.timeout=setTimeout(function(){ajaxChat.chronometer(i-1)},1000);
+	}
+}
 
-	this.timeout=setTimeout(function(){ajaxChat.chronometer(i+1)},1000);
+ajaxChat.restart = function(){
+	this.state = 0;
+	this.restartCountdown(0);
 }
 
 ajaxChat.toggleChatbox = function (show)
@@ -127,9 +215,12 @@ ajaxChat.checkTime = function (i)
 // Override to add custom initialization code
 	// This method is called on page load
 ajaxChat.customInitialize = function() {		
-	this.chronometer(0);
+	if(this.userRole == 3){
+		this.chronometer = this.countDown;
+		this.chronometer(0);
+	}
+	//this.chronometer(30);
 	this.setAudioVolume(0.0);
-
 }
 
 
@@ -155,13 +246,13 @@ ajaxChat.getUserNodeStringItems =  function(encodedUserName, userID, isInline) {
 			if(this.userRole === '2' || this.userRole === '3') { //admin y moderadores
 				menu	+= '<li>---------------------</li>';
 				menu	+= '<li>Inicialización</li>';
-				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/init_exp\');ajaxChat.restartChronometer(0);">1) Iniciar Experimento </a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.nextState(0);">1) Iniciar Experimento </a></li>';
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/init_game\');">1 a) Calcular rondas de chat</a></li>';
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/ask_initial_opinion\');ajaxChat.restartChronometer(0);">1 b) Pedir opinion inicial</a></li>';
 				menu	+= '<li>---------------------</li>';
 				menu	+= '<li>Rondas</li>';
-				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/round\');ajaxChat.restartChronometer(0);">3 a) Avanzar un paso</a></li>';
-				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/close_round\');ajaxChat.restartChronometer(0);">3 b) Pedir opinion <br />(y avisar fin de ronda)</a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/round\');">3 a) Avanzar un paso</a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/close_round\');">3 b) Pedir opinion <br />(y avisar fin de ronda)</a></li>';
 				menu	+= '<li>---------------------</li>';
 				menu	+= '<li>Barra de opinión</li>';
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/start_opinion\');">Habilitar</a></li>';
@@ -175,7 +266,7 @@ ajaxChat.getUserNodeStringItems =  function(encodedUserName, userID, isInline) {
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/restart_clock\');">Reiniciar clock</a></li>';
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapperIfConfirm(\'/close_experiment\', \'Este paso es irreversible. Está seguro que quiere redirigir a todos los usuarios a la pantalla de finalización?\');">Redirigir a pantalla de finalización</a></li>';
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapperIfConfirm(\'/empty_messages\', \'Vaciará todos los datos generados. Está seguro que desea continuar?\');">Borrar todo</a></li>';
-				menu	+= '<li><a href="javascript:ajaxChat.kickAll();">Desloguear a todos</a></li>';
+				menu	+= '<li><a href="javascript:ajaxChat.kickAll();ajaxChat.restart();">Desloguear a todos</a></li>';
 
 				
 

@@ -18,9 +18,11 @@ define('AJAX_CHAT_GUEST',		0);
 $config = array();
 
 // Tiempo para expresar su opinion
-$config['opinionTime'] = 20;
+$config['opinionTime'] = 10;
 // Tiempo de duracion de una ronda
-$config['roundTime'] = 30;
+$config['roundTime'] = 12;
+// Tiempo de duracion de un cambio de opinion
+$config['changeOpinionTime'] = 14;
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;
@@ -28,6 +30,9 @@ $config['MAX_OPINION'] = 8;
 
 // Database connection values:
 $config['dbConnection'] = array();
+
+//LOCAL
+
 // Database hostname:
 $config['dbConnection']['host'] = 'localhost';
 // Database username:
@@ -41,6 +46,22 @@ $config['dbConnection']['type'] = 'mysqli';
 // Database link:
 $config['dbConnection']['link'] = null;
 
+
+//Cloud 9
+/*
+// Database hostname:
+$config['dbConnection']['host'] = 'fcanay-chat_uba-1669950';
+// Database username:
+$config['dbConnection']['user'] = 'fcanay';
+// Database password:
+$config['dbConnection']['pass'] = '';
+// Database name:
+$config['dbConnection']['name'] = 'c9';
+// Database type:
+$config['dbConnection']['type'] = null;
+// Database link:
+$config['dbConnection']['link'] = null;
+*/
 $config['REDIRECT_URL'] = 'google.com';
 
 

@@ -52,7 +52,7 @@ class PairHandler
 		
 		$result = $this->db->query("DELETE FROM current_round_data;");
 		$result = $this->db->query("DELETE FROM opinion_modification;");
-		$result = $this->db->query("DELETE FROM ajax_chat_messages;");
+		//$result = $this->db->query("DELETE FROM ajax_chat_messages;");
 		return true;
 	}
 

@@ -89,6 +89,9 @@ var ajaxChat = {
 	DOMbuffering: null,
 	DOMbuffer: null,
 	DOMbufferRowClass: 'rowOdd',
+	stateTime: null,
+	stateFunction: null,
+	state: null,
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
 		this.httpRequest		= {};
@@ -146,6 +149,8 @@ var ajaxChat = {
 		this.socketServerHost		= config['socketServerHost'];
 		this.socketServerPort		= config['socketServerPort'];
 		this.socketServerChatID		= config['socketServerChatID'];
+		this.stateTime 				= config['stateTime'];
+		this.state 					= 0;
 		/*if (typeof config['lastID'] !== 'undefined'){
 			this.lastID 			= config['lastID'];
 		}*/
@@ -858,8 +863,8 @@ var ajaxChat = {
 	
 	handleXML: function(xmlDoc) {
 		var newDir =  xmlDoc.getElementsByTagName('update');
-		console.log(newDir);
-		if(newDir.length >= 1){
+		//console.log(newDir);
+		if(newDir.length >= 1 && this.userRole != 3){
 			console.log("reload");
 			location.reload(true);
 		}

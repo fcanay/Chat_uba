@@ -32,7 +32,7 @@
         	//$( "#amount" ).val( ui.value );
       	}   
     }).each(function(){
-		console.log("hola");
+		//console.log("hola");
     	//
 		// Add labels to slider whose values 
 		// are specified by min, max and whose
@@ -64,13 +64,16 @@
       	step: [STEP/],
       	min: [MIN_OPINION/],
       	max: [MAX_OPINION/],
-      	value: 2,
+      	value: [OPINION_VALUE_OPONENT/],
+      	oponent: [OPONENT_ID/],
       	slide: function( event, ui ) {
         	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	//$( "#amount" ).val( ui.value );
       	}   
-    });
-
+    }).each(function(){
+    	var opt = $(this).data().uiSlider.options;
+    	$("#opinion-oponent").text("Opinion usuario "+opt.oponent +":"+ajaxChatLang.label_names[opt.value]);
+     });
     //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
   //]]>	
@@ -145,6 +148,7 @@
 				document.getElementById('blinkSetting').checked = ajaxChat.getSetting('blink');
 				document.getElementById('blinkIntervalSetting').value = ajaxChat.getSetting('blinkInterval');
 				document.getElementById('blinkIntervalNumberSetting').value = ajaxChat.getSetting('blinkIntervalNumber');*/
+				ajaxChat.chronometer([roundTime/]);
 			}
 
 			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
@@ -226,7 +230,7 @@
 			</div>
 			
 			<div id="bbCodeContainerOponent" style="display:block;">
-				<a id="opinion-oponent" >  Opinion usuario 3s</a> 
+				<a id="opinion-oponent" >  Opinion usuario [OPONENT_ID/]s</a> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>

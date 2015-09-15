@@ -104,6 +104,8 @@
 				document.getElementById('blinkSetting').checked = ajaxChat.getSetting('blink');
 				document.getElementById('blinkIntervalSetting').value = ajaxChat.getSetting('blinkInterval');
 				document.getElementById('blinkIntervalNumberSetting').value = ajaxChat.getSetting('blinkIntervalNumber');*/
+				ajaxChat.countDown(0);
+				ajaxChat.stateTime = [0,[opinionTime/],[roundTime/],[changeOpinionTime/]];
 			}
 
 			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
@@ -159,7 +161,7 @@
 		[/OMIT]
 		
 		<div id="clockContainer">
-			<div id="chronometer"></div>
+			<div id="countdown"></div>
 		</div>
 		<!--[if lt IE 7]>
 			<div></div>
