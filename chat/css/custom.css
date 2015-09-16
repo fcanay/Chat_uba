@@ -172,21 +172,20 @@ a.ui-slider-handle
 #content #chessImg
 {
 	position:absolute;
-	display: block;
 	top: 50%;
     left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
+    transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
 
 }
 
 #content #chessImgSmall
 {
 	position:absolute;
-	display: block;
 	top: 45%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%)
+    transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
 
 }
