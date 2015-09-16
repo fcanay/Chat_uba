@@ -18,11 +18,11 @@ define('AJAX_CHAT_GUEST',		0);
 $config = array();
 
 // Tiempo para expresar su opinion
-$config['opinionTime'] = 10;
+$config['opinionTime'] = 20;
 // Tiempo de duracion de una ronda
-$config['roundTime'] = 12;
+$config['roundTime'] = 21;
 // Tiempo de duracion de un cambio de opinion
-$config['changeOpinionTime'] = 14;
+$config['changeOpinionTime'] = 22;
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;
