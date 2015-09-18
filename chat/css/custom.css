@@ -114,7 +114,7 @@
 .ui-state-disabled,
 .ui-widget-content .ui-state-disabled,
 .ui-widget-header .ui-state-disabled {
-	opacity: 1;
+	opacity: 0.60;
 	background-image: none;
 }
 
@@ -172,7 +172,7 @@ a.ui-slider-handle
 #content #chessImg
 {
 	position:absolute;
-	top: 50%;
+	top: 55%;
     left: 50%;
     transform:translate(-50%, -50%);
     -webkit-transform:translate(-50%, -50%);

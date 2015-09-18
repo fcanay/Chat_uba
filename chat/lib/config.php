@@ -18,11 +18,11 @@ define('AJAX_CHAT_GUEST',		0);
 $config = array();
 
 // Tiempo para expresar su opinion
-$config['opinionTime'] = 20;
+$config['opinionTime'] = 40;
 // Tiempo de duracion de una ronda
-$config['roundTime'] = 21;
+$config['roundTime'] = 30;
 // Tiempo de duracion de un cambio de opinion
-$config['changeOpinionTime'] = 22;
+$config['changeOpinionTime'] = 30;
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;
@@ -32,7 +32,7 @@ $config['MAX_OPINION'] = 8;
 $config['dbConnection'] = array();
 
 //LOCAL
-
+/*
 // Database hostname:
 $config['dbConnection']['host'] = 'localhost';
 // Database username:
@@ -45,8 +45,7 @@ $config['dbConnection']['name'] = 'chat';
 $config['dbConnection']['type'] = 'mysqli';
 // Database link:
 $config['dbConnection']['link'] = null;
-
-
+*/
 //Cloud 9
 /*
 // Database hostname:
@@ -62,6 +61,22 @@ $config['dbConnection']['type'] = null;
 // Database link:
 $config['dbConnection']['link'] = null;
 */
+
+//SOCEX
+// Database hostname:
+$config['dbConnection']['host'] = 'localhost';
+// Database username:
+$config['dbConnection']['user'] = 'balen';
+// Database password:
+$config['dbConnection']['pass'] = 'Aid8Tez8EeNg4ea1';
+// Database name:
+$config['dbConnection']['name'] = 'balen';
+// Database type:
+$config['dbConnection']['type'] = null;
+// Database link:
+$config['dbConnection']['link'] = null;
+
+
 $config['REDIRECT_URL'] = 'google.com';
 
 
