@@ -21,15 +21,14 @@
 //<![CDATA[
   $(function() {
     $("#slider-horizontal").slider({
-    	disabled: true,
     	range: "min",
       	step: [STEP/],
       	min: [MIN_OPINION/],
       	max: [MAX_OPINION/],
       	value: [OPINION_VALUE/],
       	slide: function( event, ui ) {
-        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
-        	//$( "#amount" ).val( ui.value );
+        	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	$( "#amount" ).val( ui.value );
       	}   
     }).each(function(){
 		//console.log("hola");
@@ -47,7 +46,7 @@
 		// Space out values
 		for (var i = 0; i <= vals; i++) {
     
-    		var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+    		var el = $('<label><img src="img/op'+(i)+'.gif" width="56" height="29" /></label>').css('left',(i/vals*100)+'%');
   
     		$( "#slider-horizontal" ).append(el);
     	};
