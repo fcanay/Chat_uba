@@ -4,3 +4,32 @@
 -- Manejar cantidad impar de personas
 -- Al final refirigir a exit
 -- Agregar Foreign Key a opinion_modification
+
+
+-- Agregar q no puedan entrar hasta q se abra el experimento, y no despues de que empezo.
+-- Ver tema del cartel, hacer cambios mas dinámicos
+
+-- Conseguir imagenes mate negras y blancas. 1-0 0-1
+-- Cambiar boton blanco, gris, negro.
+-- Descripcion de opinion mas grande y negrita
+-- Cambiar "opinion" por "valoración"
+-- Cambiar frase por "usuario 4"
+-- Subir barra
+-- Hacer tamanios relativos, hacer distancia entre barras constante
+-- Formulario en la pantalla final
+-- Agrandar las imagenes
+
+-- Habilitar la barra de opinion siempre
+-- Agregarle opacidad al 0.75 a la barra del oponente
+
+
+Hecho:
+-- Cambiar "valorizacion" por "valoracion"
+-- Cambiar "Chat room uba" por "SocEx"
+
+
+
+
+//No por ahora
+-- Para pantalla final hacer un histograma de las opiniones
+

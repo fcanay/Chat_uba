@@ -8,7 +8,7 @@
  */
 
 $lang = array();
-$lang['askInitialOpinionMessage'] = 'Opinion inicial';
+$lang['askInitialOpinionMessage'] = 'Opinión inicial';
 $lang["initGameOkGeneralMessage"] = "¡Bienvenidos al experimento! En unos momentos les pediremos que nos den su opinión inicial sobre la posición expresada en la pantalla. Luego lanzaremos diferentes rondas de chats tras la cuales podrán modificar, o no, su posición original. ";
 $lang["lastRoundEndedMessage"] = "Las rondas de chat terminaron. En breve serán redirigidos a la pantalla de finalización. Por favor, aguarden.";
 $lang["closePhaseMessage"] = " La Ronda está terminando. Tienen 1 minuto para modificar o re-afirmar sus opiniones. ";
@@ -22,7 +22,7 @@ $lang["round"] = 'Usted esta viendo la valorización de ';
 $lang["changeOpinion"] = 'Si desea puede actualizar su posición';
 //$lang["changeOpinionPart2"] = ' seconds to change your opinion';
 
-$lang['title'] = 'Chat-room @ UBA';
+$lang['title'] = 'SocEx';
 $lang['userName'] = 'Username';
 $lang['password'] = 'Password';
 $lang['login'] = 'Comenzar Experimento!';

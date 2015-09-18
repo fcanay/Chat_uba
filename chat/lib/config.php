@@ -30,7 +30,7 @@ $config['MAX_OPINION'] = 8;
 
 // Database connection values:
 $config['dbConnection'] = array();
-/*
+
 //LOCAL
 
 // Database hostname:
@@ -45,10 +45,10 @@ $config['dbConnection']['name'] = 'chat';
 $config['dbConnection']['type'] = 'mysqli';
 // Database link:
 $config['dbConnection']['link'] = null;
-*/
+
 
 //Cloud 9
-
+/*
 // Database hostname:
 $config['dbConnection']['host'] = 'fcanay-chat_uba-1669950';
 // Database username:
@@ -61,7 +61,7 @@ $config['dbConnection']['name'] = 'c9';
 $config['dbConnection']['type'] = null;
 // Database link:
 $config['dbConnection']['link'] = null;
-
+*/
 $config['REDIRECT_URL'] = 'google.com';
 
 
