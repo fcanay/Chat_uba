@@ -32,6 +32,15 @@
     margin-top: 20px;
 }
 
+.ui-slider-handle ui-state-default ui-corner-all {
+	background: #888888 url(images/ui-bg_glass_75_eeeeee_1x400.png) 50% 50% repeat-x;
+}
+
+
+.ui-state-hover {
+	background: #ff0000 url(images/ui-bg_glass_75_eeeeee_1x400.png) 50% 50% repeat-x;
+}
+
 .ui-widget-content {
 	border: 1px solid #aaaaaa;
 	background: #0066B9;
@@ -140,10 +149,10 @@
 	border-style: solid;*/
 
 }
-
+/*
 a.ui-slider-handle
       {
-        /*background: url("/examples/slider/pdp-sliders-bg.png") no-repeat scroll 0 -195px transparent;
+        background: url("/examples/slider/pdp-sliders-bg.png") no-repeat scroll 0 -195px transparent;
         border: medium none;
         border-radius: 0 0 0 0;
         display: block;
@@ -151,14 +160,14 @@ a.ui-slider-handle
         font-weight: bold;
         height: 60px;
         margin-left: -35px;
-        padding: 8px 0 0;*/
+        padding: 8px 0 0;
         position: relative;
         text-decoration: none;
         text-align: center;
         top: -40px;
         width: 70px;
       }
-
+*/
 #content #bbCodeContainerOponent
 {
 	width:100%;

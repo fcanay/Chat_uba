@@ -12,8 +12,7 @@ ajaxChat.customOnNewMessage = function(dateObject, userID, userName, userRole, m
 		case '/opinion':
 		case '/restart_admin':
 			var textParts = messageText.split(' ');	
-			this.replaceCustomCommands(messageText, textParts);
-		 	return false;
+			return this.replaceCustomCommands(messageText, textParts);
 		break;
 
 		default:

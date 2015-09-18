@@ -355,7 +355,7 @@ class AJAXChat {
 				switch($row['state']) {
 				//switch(3) {
 				case 0:
-					$res = 'espera.html';
+					$res = 'new.html';
 					break;
 				case 1:
 					$res = 'opinion.html';
