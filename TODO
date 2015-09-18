@@ -12,8 +12,6 @@
 -- Conseguir imagenes mate negras y blancas. 1-0 0-1
 -- Cambiar boton blanco, gris, negro.
 -- Descripcion de opinion mas grande y negrita
--- Cambiar "opinion" por "valoración"
--- Cambiar frase por "usuario 4"
 -- Subir barra
 -- Hacer tamanios relativos, hacer distancia entre barras constante
 -- Formulario en la pantalla final
@@ -26,6 +24,8 @@
 Hecho:
 -- Cambiar "valorizacion" por "valoracion"
 -- Cambiar "Chat room uba" por "SocEx"
+-- Cambiar "opinion" por "valoración"
+-- Cambiar frase por "usuario 4"
 
 
 

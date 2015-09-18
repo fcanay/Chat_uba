@@ -29,6 +29,7 @@
       	slide: function( event, ui ) {
         	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	$( "#amount" ).val( ui.value );
+        	$("#opinion-propia").text("Valoración propia:"+ajaxChatLang.label_names[ui.value]);
       	}   
     }).each(function(){
 		//console.log("hola");
@@ -50,7 +51,7 @@
   
     		$( "#slider-horizontal" ).append(el);
     	};
-    	$("#opinion-propia").text("Opinion propia:"+ajaxChatLang.label_names[opt.value]);
+    	$("#opinion-propia").text("Valoración propia:"+ajaxChatLang.label_names[opt.value]);
     });
 
     //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
@@ -71,7 +72,7 @@
       	}   
     }).each(function(){
     	var opt = $(this).data().uiSlider.options;
-    	$("#opinion-oponent").text("Opinion usuario "+opt.oponent +":"+ajaxChatLang.label_names[opt.value]);
+    	$("#opinion-oponent").text("Valoración usuario "+opt.oponent +":"+ajaxChatLang.label_names[opt.value]);
      });
     //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
   });
@@ -213,7 +214,7 @@
 		</div>
 
 			<div id="bbCodeContainer" style="display:block; bottom:15%;">
-				<a id="opinion-propia" >  Opinion propia</a> 
+				<a id="opinion-propia" >  Valoración propia</a> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
@@ -224,7 +225,7 @@
 	             </div>
 	             <div class='' style="display:none;">
 					<p>
-					  <label for="amount">Opinion otro jugador</label>
+					  <label for="amount">Valoración otro jugador</label>
 					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
 					</p>
 				</div>
@@ -232,7 +233,7 @@
 			</div>
 			
 			<div id="bbCodeContainerOponent" style="display:block;">
-				<a id="opinion-oponent" >  Opinion usuario [OPONENT_ID/]s</a> 
+				<a id="opinion-oponent" >  Valoración usuario [OPONENT_ID/]s</a> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
@@ -243,7 +244,7 @@
 	             </div>
 	             <div class='' style="display:none;">
 					<p>
-					  <label for="amount">Opinion otro jugador</label>
+					  <label for="amount">Valoración otro jugador</label>
 					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
 					</p>
 				</div>

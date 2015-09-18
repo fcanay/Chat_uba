@@ -20,7 +20,7 @@ $lang["roundStartPublicMessage"] = "Comienza la ronda CURRENT_ROUND";
 $lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron calculados correctamente. Ya puede comenzar a lanzar las rondas de chat.";
 $lang["initialQuestion"] = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
 //$lang["initialQuestionPart2"] = ' segundos para valuar la posición y expresarla en la barra de abajo';
-$lang["round"] = 'Usted esta viendo la valoración de ';
+$lang["round"] = 'Usted esta viendo la valoración del usuario ';
 $lang["changeOpinion"] = 'Si desea puede actualizar su posición';
 //$lang["changeOpinionPart2"] = ' segundos para cambiar su opinion';
 
