@@ -16,6 +16,8 @@ $lang["redirectedToEndMessage"] = "(Aviso) Los usuarios fueron redirigidos a la 
 $lang["roundStartMessage"] = "Bienvenidos a la Ronda número CURRENT_ROUND. Conversarán entre USER1 y USER2 durante 5 minutos.";
 $lang["roundStartPublicMessage"] = "Comienza la ronda CURRENT_ROUND";
 $lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron calculados correctamente. Ya puede comenzar a lanzar las rondas de chat.";
+
+$lang["wait"] = 'Espera a que empiece el experimento';
 $lang["initialQuestion"] = 'Valore la posición';
 //$lang["initialQuestionPart2"] = ' seconds to valueate the position and express your opinion in the bar bellow';
 $lang["round"] = 'Usted esta viendo la valoración del usuario ';

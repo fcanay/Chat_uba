@@ -12,8 +12,13 @@ var ajaxChatLang = {
 	
 	startGame: 'Crear set de rondas',
 	startChatRound : 'Lanzar ronda de chats',
-	rrorInvalidCountUsers: 'Error: La cantidad de usuarios es impar (%s).',
-	
+	ErrorInvalidCountUsers: 'Error: La cantidad de usuarios es impar (%s).',
+
+	initialQuestion: 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.',
+	round: 'Usted esta viendo la valoración del usuario ',
+	changeOpinion: 'Si desea puede actualizar su posición',
+
+
 	login: '%s logs into the Chat.',
 	logout: '%s logs out of the Chat.',
 	logoutTimeout: '%s has been logged out (Timeout).',

@@ -12,7 +12,13 @@ var ajaxChatLang = {
 	label_names: ['Mate Blancas','Ventaja Decisiva Blanca','Ventaja Blanca','Leve Ventaja Blanca','Parejos','Leve Ventaja Negra','Ventaja Negra','Ventaja Decisiva Negra','Mate Negras'],
 	startGame: 'Crear set de rondas',
 	startChatRound : 'Lanzar ronda de chats',
+	ErrorInvalidCountUsers: 'Error: La cantidad de usuarios es impar (%s).',
 	
+	initialQuestion: 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.',
+	round: 'Usted esta viendo la valoración del usuario ',
+	changeOpinion: 'Si desea puede actualizar su posición',
+
+
 	login: '%s entra al Chat.',
 	logout: '%s sale del Chat.',
 	logoutTimeout: '%s se ha desconectado (Tiempo de espera agotado).',

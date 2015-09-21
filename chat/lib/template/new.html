@@ -86,7 +86,6 @@
 		</script>
 	<![endif]-->
 	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/custom.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/new.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/config.js" type="text/javascript" charset="UTF-8"></script>
@@ -117,7 +116,7 @@
 
 			function initialize() {
 			
-				ajaxChat.chronometer([changeOpinionTime/]);
+				ajaxChat.chronometer(5);
 			}
 
 			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
@@ -138,8 +137,6 @@
 			ajaxChatConfig.socketServerHost = decodeURIComponent('[SOCKET_SERVER_HOST/]');
 			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
-		
-
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
 		// ]]>
@@ -151,8 +148,8 @@
 		<div id="headlineContainer">
 			<h1>[LANG]title[/LANG]</h1>
 		</div>
-		[OMIT]
-		<div id="logoutChannelContainer">
+		
+		<div id="logoutChannelContainer" style="display:none;">
   			<div style="float:left;">
   				<input type="[LOGOUT_BUTTON_TYPE/]" id="logoutButton" value="[LANG]logout[/LANG]" onclick="ajaxChat.logout();"/>
   			</div>
@@ -165,25 +162,25 @@
 				<select id="styleSelection" onchange="ajaxChat.setActiveStyleSheet(ajaxChat.getSelectedStyle());">[STYLE_OPTIONS/]</select>
 			</div>
 		
-  		</div>[/OMIT]
+  		</div>
 	
 		
-		<div id="clockContainer">
+		<div id="clockContainer" style="display:none;">
 			<div id="chronometer"></div>
 		</div>
 		<!--[if lt IE 7]>
 			<div></div>
 		<![endif]-->
 		
-		<div id="chessImgSmall">
-		  <img src="img/ts.png" width="600" height="300"/>
+		[<div id="chessImgSmall" style="display:none;">
+		  <img id="imagenTablero" src="img/ts.png" width="600" height="300"/>
 		</div>
 		
 		<div id="messageContainer">
-			<h1>[LANG]changeOpinion[/LANG]</h1>
+			<h1 id="mensajePrincipal">[LANG]wait[/LANG]</h1>
 		</div>
 
-			<div id="bbCodeContainer" style="display:block; bottom:15%;">
+			<div id="bbCodeContainer" style="display:none;">
 				<h3 id="opinion-propia" >  Valoración propia</h3> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
@@ -202,7 +199,7 @@
 
 			</div>
 			
-			<div id="bbCodeContainerOponent" style="display:block;">
+			<div id="bbCodeContainerOponent" style="display:none;">
 				<h3 id="opinion-oponent" >  Valoración usuario </h3> 
 				<div id='opinion_container' style="height:100%;"> 
 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
@@ -232,7 +229,7 @@
  		
 	  	</div>
 	  	<div id="settingsContainer" style="display:none;">
-	  	[OMIT][TEMPLATE]settings[/TEMPLATE][/OMIT]
+	  	[TEMPLATE]settings[/TEMPLATE]
 	  	</div>
 	  	
 	</div>
