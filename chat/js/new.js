@@ -29,11 +29,19 @@ ajaxChat.chronometer = function (i)
 		mins += 1;
     }
 
-	document.getElementById('chronometer').innerHTML = this.checkTime(mins)+":"+this.checkTime(secs);
+    if(i <10 && this.state > 0){
+		document.getElementById('chronometer').innerHTML = "<h2>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h2>";
+		document.getElementById('chronometer').style.color = "red" ;
+    }
+    else{
+		document.getElementById('chronometer').innerHTML = "<h4>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h4>";
+		document.getElementById('chronometer').style.color = "black" ;
+    }
+	//	document.getElementById('chronometer').style.font_weight = "bold" ;
 	if(i>0){
 		this.timeout=setTimeout(function(){ajaxChat.chronometer(i-1)},1000);
 	}else{
-		this.cambiarOpinion();
+		//this.cambiarOpinion();
 	}
 }
 
@@ -52,8 +60,7 @@ ajaxChat.customInitialize = function() {
 }
 
 ajaxChat.opinionInicial = function(){
-	document.getElementById('mensajePrincipal').innerHTML = this.lang.initialQuestion;
-
+	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.initialQuestion;
 	document.getElementById('imagenTablero').width = 800;
 	document.getElementById('imagenTablero').height = 400;
 
@@ -66,7 +73,7 @@ ajaxChat.opinionInicial = function(){
 
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
 
-	document.getElementById('chronometer').style.display = "block";
+	document.getElementById('clockContainer').style.display = "block";
 
 /*
 	$('#mensajePrincipal').innerHTML = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
@@ -77,7 +84,7 @@ ajaxChat.opinionInicial = function(){
 }
 
 ajaxChat.ronda = function(oponent,opinion){
-	document.getElementById('mensajePrincipal').innerHTML = this.lang.round + oponent;
+	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 
 	document.getElementById('imagenTablero').width = 600;
 	document.getElementById('imagenTablero').height = 300;
@@ -92,7 +99,10 @@ ajaxChat.ronda = function(oponent,opinion){
 
 
 	//Cambiar la opinion del oponente
-	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  this.lang.label_names[opinion];
+	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
+
+	document.getElementById('clockContainer').style.display = "block";
+
 
 /*
 	$('#mensajePrincipal').innerHTML = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
@@ -103,28 +113,47 @@ ajaxChat.ronda = function(oponent,opinion){
 }
 
 ajaxChat.cambiarOpinion = function(){
-	document.getElementById('mensajePrincipal').innerHTML = this.lang.changeOpinion;
+	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.changeOpinion;
+
+	document.getElementById('clockContainer').style.display = "block";
+
 }
 
 ajaxChat.end = function(){
 	window.location.replace("end.html");
 }
 
-ajaxChat.nextState = function() 
-{
-	var stateFunction = [this.opinionInicial,this.ronda,this.cambiarOpinion,this.end];
-	//0 Espera
-	//1 Opinion Inicial
-	//2 Ronda
-	//3 Cambio de opinion
-	if( this.state != 3){
-		this.state = this.state + 1;
+ajaxChat.handleStateChange = function(parts){
+	parts = parts.split(",");
+	this.state = parseInt(parts[0]);
+	console.log("Handle State Change " + parts.toString());
+	console.log(parts);
+	switch(this.state){
+		case 1:
+			this.opinionInicial();
+			break;
+		case 2:
+			if(parts.length >= 3){
+				this.ronda(parts[1],parts[2]);
+			}
+			else{
+				console.log("Error: cambio de estado sin parametros suficientes" + parts.toString());
+			}
+			break;
+		case 3:
+		if(parts.length >= 3){
+				this.cambiarOpinion(parts[1],parts[2]);
+			}
+			else{
+				console.log("Error: cambio de estado sin parametros suficientes" + parts.toString());
+			}
+			break;
+		case 4:
+			this.end();
+			break;
+		default:
+			console.log("WTF");
+			break;
 	}
-	else
-	{
-		this.state = 2;
-	}
-	stateFunction[this.state-1]();
 	this.restartChronometer(this.stateTime[this.state]);
-
 }

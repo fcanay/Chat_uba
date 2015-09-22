@@ -21,7 +21,6 @@ class CustomAJAXChat extends AJAXChat {
 
 			// Initialize the DataBase connection:
 			$this->initDataBaseConnection();
-
 			// Initialize request variables:
 			$this->initRequestVars();
 			
@@ -32,43 +31,31 @@ class CustomAJAXChat extends AJAXChat {
 	   	{
 	   		parent::__construct();
 	   	}
-
-
 	}
-
-	/*	function getTemplateFileName($pass= false) {
-		switch($this->getView()) {
-			case 'chat':
-				if($this->getUserRole() == AJAX_CHAT_ADMIN){
-					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
-				}
-				
-				return AJAX_CHAT_PATH.'lib/template/'. $this->_html;
-				
-			case 'logs':
-				return AJAX_CHAT_PATH.'lib/template/logs.html';
-			default:
-				if($pass)
-					return AJAX_CHAT_PATH.'lib/template/loggedOutPass.html';
-				else
-					return AJAX_CHAT_PATH.'lib/template/loggedOut.html';
-		}
-	}*/
-
 
 	function manageUpdate(){
 		$httpHeader = new AJAXChatHTTPHeader($this->getConfig('contentEncoding'), $this->getConfig('contentType'));
 
-		//$template = new AJAXChatTemplate($this, $this->getTemplateFileName(), $httpHeader->getContentType());
-		// Send HTTP header:
-		//$aux = $this->getTemplateFileName();
-		//$len = strlen(AJAX_CHAT_PATH.'lib/template/');
-		//$aux = $aux[$len, strlen($aux)-4];
-		$aux = 'update plz';
+		$state = $this->getUserState();
+		$res = strval($state);
+		switch($state) {
+				case 0:
+					break;
+				case 1:
+					break;
+				case 2:
+					$res .= ','.$this->getOponent().','.$this->getOponentOpinion();
+					break;
+				case 3:
+					$res .= ',' . $this->getOponent() . ',' . $this->getOponentOpinion();
+					break;
+				case 4:
+					break;
+		}
 		$httpHeader->send();
 		echo '<?xml version="1.0" encoding="UTF-8" ?>
 				<!DOCTYPE Edit_Mensaje SYSTEM "Edit_Mensaje.dtd">
-				<update>'.$aux.'</update>';
+				<update>'.$res.'</update>';
 	}
 
 	function generateValidUsername()
@@ -489,17 +476,16 @@ class CustomAJAXChat extends AJAXChat {
 			case 'OPINION_VALUE':
 				$val =  $this->getUserData("opinionValue");
 				if($val !== false) return $val;
-				else return 50;
+				else return 4;
 			break;
 			
 			case 'OPONENT_ID':
-				$pairCombinator = new PairHandler($this->db);
-				return $pairCombinator->getOponent($this->getUserID());
+				return $this->getOponent();
 				
 			case 'OPINION_VALUE_OPONENT':
 				$val =  $this->getOponentOpinion();
 				if($val !== false) return $val;
-				else return 50;
+				else return 4;
 			break;
 			
 			case 'LOGOUT_BUTTON_TYPE':
@@ -527,9 +513,13 @@ class CustomAJAXChat extends AJAXChat {
 		}
 	}
 	
-	function getOponentOpinion(){
+	function getOponent(){
 		$pairCombinator = new PairHandler($this->db);
-		$opponent = $pairCombinator->getOponent($this->getUserID());
+		return $pairCombinator->getOponent($this->getUserID());
+	}
+
+	function getOponentOpinion(){
+		$opponent = $this->getOponent();
 		$query = 'SELECT opinionValue FROM ajax_chat_online WHERE userID = ';
 		$query .= $opponent . ';';
 		$result = $this->db->query($query);
@@ -585,6 +575,21 @@ class CustomAJAXChat extends AJAXChat {
 		
 		return $result;
 		
+	}
+
+	function getUserState(){
+		$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').' WHERE userID ='.$this->db->makeSafe($this->getUserID()).';'; 
+		// Create a new SQL query:
+		$result = $this->db->sqlQuery($sql);
+		$row = $result->fetch();
+		//var_dump($row);
+		//syslog(LOG_ERR,$row);
+		//syslog(LOG_ERR,$row['state']);
+		if($result->error()) {
+			echo $result->getError();
+			die();
+		}
+		return $row['state'];
 	}
 		
 

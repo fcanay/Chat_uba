@@ -74,8 +74,8 @@
 #content #clockContainer {
 	position:absolute;
 	right:40px;
-	top:10px;
-	width: 22px;
+	/*top:10px;
+	width: 22px;*/
 	height: 22px;
 }
 

@@ -115,8 +115,7 @@
 			}
 
 			function initialize() {
-			
-				ajaxChat.chronometer(5);
+				ajaxChat.stateTime = [0,[opinionTime/],[roundTime/],[changeOpinionTime/]];
 			}
 
 			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
@@ -172,7 +171,7 @@
 			<div></div>
 		<![endif]-->
 		
-		[<div id="chessImgSmall" style="display:none;">
+		[<div id="chessImg" style="display:none;">
 		  <img id="imagenTablero" src="img/ts.png" width="600" height="300"/>
 		</div>
 		
@@ -221,16 +220,6 @@
 			<div id="submitButtonContainer" style="display:none;">
 				<input type="button" id="submitButton" value="Listo" onclick="ajaxChat.sendMessageWrapper('/submit_initial_opinion');"/>
 			</div>
-				
-			
-
-	  	<div id="helpContainer" style="display:none;">
- 			[TEMPLATE]help[/TEMPLATE]
- 		
-	  	</div>
-	  	<div id="settingsContainer" style="display:none;">
-	  	[TEMPLATE]settings[/TEMPLATE]
-	  	</div>
 	  	
 	</div>
 		

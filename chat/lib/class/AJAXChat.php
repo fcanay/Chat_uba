@@ -254,7 +254,7 @@ class AJAXChat {
 	}
 
 	function handleRequest() {
-		if($this->getRequestVar('ajax') && !$this->needUpdate()) {
+		if($this->getRequestVar('ajax') && (!$this->needUpdate() || $this->isAdmin())) {
 		//if($this->getRequestVar('ajax')) {
 			if($this->isLoggedIn()) {
 				// Parse info requests (for current userName, etc.):
@@ -335,24 +335,16 @@ class AJAXChat {
 		echo $template->getParsedContent();
 	}
 
+
+
 	function getTemplateFileName($pass= false) {
 		switch($this->getView()) {
 			case 'chat':
 				if($this->getUserRole() == AJAX_CHAT_ADMIN){
 					return AJAX_CHAT_PATH.'lib/template/loggedIn.html';
 				}
-				$sql = 'SELECT state FROM '.$this->getDataBaseTable('online').' WHERE userID ='.$this->db->makeSafe($this->getUserID()).';'; 
-				// Create a new SQL query:
-				$result = $this->db->sqlQuery($sql);
-				$row = $result->fetch();
-				//var_dump($row);
-				//syslog(LOG_ERR,$row);
-				//syslog(LOG_ERR,$row['state']);
-				if($result->error()) {
-				echo $result->getError();
-				die();
-				}
-				switch($row['state']) {
+				$state = $this->getUserState();
+				switch($state) {
 				//switch(3) {
 				case 0:
 					$res = 'new.html';
@@ -370,8 +362,8 @@ class AJAXChat {
 					$res = 'end.html';
 					break;
 				}
-				$result->free();
-				return AJAX_CHAT_PATH.'lib/template/'. $res;
+				//return AJAX_CHAT_PATH.'lib/template/'. $res;
+				return AJAX_CHAT_PATH.'lib/template/new.html';
 			case 'logs':
 				return AJAX_CHAT_PATH.'lib/template/logs.html';
 			default:

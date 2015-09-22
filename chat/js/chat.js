@@ -863,10 +863,11 @@ var ajaxChat = {
 	
 	handleXML: function(xmlDoc) {
 		var newDir =  xmlDoc.getElementsByTagName('update');
-		//console.log(newDir);
+		//console.log(xmlDoc);
 		if(newDir.length >= 1 && this.userRole != 3){
-			console.log("reload");
-			location.reload(true);
+			console.log(newDir[0].innerHTML);
+			this.handleStateChange(newDir[0].innerHTML);
+			//location.reload(true);
 		}
 		//if(newDir.length > 0){window.location.replace(newDir);};
 		this.handleInfoMessages(xmlDoc.getElementsByTagName('info'));
