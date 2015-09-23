@@ -30,6 +30,7 @@
         	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	$( "#amount" ).val( ui.value );
         	$("#opinion-propia").text("Valoración propia:"+ajaxChatLang.label_names[ui.value]);
+        	($(this).find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(ui.value);
       	}   
     }).each(function(){
 		//console.log("hola");
@@ -52,6 +53,7 @@
     		$( "#slider-horizontal" ).append(el);
     	};
     	$("#opinion-propia").text("Valoración propia:"+ajaxChatLang.label_names[opt.value]);
+    	($(this).find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(opt.value);
     });
 
     //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
@@ -183,11 +185,7 @@
 			<div id="bbCodeContainer" style="display:none;">
 				<h3 id="opinion-propia" >  Valoración propia</h3> 
 				<div id='opinion_container' style="height:100%;"> 
-						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
-							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-							<div style="width:33%;float:left;"></div>
-						</div>
+						
 						<div id="slider-horizontal" style="width:85%;top:-8px;float:left;left:50px;"></div>
 	             </div>
 	             <div class='' style="display:none;">
@@ -202,11 +200,7 @@
 			<div id="bbCodeContainerOponent" style="display:none;">
 				<h3 id="opinion-oponent" >  Valoración usuario </h3> 
 				<div id='opinion_container' style="height:100%;"> 
-						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
-							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
-							<div style="width:33%;float:left;"></div>
-						</div>
+						
 						<div id="slider-horizontal-oponent" style="width:85%;top:-8px;float:left;left:50px;"></div>
 	             </div>
 	             <div class='' style="display:none;">

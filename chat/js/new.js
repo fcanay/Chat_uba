@@ -67,7 +67,7 @@ ajaxChat.opinionInicial = function(){
 	document.getElementById('chessImg').style.display = "block";
 	document.getElementById('chessImg').style.top = "55%";
 
-	
+		
 	document.getElementById('bbCodeContainer').style.display = "block";
 	document.getElementById('bbCodeContainer').style.bottom = "";
 
@@ -113,8 +113,27 @@ ajaxChat.ronda = function(oponent,opinion){
 }
 
 ajaxChat.aux = function(opinion){
-	$("#slider-horizontal-oponent").slider('option','value',opinion);}
+	$("#slider-horizontal-oponent").slider('option','value',opinion);
+	($("#slider-horizontal-oponent").find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(opinion);
+}
 
+ajaxChat.handleColor = function(value){
+	switch(value){
+		case 0:
+		case 1:
+		case 2:
+			return "ffffff";
+		case 3:
+		case 4:
+		case 5:
+			return "777777";
+		case 6:
+		case 7:
+		case 8:
+			return "000000";
+	}
+	
+}
 ajaxChat.cambiarOpinion = function(){
 	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.changeOpinion;
 

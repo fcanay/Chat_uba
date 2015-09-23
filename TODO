@@ -7,7 +7,6 @@
 
 
 -- Agregar q no puedan entrar hasta q se abra el experimento, y no despues de que empezo.
--- Ver tema del cartel, hacer cambios mas dinámicos
 
 -- Conseguir imagenes mate negras y blancas. 1-0 0-1
 -- Cambiar boton blanco, gris, negro.
@@ -26,6 +25,7 @@ Hecho:
 -- Cambiar "opinion" por "valoración"
 -- Cambiar frase por "usuario 4"
 -- Descripcion de opinion mas grande y negrita
+-- Ver tema del cartel, hacer cambios mas dinámicos
 
 
 

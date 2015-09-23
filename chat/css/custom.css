@@ -127,6 +127,10 @@
 	background-image: none;
 }
 
+.ui-slider .ui-slider-handle {
+	opacity: 1;
+}
+
 #content #bbCodeContainer
 {
 	width:100%;
