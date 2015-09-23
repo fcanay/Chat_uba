@@ -96,11 +96,11 @@ ajaxChat.ronda = function(oponent,opinion){
 	document.getElementById('bbCodeContainerOponent').style.display = "block";
 
 	document.getElementById('slider-horizontal-oponent').style.display = "block";
-
+	document.getElementById('slider-horizontal-oponent').style.display = "block";
+	this.aux(opinion);
 
 	//Cambiar la opinion del oponente
 	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
-
 	document.getElementById('clockContainer').style.display = "block";
 
 
@@ -111,6 +111,9 @@ ajaxChat.ronda = function(oponent,opinion){
 	$('#imagenTablero').height = 300;
 */
 }
+
+ajaxChat.aux = function(opinion){
+	$("#slider-horizontal-oponent").slider('option','value',opinion);}
 
 ajaxChat.cambiarOpinion = function(){
 	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.changeOpinion;

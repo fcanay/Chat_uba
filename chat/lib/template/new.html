@@ -59,11 +59,12 @@
 
   $(function() {
     $("#slider-horizontal-oponent").slider({
-    	disabled: true,
+    	//disabled: true,
     	range: "min",
       	step: [STEP/],
       	min: [MIN_OPINION/],
       	max: [MAX_OPINION/],
+      	value: 4,
       	slide: function( event, ui ) {
         	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
         	//$( "#amount" ).val( ui.value );
