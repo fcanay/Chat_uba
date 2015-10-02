@@ -9,23 +9,23 @@
 -- Agregar q no puedan entrar hasta q se abra el experimento, y no despues de que empezo.
 
 -- Conseguir imagenes mate negras y blancas. 1-0 0-1
--- Cambiar boton blanco, gris, negro.
+-- Agrandar las imagenes
 -- Subir barra
 -- Hacer tamanios relativos, hacer distancia entre barras constante
 -- Formulario en la pantalla final
--- Agrandar las imagenes
 
--- Habilitar la barra de opinion siempre
--- Agregarle opacidad al 0.75 a la barra del oponente
 
 
 Hecho:
+-- Agregarle opacidad al 0.75 a la barra del oponente
+-- Habilitar la barra de opinion siempre
 -- Cambiar "valorizacion" por "valoracion"
 -- Cambiar "Chat room uba" por "SocEx"
 -- Cambiar "opinion" por "valoración"
 -- Cambiar frase por "usuario 4"
 -- Descripcion de opinion mas grande y negrita
 -- Ver tema del cartel, hacer cambios mas dinámicos
+-- Cambiar boton blanco, gris, negro.
 
 
 

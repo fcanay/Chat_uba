@@ -29,7 +29,7 @@ ajaxChat.chronometer = function (i)
 		mins += 1;
     }
 
-    if(i <10 && this.state > 0){
+    if(i <10 && this.state > 0 && this.state =! 2){
 		document.getElementById('chronometer').innerHTML = "<h2>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h2>";
 		document.getElementById('chronometer').style.color = "red" ;
     }
@@ -114,7 +114,7 @@ ajaxChat.ronda = function(oponent,opinion){
 
 ajaxChat.aux = function(opinion){
 	$("#slider-horizontal-oponent").slider('option','value',opinion);
-	($("#slider-horizontal-oponent").find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(opinion);
+	$("#slider-horizontal-oponent").find('.ui-slider-handle')[0].style.background = "#"+ajaxChat.handleColor(opinion);
 }
 
 ajaxChat.handleColor = function(value){
