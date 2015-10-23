@@ -22,7 +22,8 @@ $lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron cal
 $lang["wait"] = 'Espera a que empiece el experimento';
 $lang["initialQuestion"] = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
 //$lang["initialQuestionPart2"] = ' segundos para valuar la posición y expresarla en la barra de abajo';
-$lang["round"] = 'Usted esta viendo la valoración del usuario ';
+$lang["round"] = 'Usted va a ver la valoración del usuario ';
+$lang["roundDos"] = 'Usted esta viendo la valoración del usuario ';
 $lang["changeOpinion"] = 'Si desea puede actualizar su posición';
 //$lang["changeOpinionPart2"] = ' segundos para cambiar su opinion';
 

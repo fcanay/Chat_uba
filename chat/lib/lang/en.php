@@ -20,7 +20,8 @@ $lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron cal
 $lang["wait"] = 'Espera a que empiece el experimento';
 $lang["initialQuestion"] = 'Valore la posición';
 //$lang["initialQuestionPart2"] = ' seconds to valueate the position and express your opinion in the bar bellow';
-$lang["round"] = 'Usted esta viendo la valoración del usuario ';
+$lang["round"] = 'Usted va a ver la valoración del usuario ';
+$lang["roundDos"] = 'Usted esta viendo la valoración del usuario ';
 $lang["changeOpinion"] = 'Si desea puede actualizar su posición';
 //$lang["changeOpinionPart2"] = ' seconds to change your opinion';
 
