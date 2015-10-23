@@ -47,10 +47,16 @@
 	  
 		// Space out values
 		for (var i = 0; i <= vals; i++) {
-    
-    		var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
-  
-    		$( "#slider-horizontal" ).append(el);
+    		if (i == 0 || i == 8 ){
+    			var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  	    	}
+  	    	else if (i == 1 || i == 7){
+    			var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  	    	}
+  	    	else{
+    			var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  	    	}
+  	    	$( "#slider-horizontal" ).append(el);
     	};
     	$("#opinion-propia").text("Valoración propia:"+ajaxChatLang.label_names[opt.value]);
     	($(this).find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(opt.value);

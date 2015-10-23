@@ -29,7 +29,7 @@ ajaxChat.chronometer = function (i)
 		mins += 1;
     }
 
-    if(i <10 && this.state > 0 && this.state =! 2){
+    if(i < 10 && this.state > 0 && this.state != 2){
 		document.getElementById('chronometer').innerHTML = "<h2>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h2>";
 		document.getElementById('chronometer').style.color = "red" ;
     }
@@ -103,6 +103,7 @@ ajaxChat.ronda = function(oponent,opinion){
 	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
 	document.getElementById('clockContainer').style.display = "block";
 
+	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
 
 /*
 	$('#mensajePrincipal').innerHTML = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
@@ -114,10 +115,14 @@ ajaxChat.ronda = function(oponent,opinion){
 
 ajaxChat.aux = function(opinion){
 	$("#slider-horizontal-oponent").slider('option','value',opinion);
+	//handle.style.background = "#"+ajaxChat.handleColor(opinion);
+	//document.getElementById('slider-horizontal-oponent')
+	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
 	$("#slider-horizontal-oponent").find('.ui-slider-handle')[0].style.background = "#"+ajaxChat.handleColor(opinion);
 }
 
 ajaxChat.handleColor = function(value){
+	//console.log(value);
 	switch(value){
 		case 0:
 		case 1:
@@ -131,6 +136,9 @@ ajaxChat.handleColor = function(value){
 		case 7:
 		case 8:
 			return "000000";
+		default:
+			console.log("handleColor, case no reconocido")
+			console.log(value);
 	}
 	
 }
@@ -156,7 +164,9 @@ ajaxChat.handleStateChange = function(parts){
 			break;
 		case 2:
 			if(parts.length >= 3){
-				this.ronda(parts[1],parts[2]);
+				this.ronda(parts[1],parseInt(parts[2]));
+				//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(parts[2]);
+
 			}
 			else{
 				console.log("Error: cambio de estado sin parametros suficientes" + parts.toString());
@@ -164,7 +174,7 @@ ajaxChat.handleStateChange = function(parts){
 			break;
 		case 3:
 		if(parts.length >= 3){
-				this.cambiarOpinion(parts[1],parts[2]);
+				this.cambiarOpinion(parts[1],parseInt(parts[2]));
 			}
 			else{
 				console.log("Error: cambio de estado sin parametros suficientes" + parts.toString());
