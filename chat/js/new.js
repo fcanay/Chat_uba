@@ -29,9 +29,10 @@ ajaxChat.chronometer = function (i)
 		mins += 1;
     }
 
-    if(i < 10 && this.state > 0 && this.state != 2){
+    if(i == 10 && this.state > 0){
 		document.getElementById('chronometer').innerHTML = "<h2>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h2>";
-		document.getElementById('chronometer').style.color = "red" ;
+		//document.getElementById('chronometer').style.color = "red" ;
+		document.getElementById('imagenTablero').style.animation= "blink .5s step-end infinite alternate";
     }
     else{
 		document.getElementById('chronometer').innerHTML = "<h4>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h4>";
@@ -88,7 +89,8 @@ ajaxChat.ronda = function(oponent,opinion){
 
 	document.getElementById('imagenTablero').width = 600;
 	document.getElementById('imagenTablero').height = 300;
-
+	document.getElementById('imagenTablero').style.animation= "";
+	document.getElementById('chessImg').style.display = "none";
 	document.getElementById('chessImg').style.top = "45%";
 
 	document.getElementById('bbCodeContainer').style.bottom = "15%";
@@ -102,8 +104,10 @@ ajaxChat.ronda = function(oponent,opinion){
 	//Cambiar la opinion del oponente
 	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
 	document.getElementById('clockContainer').style.display = "block";
-
 	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
+
+	setTimeout(function(){ajaxChat.displayImage(oponent)},5000);
+
 
 /*
 	$('#mensajePrincipal').innerHTML = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
@@ -111,6 +115,12 @@ ajaxChat.ronda = function(oponent,opinion){
 	$('#imagenTablero').width = 600;
 	$('#imagenTablero').height = 300;
 */
+}
+
+ajaxChat.displayImage = function(oponent){
+	
+document.getElementById('chessImg').style.display = "block";
+document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.roundDos) + " " + oponent + " " + ajaxChat.lang.changeOpinion;
 }
 
 ajaxChat.aux = function(opinion){
@@ -143,8 +153,8 @@ ajaxChat.handleColor = function(value){
 	
 }
 ajaxChat.cambiarOpinion = function(){
-	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.changeOpinion;
-
+//	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.changeOpinion;
+	document.getElementById('imagenTablero').style.animation= "";
 	document.getElementById('clockContainer').style.display = "block";
 
 }
@@ -173,14 +183,6 @@ ajaxChat.handleStateChange = function(parts){
 			}
 			break;
 		case 3:
-		if(parts.length >= 3){
-				this.cambiarOpinion(parts[1],parseInt(parts[2]));
-			}
-			else{
-				console.log("Error: cambio de estado sin parametros suficientes" + parts.toString());
-			}
-			break;
-		case 4:
 			this.end();
 			break;
 		default:

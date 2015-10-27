@@ -92,7 +92,7 @@ ajaxChat.nextState = function(state)
 	//2 Ronda
 	//3 Cambio de opinion
 	this.stateFunction(state);
-	if( state != 3){
+	if( state < 2){
 		state = state + 1;
 	}
 	else
@@ -114,7 +114,7 @@ ajaxChat.stateFunction = function(state)
 			this.sendMessageWrapper('/round');
 			break;
 		case 2:
-			this.sendMessageWrapper('/close_round');
+			this.sendMessageWrapper('/round');
 			break;
 		case 3:
 			this.sendMessageWrapper('/round');

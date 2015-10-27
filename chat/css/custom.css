@@ -202,3 +202,7 @@ a.ui-slider-handle
     -webkit-transform:translate(-50%, -50%);
 
 }
+
+@keyframes blink { 
+   50% { border-color: #ff0000; } 
+}

@@ -33,18 +33,11 @@ Hecho:
 
 Notas:
 Reloj mas visible, tal vez en el medio del tablero. Tal vez agregar una barra al costado.
-borde que titile rojo
 
-Cambiar en las instrucciones +- por 1-0 0-1
-
-Agrandar letra instrucciones
 
 Agregar un pantalla intermedia con "preparece para la siguiente ronda"
 
 Flash o algo que avise que cambia la ronda
-Cambiar tiempo de estados 2 y 3 a uno unico
-Aumentar el primer tiempo a 3 min
-Cambiar estado 2 y 3 a 45 sec
 
 El tablero q empiece a la derecha sea el q empieza
 
@@ -61,5 +54,14 @@ Despues:Result
 Mas tiempo a la primera
 Tal vez menos a las siguientes   
 
+Hecho:
+borde que titile rojo
 
+Cambiar tiempo de estados 2 y 3 a uno unico
+Aumentar el primer tiempo a 3 min
+Cambiar estado 2 y 3 a 45 sec
+
+Cambiar en las instrucciones +- por 1-0 0-1
+
+Agrandar letra instrucciones
 

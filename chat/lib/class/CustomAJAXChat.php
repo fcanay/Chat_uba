@@ -47,9 +47,6 @@ class CustomAJAXChat extends AJAXChat {
 					$res .= ','.$this->getOponent().','.$this->getOponentOpinion();
 					break;
 				case 3:
-					$res .= ',' . $this->getOponent() . ',' . $this->getOponentOpinion();
-					break;
-				case 4:
 					break;
 		}
 		$httpHeader->send();
@@ -627,7 +624,7 @@ class CustomAJAXChat extends AJAXChat {
 			case '/close_round':
 				//$this->insertChatBotMessageInAllChannels("/restart_clock");
 				//$this->insertChatBotMessageInAllChannels("/change_opinion");
-				$this->changeUsersToState(3);
+				//$this->changeUsersToState(3);
 				//$this->insertChatBotMessageInAllChannels($this->getLang("closePhaseMessage"));
 				return true;
 			break;
@@ -714,7 +711,7 @@ class CustomAJAXChat extends AJAXChat {
 		/*dump something to some place & unlog users*/
 				//$this->insertChatBotMessageInAllChannels("/close_experiment");
 				$this->insertChatBotMessage("0", "/restart_admin");
-				$this->changeUsersToState(4);
+				$this->changeUsersToState(3);
 				$pairCombinator = new PairHandler($this->db);
 				$pairCombinator->saveAndReset();
 				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
