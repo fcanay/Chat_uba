@@ -85,28 +85,9 @@ ajaxChat.opinionInicial = function(){
 }
 
 ajaxChat.ronda = function(oponent,opinion){
-	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
-
-	document.getElementById('imagenTablero').width = 600;
-	document.getElementById('imagenTablero').height = 300;
-	document.getElementById('imagenTablero').style.animation= "";
-	document.getElementById('chessImg').style.display = "none";
-	document.getElementById('chessImg').style.top = "45%";
-
-	document.getElementById('bbCodeContainer').style.bottom = "15%";
-
-	document.getElementById('bbCodeContainerOponent').style.display = "block";
-
-	document.getElementById('slider-horizontal-oponent').style.display = "block";
-	document.getElementById('slider-horizontal-oponent').style.display = "block";
-	this.aux(opinion);
-
-	//Cambiar la opinion del oponente
-	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
-	document.getElementById('clockContainer').style.display = "block";
-	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
-
-	setTimeout(function(){ajaxChat.displayImage(oponent)},5000);
+	this.cambioDeRonda(oponent);
+	setTimeout(function(){ajaxChat.displayRonda(oponent,opinion)},5000);
+	
 
 
 /*
@@ -115,6 +96,40 @@ ajaxChat.ronda = function(oponent,opinion){
 	$('#imagenTablero').width = 600;
 	$('#imagenTablero').height = 300;
 */
+}
+
+ajaxChat.displayRonda = function(oponent,opinion){
+	//document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
+
+	document.getElementById('imagenTablero').width = 600;
+	document.getElementById('imagenTablero').height = 300;
+	document.getElementById('imagenTablero').style.animation= "";
+
+	document.getElementById('chessImg').style.display = "block";
+	document.getElementById('chessImg').style.top = "45%";
+
+	document.getElementById('bbCodeContainer').style.bottom = "15%";
+	document.getElementById('bbCodeContainer').style.display = "block";
+
+	document.getElementById('bbCodeContainerOponent').style.display = "block";
+
+	document.getElementById('slider-horizontal-oponent').style.display = "block";
+	this.aux(opinion);
+
+	//Cambiar la opinion del oponente
+	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
+	document.getElementById('clockContainer').style.display = "block";
+	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
+	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.roundDos) + " " + oponent + " " + ajaxChat.lang.changeOpinion;
+
+	//setTimeout(function(){ajaxChat.displayImage(oponent)},5000);
+}
+
+ajaxChat.cambioDeRonda = function(oponent){
+	document.getElementById('chessImg').style.display = "none";
+	document.getElementById('bbCodeContainer').style.display = "none";
+	document.getElementById('bbCodeContainerOponent').style.display = "none";
+	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 }
 
 ajaxChat.displayImage = function(oponent){
