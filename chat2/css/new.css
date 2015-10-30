@@ -1,0 +1,13 @@
+#content #chatList {
+	position:absolute;
+	left:5%;
+	height:50%;
+	top:20%;
+	width:30%;
+	overflow:auto;
+}
+
+
+#content #emoticonsContainer {
+	bottom:20%;
+}

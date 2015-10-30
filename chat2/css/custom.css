@@ -7,23 +7,12 @@
  * @link https://blueimp.net/ajax/
  */
 
+
 /* Custom CSS - enter css overrides for all styles below */
 /* e.g. suppose you want to hide the logout button and the channel / style / language selectors*/
-
 #content #chatList {
-	position:absolute;
-	left:5%;
-	height:50%;
-	top:20%;
-	width:30%;
-	overflow:auto;
+    top: 185px;
 }
-
-
-#content #emoticonsContainer {
-	bottom:20%;
-}
-
 
 #content #onlineListContainer {
 	top:185px;
