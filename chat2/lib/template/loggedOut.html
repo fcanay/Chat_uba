@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="[CONTENT_ENCODING/]"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[LANG_CODE/]" lang="[LANG_CODE/]" dir="[BASE_DIRECTION/]">
+
+<head>
+	<meta http-equiv="Content-Type" content="[CONTENT_TYPE/]" />
+	<title>[LANG]title[/LANG]</title>
+	<style type="text/css">
+		body {
+			padding:0;
+			margin:0;
+		}
+	</style>
+	[STYLE_SHEETS/]
+	<!--[if lt IE 7]>
+		<link rel="stylesheet" type="text/css" href="css/ie5-6.css"/>
+	<![endif]-->
+	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/config.js" type="text/javascript" charset="UTF-8"></script>
+	<script type="text/javascript">
+		// <![CDATA[
+			function initializeLoginPage() {
+				document.getElementById('userNameField').focus();
+				if(!ajaxChat.isCookieEnabled()) {
+					var node = document.createElement('div');
+					var text = document.createTextNode(ajaxChatLang['errorCookiesRequired']);
+					node.appendChild(text);
+					document.getElementById('errorContainer').appendChild(node);
+				}
+			}
+			
+			ajaxChatConfig.sessionName = '[SESSION_NAME/]';
+			ajaxChatConfig.cookieExpiration = parseInt('[COOKIE_EXPIRATION/]');
+			ajaxChatConfig.cookiePath = '[COOKIE_PATH/]';
+			ajaxChatConfig.cookieDomain = '[COOKIE_DOMAIN/]';
+			ajaxChatConfig.cookieSecure = '[COOKIE_SECURE/]';
+
+			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, false);
+		// ]]>
+	</script>
+</head> 
+
+<body onload="initializeLoginPage();">
+	<div id="loginContent">
+		<div id="loginHeadlineContainer">
+			<h1>[LANG]title[/LANG]</h1> 
+		</div>
+		<div style="overflow: hidden;">
+			<div style="float:left;">
+				<form id="loginForm" action="[LOGIN_URL/]" method="post" enctype="application/x-www-form-urlencoded">
+					<div id="loginFormContainer">
+						<input type="hidden" name="login" id="loginField" value="login"/>
+						<input type="hidden" name="redirect" id="redirectField" value="[REDIRECT_URL/]"/>
+						<div>
+						[OMIT]
+							<label for="userNameField">[LANG]userName[/LANG]:</label><br />
+						[/OMIT]
+						<input type="hidden" name="userName" id="userNameField" maxlength="[USER_NAME_MAX_LENGTH/]"/></div>
+						[OMIT]<div><label for="passwordField">[LANG]password[/LANG]*:</label><br />
+						<input type="password" name="password" id="passwordField"/></div>
+						<div><label for="channelField">[LANG]channel[/LANG]:</label><br />
+						<select name="channelName" id="channelField">[CHANNEL_OPTIONS/]</select></div>
+						<div><label for="languageSelection">[LANG]language[/LANG]:</label><br />
+						<select id="languageSelection" name="lang" onchange="ajaxChat.switchLanguage(this.value);">[LANGUAGE_OPTIONS/]</select></div>
+						[/OMIT]
+						<div><input type="submit" name="submit" id="loginButton" value="[LANG]login[/LANG]"/></div>
+						[OMIT]
+							<div id="loginRegisteredUsers">* [LANG]registeredUsers[/LANG]</div>
+						[/OMIT]
+					</div>
+				</form>
+				<div id="errorContainer">[ERROR_MESSAGES/]<noscript><div>[LANG]requiresJavaScript[/LANG]</div></noscript></div>
+			</div> 
+			<div style="overflow: hidden;width:50%">
+				<span>
+
+					<h2> Instrucciones </h2>
+<p> <h1>Lea atentamente estas instrucciones antes de comenzar el experimento.</h1> </p>
+<ul>
+  <li><h3>La etapa inicial consistirá en una breve demostración del experimento, en la que 
+
+podrá familiarizarse con la aplicación y testear que funcione correctamente. 
+
+Luego, comenzará el experimento.</h3></li>
+  <li><h3>En la pantalla principal verá una foto mostrando la posición intermedia de una 
+
+partida de ajedrez. </h3></li>
+  <li><h3>Debajo de la foto habrá una escala con las posibles valoraciones de la partida, 
+
+desde + - (clara ventaja de las blancas) hasta - + (clara ventaja de las negras).</h3></li>
+<li><h3>Dispondrá de 2 (dos) minutos para estudiar la partida e indicar el valor de la 
+
+posición según su criterio, cliqueando sobre la barra gris y deslizándola sobre la escala. </h3></li>
+<li><h3> Después comenzará una serie de rondas de juegos. </h3></li>
+<li><h3> Un reloj contador le indicará el tiempo que le resta antes de pasar a la siguiente ronda.</h3></li>
+<li><h3> En cada ronda, de 1 (un) minuto de duración, aparecerá una escala debajo de la 
+
+suya mostrando la valoración de uno de sus compañeros. Durante ese lapso podrá 
+
+actualizar su posición cuantas veces lo desee. </h3></li>
+<li><h3> Terminado este período comenzará una nueva ronda en la que jugará con otro compañero. </h3></li>
+<li><h3> Las rondas se repetirán hasta que usted haya jugado con cada uno de sus compañeros.</h3></li>
+<li><h3>Finalizado el experimento se le solicitará que complete un breve questionario, y 
+
+luego se podrá desloguear.</h3></li>
+
+<p><h3> Ahora puede cliquear en “comenzar experimento”. Suerte!</h3></p>
+
+
+</ul>
+				</span>
+			</div>
+			<div style="overflow: hidden;"> &nbsp;&nbsp;&nbsp;
+			</div>
+		</div>
+	</div>
+	<div style="display:block;position:absolute;right:0px;top:10px;font-size:8px;">
+		<a href="?pass=1">[Admin login]</a>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,217 @@
+/*
+ * @package AJAX_Chat
+ * @author Sebastian Tschan
+ * @author Philip Nicolcev
+ * @copyright (c) Sebastian Tschan
+ * @license Modified MIT License
+ * @link https://blueimp.net/ajax/
+ */
+
+/* Custom CSS - enter css overrides for all styles below */
+/* e.g. suppose you want to hide the logout button and the channel / style / language selectors*/
+
+#content #chatList {
+	position:absolute;
+	left:5%;
+	height:50%;
+	top:20%;
+	width:30%;
+	overflow:auto;
+}
+
+
+#content #emoticonsContainer {
+	bottom:20%;
+}
+
+
+#content #onlineListContainer {
+	top:185px;
+	/*width:300px;*/
+
+}
+
+/*class="ui-slider-handle ui-state-default ui-corner-all"*/
+/*, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default */
+#slider-horizontal label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    /*text-align: center;*/
+    margin-top: 20px;
+}
+
+.ui-slider-handle ui-state-default ui-corner-all {
+	background: #888888 url(images/ui-bg_glass_75_eeeeee_1x400.png) 50% 50% repeat-x;
+}
+
+
+.ui-state-hover {
+	background: #ff0000 url(images/ui-bg_glass_75_eeeeee_1x400.png) 50% 50% repeat-x;
+}
+
+.ui-widget-content {
+	border: 1px solid #aaaaaa;
+	background: #0066B9;
+	background-size: cover;
+}
+.ui-widget-header
+{
+	background: transparent;
+}
+
+/*.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+		border: 1px solid gray;	
+}*/
+
+
+
+#content #opinionBarContainer
+{
+	top:185px;
+	position:absolute;
+	right:230px;
+	border-color:#0066B9;
+	bottom: 150px;
+	border-width: 1px;
+	border-style: solid;
+	width:50px;
+	text-align:center;
+}
+
+
+#content #clockContainer {
+	position:absolute;
+	right:40px;
+	/*top:10px;
+	width: 22px;*/
+	height: 22px;
+}
+
+
+
+
+#content #logoutChannelContainer{
+	top:150px;
+		
+}
+
+#content #messageContainer {
+	position:absolute;
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+	text-align:center;
+	/*
+	right:0px;
+	bottom:0px;
+	*/
+	top:60px;
+	font-size:20px;
+	overflow:auto;
+	
+}
+
+#content #helpContainer{
+	top:0px;
+}
+
+#content #copyright {
+	right:50px;
+	top:18px;
+}
+#content #statusIconContainer {
+	right:12px;
+	top:12px;
+}
+
+#content #settingsContainer {
+	top:66px;
+}
+
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+	opacity: 0.60;
+	background-image: none;
+}
+
+.ui-slider .ui-slider-handle {
+	opacity: 1;
+}
+
+#content #bbCodeContainer
+{
+	width:100%;
+	height: 35px;
+	bottom: 40px;
+	/*border-color:#0066B9;
+	border-width: 1px;
+	border-style: solid;*/
+
+}
+
+
+#content #bbCodeContainerRonda
+{
+	width:80%;
+	height: 35px;
+	top: 60px;
+	/*border-color:#0066B9;
+	border-width: 1px;
+	border-style: solid;*/
+
+}
+/*
+a.ui-slider-handle
+      {
+        background: url("/examples/slider/pdp-sliders-bg.png") no-repeat scroll 0 -195px transparent;
+        border: medium none;
+        border-radius: 0 0 0 0;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        height: 60px;
+        margin-left: -35px;
+        padding: 8px 0 0;
+        position: relative;
+        text-decoration: none;
+        text-align: center;
+        top: -40px;
+        width: 70px;
+      }
+*/
+#content #bbCodeContainerOponent
+{
+	width:100%;
+	height: 35px;
+	/*border-color:#0066B9;
+	border-width: 1px;
+	border-style: solid;*/
+
+}
+
+#content #chessImg
+{
+	position:absolute;
+	top: 55%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+
+}
+
+#content #chessImgSmall
+{
+	position:absolute;
+	top: 45%;
+    left: 70%;
+    margin-right: -50%;
+    transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+
+}
+
+@keyframes blink { 
+   50% { border-color: #ff0000; } 
+}

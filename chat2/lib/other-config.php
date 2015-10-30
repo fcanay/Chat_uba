@@ -17,69 +17,20 @@ define('AJAX_CHAT_GUEST',		0);
 // AJAX Chat config parameters:
 $config = array();
 
-// Tiempo para expresar su opinion
-
-$config['opinionTime'] = 120;
-// Tiempo de duracion de una ronda
-$config['roundTime'] = 45;
-// Tiempo de duracion de un cambio de opinion
-$config['changeOpinionTime'] = 30;
-//Valores posibles de Opinion
-$config['STEP'] = 1;
-$config['MIN_OPINION'] = 0;
-$config['MAX_OPINION'] = 8;
-
 // Database connection values:
 $config['dbConnection'] = array();
-
-//LOCAL
-
 // Database hostname:
 $config['dbConnection']['host'] = 'localhost';
 // Database username:
 $config['dbConnection']['user'] = 'root';
 // Database password:
-$config['dbConnection']['pass'] = 'patton55';
+$config['dbConnection']['pass'] = 'x';
 // Database name:
 $config['dbConnection']['name'] = 'chat';
 // Database type:
-$config['dbConnection']['type'] = 'mysqli';
-// Database link:
-$config['dbConnection']['link'] = null;
-
-//Cloud 9
-/*
-// Database hostname:
-$config['dbConnection']['host'] = 'fcanay-chat_uba-1669950';
-// Database username:
-$config['dbConnection']['user'] = 'fcanay';
-// Database password:
-$config['dbConnection']['pass'] = '';
-// Database name:
-$config['dbConnection']['name'] = 'c9';
-// Database type:
 $config['dbConnection']['type'] = null;
 // Database link:
 $config['dbConnection']['link'] = null;
-*/
-/*
-//SOCEX
-// Database hostname:
-$config['dbConnection']['host'] = 'localhost';
-// Database username:
-$config['dbConnection']['user'] = 'balen';
-// Database password:
-$config['dbConnection']['pass'] = 'Aid8Tez8EeNg4ea1';
-// Database name:
-$config['dbConnection']['name'] = 'balen';
-// Database type:
-$config['dbConnection']['type'] = null;
-// Database link:
-$config['dbConnection']['link'] = null;
-*/
-
-$config['REDIRECT_URL'] = 'google.com';
-
 
 // Database table names:
 $config['dbTableNames'] = array();
@@ -89,24 +40,16 @@ $config['dbTableNames']['bans']			= 'ajax_chat_bans';
 $config['dbTableNames']['invitations']	= 'ajax_chat_invitations';
 
 // Available languages:
-$config['langAvailable'] = array(
-	'ar','bg','ca','cy','cz','da','de','el','en','es','et','fa','fi','fr','gl','he','hr','hu','in','it','ja','ka','kr','mk','nl','nl-be','no','pl','pt-br','pt-pt','ro','ru','sk','sl','sr','sv','th','tr','uk','zh','zh-tw'
-);
+$config['langAvailable'] = array( 'en', 'es');
 // Default language:
-$config['langDefault'] = 'en';
+$config['langDefault'] = 'es';
 // Language names (each languge code in available languages must have a display name assigned here):
-$config['langNames'] = array(
-	'ar'=>'عربي', 'bg'=>'Български', 'ca'=>'Català', 'cy'=>'Cymraeg', 'cz'=>'Česky', 'da'=>'Dansk', 'de'=>'Deutsch', 'el'=>'Ελληνικα', 'en'=>'English',
-	'es'=>'Español', 'et'=>'Eesti', 'fa'=>'فارسی', 'fi'=>'Suomi', 'fr'=>'Français', 'gl'=>'Galego', 'he'=>'עברית', 'hr' => 'Hrvatski', 'hu' => 'Magyar', 'in'=>'Bahasa Indonesia', 'it'=>'Italiano',
-	'ja'=>'日本語','ka'=>'ქართული','kr'=>'한 글','mk'=>'Македонски', 'nl'=>'Nederlands', 'nl-be'=>'Nederlands (België)', 'no'=>'Norsk', 'pl'=> 'Polski', 'pt-br'=>'Português (Brasil)', 'pt-pt'=>'Português (Portugal)', 
-	'ro'=>'România', 'ru'=>'Русский', 'sk'=> 'Slovenčina', 'sl'=>'Slovensko', 'sr'=>'Srpski', 'sv'=> 'Svenska', 'th'=>'&#x0e20;&#x0e32;&#x0e29;&#x0e32;&#x0e44;&#x0e17;&#x0e22;', 
-	'tr'=>'Türkçe', 'uk'=>'Українська', 'zh'=>'中文 (简体)', 'zh-tw'=>'中文 (繁體)'
-);
+$config['langNames'] = array( 'es' => 'Castellano', 'en' => 'Inglés');
 
 // Available styles:
 $config['styleAvailable'] = array('beige','black','grey','Oxygen','Lithium','Sulfur','Cobalt','Mercury','Uranium','Plum','prosilver','subblack2','subSilver','Core','MyBB','vBulletin');
 // Default style:
-$config['styleDefault'] = 'prosilver';
+$config['styleDefault'] = 'Oxygen';
 
 // The encoding used for the XHTML content:
 $config['contentEncoding'] = 'UTF-8';
@@ -129,7 +72,7 @@ $config['sessionCookieDomain'] = null;
 $config['sessionCookieSecure'] = null;
 
 // Default channelName used together with the defaultChannelID if no channel with this ID exists:
-$config['defaultChannelName'] = 'Public';
+$config['defaultChannelName'] = 'Público';
 // ChannelID used when no channel is given:
 $config['defaultChannelID'] = 0;
 // Defines an array of channelIDs (e.g. array(0, 1)) to limit the number of available channels, will be ignored if set to null:
@@ -141,9 +84,9 @@ $config['privateChannelDiff'] = 500000000;
 $config['privateMessageDiff'] = 1000000000;
 
 // Enable/Disable private Channels:
-$config['allowPrivateChannels'] = true;
+$config['allowPrivateChannels'] = false;
 // Enable/Disable private Messages:
-$config['allowPrivateMessages'] = true;
+$config['allowPrivateMessages'] = false;
 
 // Private channels should be distinguished by either a prefix or a suffix or both (no whitespace):
 $config['privateChannelPrefix'] = '[';
@@ -154,7 +97,7 @@ $config['privateChannelSuffix'] = ']';
 $config['forceAutoLogin'] = false;
 
 // Defines if login/logout and channel enter/leave are displayed:
-$config['showChannelMessages'] = true;
+$config['showChannelMessages'] = false;
 
 // If enabled, the chat will only be accessible for the admin:
 $config['chatClosed'] = false;
@@ -181,7 +124,7 @@ $config['guestUserSuffix'] = ')';
 $config['minGuestUserID'] = 400000000;
 
 // Allow/Disallow users to change their userName (Nickname):
-$config['allowNickChange'] = false;
+$config['allowNickChange'] = true;
 // Changed userNames should be distinguished by either a prefix or a suffix or both (no whitespace):
 $config['changedNickPrefix'] = '(';
 // Changed userNames should be distinguished by either a prefix or a suffix or both (no whitespace):
@@ -193,21 +136,21 @@ $config['allowUserMessageDelete'] = true;
 // The userID used for ChatBot messages:
 $config['chatBotID'] = 2147483647;
 // The userName used for ChatBot messages
-$config['chatBotName'] = 'ChatBot';
+$config['chatBotName'] = 'Moderador';
 
 // Minutes until a user is declared inactive (last status update) - the minimum is 2 minutes:
-$config['inactiveTimeout'] = 200000;
+$config['inactiveTimeout'] = 2000;
 // Interval in minutes to check for inactive users:
-$config['inactiveCheckInterval'] = 500000;
+$config['inactiveCheckInterval'] = 5;
 
 // Defines if messages are shown which have been sent before the user entered the channel:
-$config['requestMessagesPriorChannelEnter'] = false;
+$config['requestMessagesPriorChannelEnter'] = true;
 // Defines an array of channelIDs (e.g. array(0, 1)) for which the previous setting is always true (will be ignored if set to null):
 $config['requestMessagesPriorChannelEnterList'] = null;
 // Max time difference in hours for messages to display on each request:
 $config['requestMessagesTimeDiff'] = 24;
 // Max number of messages to display on each request:
-$config['requestMessagesLimit'] = 10000;
+$config['requestMessagesLimit'] = 10;
 
 // Max users in chat (does not affect moderators or admins):
 $config['maxUsersLoggedIn'] = 100;
@@ -216,10 +159,10 @@ $config['userNameMaxLength'] = 16;
 // Max messageText length:
 $config['messageTextMaxLength'] = 1040;
 // Defines the max number of messages a user may send per minute:
-$config['maxMessageRate'] = 2000000;
+$config['maxMessageRate'] = 20000;
 
 // Defines the default time in minutes a user gets banned if kicked from a moderator without ban minutes parameter:
-$config['defaultBanTime'] = null;
+$config['defaultBanTime'] = 5;
 
 // Argument that is given to the handleLogout JavaScript method:
 $config['logoutData'] = './?logout=true';
@@ -255,9 +198,3 @@ $config['socketServerIP'] = '127.0.0.1';
 $config['socketServerPort'] = 1935;
 // This ID can be used to distinguish between different chat installations using the same socket server:
 $config['socketServerChatID'] = 0;
-
-
-$config['showLogoutButton'] = true;
-$config['showStyleSelection'] = false;
-
-?>

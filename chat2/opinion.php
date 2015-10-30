@@ -8,10 +8,10 @@
  */
 
 // Suppress errors.
-error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting(E_ALL ^ E_NOTICE);
 
 
-//ini_set("session.save_path", "/home/balen/session");
+
 
 // Path to the chat directory:
 define('AJAX_CHAT_PATH', dirname($_SERVER['SCRIPT_FILENAME']).'/');
