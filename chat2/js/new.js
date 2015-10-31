@@ -135,6 +135,8 @@ ajaxChat.cambioDeRonda = function(oponent){
 	document.getElementById('chessImg').style.display = "none";
 	document.getElementById('bbCodeContainer').style.display = "none";
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
+	document.getElementById('chatList').style.display = "none";
+	document.getElementById('emoticonsContainer').style.display = "none";
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 }
 
