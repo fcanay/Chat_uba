@@ -130,6 +130,7 @@ var ajaxChat = {
 		this.bbCodeTags				= config['bbCodeTags'];
 		this.colorCodes				= config['colorCodes'];
 		this.emoticonCodes			= config['emoticonCodes'];
+		this.emoticonNames			= config['emoticonNames'];
 		this.emoticonFiles			= config['emoticonFiles'];
 		this.soundFiles				= config['soundFiles'];
 		this.sessionName			= config['sessionName'];
@@ -387,9 +388,9 @@ var ajaxChat = {
 						+ this.dirs['emoticons']
 						+ this.emoticonFiles[i]
 						+ '" alt="'
-						+ this.emoticonCodes[i]
+						+ this.emoticonNames[i]
 						+ '" title="'
-						+ this.emoticonCodes[i]
+						+ this.emoticonNames[i]
 						+ '"/></a>';
 			}
 		if(this.dom['emoticonsContainer']) {

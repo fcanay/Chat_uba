@@ -176,7 +176,38 @@ var ajaxChatConfig = {
 		's22',
 		's23',
 		's24',
-		's25'		
+		's25',
+		's26'		
+ 	],
+
+ 	// Defines the list of allowed emoticon codes:
+	emoticonNames: [
+		'ventaja de desarrollo',
+		'mayor espacio',
+		'con ataque',
+		'con iniciativa',
+		'con contrajuego',
+		'zugzwang',
+		'mate',
+		'con la idea de',
+		'movida única',
+		'es mejor',
+		'fila',
+		'diagonal',
+		'centro',
+		'flanco rey',
+		'flanco dama',
+		'punto débil',
+		'final',
+		'par de alfiles',
+		'alfiles de distinto color',
+		'alfiles del mismo color',
+		'peones unidos',
+		'peones separados',
+		'peones doblados',
+		'peón pasado',
+		'ventaja en número de peones',
+		'material compensado'		
  	],
 	
  	// Defines the list of emoticon files associated with the emoticon codes:
@@ -205,7 +236,8 @@ var ajaxChatConfig = {
 		's22.gif',
 		's23.gif',
 		's24.gif',
-		's25.gif'
+		's25.gif',
+		's26.gif'
 	],
 
 	// Defines the available sounds loaded on chat start:
