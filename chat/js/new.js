@@ -30,14 +30,10 @@ ajaxChat.chronometer = function (i)
     }
 
     if(i == 10 && this.state > 0){
-		document.getElementById('chronometer').innerHTML = "<h2>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h2>";
-		//document.getElementById('chronometer').style.color = "red" ;
 		document.getElementById('imagenTablero').style.animation= "blink .5s step-end infinite alternate";
     }
-    else{
-		document.getElementById('chronometer').innerHTML = "<h4>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h4>";
-		document.getElementById('chronometer').style.color = "black" ;
-    }
+	document.getElementById('chronometer').innerHTML = "<h4>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h4>";
+	document.getElementById('chronometer').style.color = "black" ;
 	//	document.getElementById('chronometer').style.font_weight = "bold" ;
 	if(i>0){
 		this.timeout=setTimeout(function(){ajaxChat.chronometer(i-1)},1000);

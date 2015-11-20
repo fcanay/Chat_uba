@@ -38,6 +38,7 @@ var ajaxChat = {
 	colorCodes: null,
 	emoticonCodes: null,
 	emoticonFiles: null,
+	emoticonNames: null,
 	soundFiles: null,
 	sounds: null,
 	soundTransform: null,
@@ -1205,7 +1206,7 @@ var ajaxChat = {
 				+ ' dir="'
 				+ this.baseDirection
 				+ '" onclick="ajaxChat.insertText(this.firstChild.nodeValue);">'
-				+ userName
+				+ this.getChatName(userID)
 				+ '</span>'
 				+ colon
 				+ this.replaceText(messageText)
@@ -1582,7 +1583,11 @@ var ajaxChat = {
 	},
 	
 	sendMessage: function(text) {
-		text = text ? text : this.dom['inputField'].value;
+		if(!text){
+			text = this.dom['inputField'].value;
+			this.dom['inputField'].value = '';
+		}
+		//text = text ? text : this.dom['inputField'].value;
 		if(!text) {
 			return;
 		}
@@ -1596,7 +1601,6 @@ var ajaxChat = {
 							+ this.encodeText(text);				
 			this.makeRequest(this.ajaxURL,'POST',message);
 		}
-		//this.dom['inputField'].value = '';
 		//this.dom['inputField'].focus();
 		this.updateMessageLengthCounter();
 	},

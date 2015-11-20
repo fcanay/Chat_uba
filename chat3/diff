@@ -1,0 +1,344 @@
+diff --git a/chat/css/custom.css b/chat/css/custom.css
+index 13df327..7510d38 100644
+--- a/chat/css/custom.css
++++ b/chat/css/custom.css
+@@ -184,7 +184,7 @@ a.ui-slider-handle
+ {
+ 	position:absolute;
+ 	display: block;
+-	top: 35%;
++	top: 45%;
+     left: 50%;
+     margin-right: -50%;
+     transform: translate(-50%, -50%)
+diff --git a/chat/js/chat.js b/chat/js/chat.js
+index 8331275..e7cf4ca 100644
+--- a/chat/js/chat.js
++++ b/chat/js/chat.js
+@@ -89,6 +89,9 @@ var ajaxChat = {
+ 	DOMbuffering: null,
+ 	DOMbuffer: null,
+ 	DOMbufferRowClass: 'rowOdd',
++	stateTime: null,
++	stateFunction: null,
++	state: null,
+ 	
+ 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
+ 		this.httpRequest		= {};
+@@ -97,7 +100,11 @@ var ajaxChat = {
+ 		this.userMenuCounter	= 0;
+ 		this.lastID				= 0;
+ 		this.localID			= 0;
+-		this.lang				= lang;		
++		this.lang				= lang;	
++		this.state = 0;
++		this.stateTime = [0,10,11,12];
++		this.stateFunction = [null,ajaxChat.sendMessageWrapper('/round'),ajaxChat.sendMessageWrapper('/close_round'),ajaxChat.sendMessageWrapper('/round')];
++	
+ 		this.initConfig(config);
+ 		this.initDirectories();		
+ 		if(initSettings) {
+@@ -859,7 +866,7 @@ var ajaxChat = {
+ 	handleXML: function(xmlDoc) {
+ 		var newDir =  xmlDoc.getElementsByTagName('update');
+ 		console.log(newDir);
+-		if(newDir.length >= 1){
++		if(newDir.length >= 1 && this.userRole !== 3){
+ 			console.log("reload");
+ 			location.reload(true);
+ 		}
+diff --git a/chat/js/custom.js b/chat/js/custom.js
+index 15a4a7d..9c1ca6d 100644
+--- a/chat/js/custom.js
++++ b/chat/js/custom.js
+@@ -75,6 +75,26 @@ ajaxChat.restartChronometer = function(i)
+ 	this.chronometer(i);
+ }
+ 
++
++ajaxChat.nextState = function(state) 
++{
++	//0 Espera
++	//1 Opinion Inicial
++	//2 Ronda
++	//3 Cambio de opinion
++	if( state != 3){
++		state = state + 1;
++	}
++	else
++	{
++		state = 2;
++	}
++	this.restartChronometer(this.stateTime[state]);
++	this.stateFunction[state]();
++	return state;
++
++}
++
+ ajaxChat.chronometer = function (i)
+ {
+ 	/*var today=new Date();
+@@ -87,6 +107,12 @@ ajaxChat.chronometer = function (i)
+ 	*/
+ 	var mins = 0;
+ 	var secs = i;
++	if( this.state != 0 && i <= 0){
++		this.state = this.nextState(this.state);
++		this.restartChronometer(this.stateTime[this.state]);
++	}
++
++
+ 	while(secs > 59)
+ 	{
+ 		secs -= 60;
+@@ -95,7 +121,12 @@ ajaxChat.chronometer = function (i)
+ 
+ 	document.getElementById('chronometer').innerHTML = this.checkTime(mins)+":"+this.checkTime(secs);
+ 
+-	this.timeout=setTimeout(function(){ajaxChat.chronometer(i+1)},1000);
++	if(this.state == 0 ){
++		this.timeout=setTimeout(function(){ajaxChat.chronometer(i+1)},1000);
++	}
++	else{
++		this.timeout=setTimeout(function(){ajaxChat.chronometer(i-1)},1000);
++	}
+ }
+ 
+ ajaxChat.toggleChatbox = function (show)
+@@ -129,7 +160,6 @@ ajaxChat.checkTime = function (i)
+ ajaxChat.customInitialize = function() {		
+ 	this.chronometer(0);
+ 	this.setAudioVolume(0.0);
+-
+ }
+ 
+ 
+diff --git a/chat/lib/class/CustomAJAXChat.php b/chat/lib/class/CustomAJAXChat.php
+index e7d3026..19be01a 100644
+--- a/chat/lib/class/CustomAJAXChat.php
++++ b/chat/lib/class/CustomAJAXChat.php
+@@ -707,9 +707,9 @@ class CustomAJAXChat extends AJAXChat {
+ 
+ 	function closeExperiment(){
+ 		/*dump something to some place & unlog users*/
++				$this->insertChatBotMessageInAllChannels("/close_experiment");
+ 				$pairCombinator = new PairHandler($this->db);
+ 				$pairCombinator->saveAndReset();
+-				$this->insertChatBotMessageInAllChannels("/close_experiment");
+ 				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
+ 				return true;
+ 	}
+diff --git a/chat/lib/template/cambiarOpinion.html b/chat/lib/template/cambiarOpinion.html
+index 690cf2e..aa9f64b 100644
+--- a/chat/lib/template/cambiarOpinion.html
++++ b/chat/lib/template/cambiarOpinion.html
+@@ -16,6 +16,7 @@
+   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
++  
+   <script>
+ //<![CDATA[
+   $(function() {
+@@ -26,11 +27,11 @@
+       	max: [MAX_OPINION/],
+       	value: [OPINION_VALUE/],
+       	slide: function( event, ui ) {
+-        	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+-        	$( "#amount" ).val( ui.value );
+-      	}     
++        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
++        	//$( "#amount" ).val( ui.value );
++      	}   
+     }).each(function(){
+-		console.log("hola");
++		//console.log("hola");
+     	//
+ 		// Add labels to slider whose values 
+ 		// are specified by min, max and whose
+@@ -49,12 +50,32 @@
+   
+     		$( "#slider-horizontal" ).append(el);
+     	};
+-    	$("#opinion").text("Opinion:"+ajaxChatLang.label_names[opt.value]);
++    	$("#opinion-propia").text("Opinion propia:"+ajaxChatLang.label_names[opt.value]);
+     });
+ 
+-    $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
++    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+   });
+-//]]>	
++
++  $(function() {
++    $("#slider-horizontal-oponent").slider({
++    	disabled: true,
++    	range: "min",
++      	step: [STEP/],
++      	min: [MIN_OPINION/],
++      	max: [MAX_OPINION/],
++      	value: [OPINION_VALUE_OPONENT/],
++      	oponent: [OPONENT_ID/],
++      	slide: function( event, ui ) {
++        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
++        	//$( "#amount" ).val( ui.value );
++      	}   
++    }).each(function(){
++    	var opt = $(this).data().uiSlider.options;
++    	$("#opinion-oponent").text("Opinion usuario "+opt.oponent +":"+ajaxChatLang.label_names[opt.value]);
++     });
++    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
++  });
++  //]]>	
+   </script>
+ 
+ 
+@@ -67,7 +88,7 @@
+ 	<![endif]-->
+ 	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+ 	<script src="js/custom.js" type="text/javascript" charset="UTF-8"></script>
+-	<script src="js/cambiarOpinion.js" type="text/javascript" charset="UTF-8"></script>
++	<script src="js/ronda.js" type="text/javascript" charset="UTF-8"></script>
+ 	<script src="js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
+ 	<script src="js/config.js" type="text/javascript" charset="UTF-8"></script>
+ 	<script src="js/FABridge.js" type="text/javascript" charset="UTF-8"></script>
+@@ -146,7 +167,6 @@
+ 			ajaxChatConfig.socketServerHost = decodeURIComponent('[SOCKET_SERVER_HOST/]');
+ 			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
+ 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
+-			//ajaxChatConfig.lastID = parseInt('LAST_ID');
+ 		
+ 
+ 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
+@@ -174,16 +194,16 @@
+ 				<select id="styleSelection" onchange="ajaxChat.setActiveStyleSheet(ajaxChat.getSelectedStyle());">[STYLE_OPTIONS/]</select>
+ 			</div>
+ 		
+-  		</div>
+-  		[/OMIT]
++  		</div>[/OMIT]
+ 	
+-		<div id="chatList" style="display:none"></div>
++		
+ 		<div id="clockContainer">
+ 			<div id="chronometer"></div>
+ 		</div>
+ 		<!--[if lt IE 7]>
+ 			<div></div>
+ 		<![endif]-->
++		
+ 		<div id="chessImgSmall">
+ 		  <img src="img/ts.png" width="600" height="300"/>
+ 		</div>
+@@ -192,8 +212,8 @@
+ 			<h1>[LANG]changeOpinionPart1[/LANG][opinionTime/][LANG]changeOpinionPart2[/LANG]</h1>
+ 		</div>
+ 
+-			<div id="bbCodeContainer" style="display:block;">
+-				Opinion
++			<div id="bbCodeContainer" style="display:block; bottom:15%;">
++				<a id="opinion-propia" >  Opinion propia</a> 
+ 				<div id='opinion_container' style="height:100%;"> 
+ 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
+ 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+@@ -204,13 +224,32 @@
+ 	             </div>
+ 	             <div class='' style="display:none;">
+ 					<p>
+-					  <label for="amount">Opinion</label>
++					  <label for="amount">Opinion otro jugador</label>
+ 					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
+ 					</p>
+ 				</div>
+ 
+ 			</div>
+ 			
++			<div id="bbCodeContainerOponent" style="display:block;">
++				<a id="opinion-oponent" >  Opinion usuario [OPONENT_ID/]s</a> 
++				<div id='opinion_container' style="height:100%;"> 
++						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
++							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
++							<div style="width:34%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
++							<div style="width:33%;float:left;"></div>
++						</div>
++						<div id="slider-horizontal-oponent" style="width:85%;top:-8px;float:left;left:50px;"></div>
++	             </div>
++	             <div class='' style="display:none;">
++					<p>
++					  <label for="amount">Opinion otro jugador</label>
++					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
++					</p>
++				</div>
++
++			</div>
++
+ 			<div id="submitButtonContainer" style="display:none;">
+ 				<input type="button" id="submitButton" value="Listo" onclick="ajaxChat.sendMessageWrapper('/submit_initial_opinion');"/>
+ 			</div>
+@@ -224,10 +263,9 @@
+ 	  	<div id="settingsContainer" style="display:none;">
+ 	  	[OMIT][TEMPLATE]settings[/TEMPLATE][/OMIT]
+ 	  	</div>
+-		
++	  	
+ 	</div>
+-	<div id="flashInterfaceContainer"></div>
+-	
++		
+ </body>
+ 
+ </html>
+diff --git a/chat/lib/template/ronda.html b/chat/lib/template/ronda.html
+index 97f3629..2b14214 100644
+--- a/chat/lib/template/ronda.html
++++ b/chat/lib/template/ronda.html
+@@ -32,7 +32,7 @@
+         	//$( "#amount" ).val( ui.value );
+       	}   
+     }).each(function(){
+-		console.log("hola");
++		//console.log("hola");
+     	//
+ 		// Add labels to slider whose values 
+ 		// are specified by min, max and whose
+@@ -64,13 +64,16 @@
+       	step: [STEP/],
+       	min: [MIN_OPINION/],
+       	max: [MAX_OPINION/],
+-      	value: 2,
++      	value: [OPINION_VALUE_OPONENT/],
++      	oponent: [OPONENT_ID/],
+       	slide: function( event, ui ) {
+         	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+         	//$( "#amount" ).val( ui.value );
+       	}   
+-    });
+-
++    }).each(function(){
++    	var opt = $(this).data().uiSlider.options;
++    	$("#opinion-oponent").text("Opinion usuario "+opt.oponent +":"+ajaxChatLang.label_names[opt.value]);
++     });
+     //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+   });
+   //]]>	
+@@ -226,7 +229,7 @@
+ 			</div>
+ 			
+ 			<div id="bbCodeContainerOponent" style="display:block;">
+-				<a id="opinion-oponent" >  Opinion usuario 3s</a> 
++				<a id="opinion-oponent" >  Opinion usuario [OPONENT_ID/]s</a> 
+ 				<div id='opinion_container' style="height:100%;"> 
+ 						<div style="width:85%;bottom:20px; height:10px; top: 5px; float:left; margin-left:50px;">
+ 							<div style="width:33%;border-right: 3px solid #0066B9;float:left;">&nbsp;</div>
+diff --git a/chat/uba/PairHandler.php b/chat/uba/PairHandler.php
+index 040544f..a943122 100644
+--- a/chat/uba/PairHandler.php
++++ b/chat/uba/PairHandler.php
+@@ -52,7 +52,7 @@ class PairHandler
+ 		
+ 		$result = $this->db->query("DELETE FROM current_round_data;");
+ 		$result = $this->db->query("DELETE FROM opinion_modification;");
+-		$result = $this->db->query("DELETE FROM ajax_chat_messages;");
++		//$result = $this->db->query("DELETE FROM ajax_chat_messages;");
+ 		return true;
+ 	}
+ 

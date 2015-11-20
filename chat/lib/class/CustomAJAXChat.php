@@ -266,7 +266,7 @@ class CustomAJAXChat extends AJAXChat {
 		$pairCombinator = new PairHandler($this->db);
 		$channelsHandler = new ChannelsHandler($this->db);
 		
-		$pairCombinator->saveAndReset();
+		$pairCombinator->reset();
 		$channelsHandler->reset();
 
 		if($pairCombinator->initializeFor($ids))
@@ -291,10 +291,10 @@ class CustomAJAXChat extends AJAXChat {
 	function launchNewRound($textParts) {
 
 		$usersData = $this->getOnlineUsersData();
-		
-		foreach($usersData as $userData)
+		//restart
+		foreach($usersData as $userData){
 				$usersDataByID[$userData["userID"]] = $userData;
-		
+		}
 		$pairCombinator = new PairHandler($this->db);
 		$channelsHandler = new ChannelsHandler($this->db);
 

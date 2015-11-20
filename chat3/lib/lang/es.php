@@ -1,0 +1,143 @@
+<?php
+/*
+ * @package AJAX_Chat
+ * @author Sebastian Tschan
+ * @author - Spanis Translation:  Manu Quintans / KeScI [www.e-nologia.com]
+ * @copyright (c) Sebastian Tschan
+ * @license Modified MIT License
+ * @link https://blueimp.net/ajax/
+ */
+
+$lang = array();
+//$lang['askInitialOpinionMessage'] = "Se ha habilitado la barra de opinión. Tienen 1 minuto para marcar cuán de acuerdo o en desacuerdo se sienten con respecto a la propuesta.";
+$lang['askInitialOpinionMessage'] = 'Opinión inicial';
+$lang["initGameOkGeneralMessage"] = "¡Bienvenidos al experimento! En unos momentos les pediremos que nos den su opinión inicial sobre la posición expresada en la pantalla. Luego lanzaremos diferentes rondas de chats tras la cuales podrán modificar, o no, su posición original. ";
+$lang["lastRoundEndedMessage"] = "Las rondas de chat terminaron. En breve serán redirigidos a la pantalla de finalización. Por favor, aguarden.";
+$lang["closePhaseMessage"] = " La Ronda está terminando. Tienen 1 minuto para modificar o re-afirmar sus opiniones. ";
+$lang["redirectedToEndMessage"] = "(Aviso) Los usuarios fueron redirigidos a la pantalla de finalización. El experimento terminó.";
+$lang["roundStartMessage"] = "Bienvenidos a la Ronda número CURRENT_ROUND. Conversarán entre USER1 y USER2 durante 5 minutos.";
+$lang["roundStartPublicMessage"] = "Comienza la ronda CURRENT_ROUND";
+$lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron calculados correctamente. Ya puede comenzar a lanzar las rondas de chat.";
+
+$lang["wait"] = 'Espera a que empiece el experimento';
+$lang["initialQuestion"] = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
+//$lang["initialQuestionPart2"] = ' segundos para valuar la posición y expresarla en la barra de abajo';
+$lang["round"] = 'Usted va a ver la valoración del usuario ';
+$lang["roundDos"] = 'Usted esta viendo la valoración del usuario ';
+$lang["changeOpinion"] = 'Si desea puede actualizar su posición';
+//$lang["changeOpinionPart2"] = ' segundos para cambiar su opinion';
+
+$lang['title'] = 'SocEx';
+$lang['userName'] = 'Usuario';
+$lang['password'] = 'Contraseña';
+$lang['login'] = 'Comenzar Experimento!';
+$lang['logout'] = 'Desconectar';
+$lang['channel'] = 'Canal';
+$lang['style'] = 'Estilo';
+$lang['language'] = 'Idioma';
+$lang['inputLineBreak'] = 'Pulse SHIFT+ENTER para insertar un salto de línea';
+$lang['messageSubmit'] = 'Enviar';
+$lang['registeredUsers'] = 'Usuarios Registrados';
+$lang['onlineUsers'] = 'Usuarios Conectados';
+$lang['toggleAutoScroll'] = 'Autoscroll on/off';
+$lang['toggleAudio'] = 'Sonido on/off';
+$lang['toggleHelp'] = 'Mostrar/ocultar ayuda';
+$lang['toggleSettings'] = 'Mostrar/ocultar configuración';
+$lang['toggleOnlineList'] = 'Mostrar/ocultar lista conectados';
+$lang['bbCodeLabelBold'] = 'b';
+$lang['bbCodeLabelItalic'] = 'i';
+$lang['bbCodeLabelUnderline'] = 'u';
+$lang['bbCodeLabelQuote'] = 'Citar';
+$lang['bbCodeLabelCode'] = 'Código';
+$lang['bbCodeLabelURL'] = 'URL';
+$lang['bbCodeLabelImg'] = 'Imagen';
+$lang['bbCodeLabelColor'] = 'Color de Fuente';
+$lang['bbCodeTitleBold'] = 'Texto Negrita: [b]texto[/b]';
+$lang['bbCodeTitleItalic'] = 'Texto Cursiva: [i]texto[/i]';
+$lang['bbCodeTitleUnderline'] = 'Texto Subrayado: [u]texto[/u]';
+$lang['bbCodeTitleQuote'] = 'Texto Citado: [quote]texto[/quote] o [quote=author]text[/quote]';
+$lang['bbCodeTitleCode'] = 'Mostrar código: [code]código[/code]';
+$lang['bbCodeTitleURL'] = 'Insertar URL: [url]http://example.org[/url] or [url=http://example.org]texto[/url]';
+$lang['bbCodeTitleImg'] = 'Insertar imagen: [img]http://example.org/imagen.jpg[/img]';
+$lang['bbCodeTitleColor'] = 'Color de Fuente: [color=red]texto[/color]';
+$lang['help'] = 'Ayuda';
+$lang['helpItemDescJoin'] = 'Entrar en canal:';
+$lang['helpItemCodeJoin'] = '/join nombre del canal';
+$lang['helpItemDescJoinCreate'] = 'Crear un canal privado (Solo usuarios registrados):';
+$lang['helpItemCodeJoinCreate'] = '/join';
+$lang['helpItemDescInvite'] = 'Invitar a alguien (por ejemplo a un canal privado):';
+$lang['helpItemCodeInvite'] = '/invite Usuario';
+$lang['helpItemDescUninvite'] = 'Anular invitación:';
+$lang['helpItemCodeUninvite'] = '/uninvite Usuario';
+$lang['helpItemDescLogout'] = 'Cerrar sesión:';
+$lang['helpItemCodeLogout'] = '/quit';
+$lang['helpItemDescPrivateMessage'] = 'Mensaje Privado:';
+$lang['helpItemCodePrivateMessage'] = '/msg Usuario Texto';
+$lang['helpItemDescQueryOpen'] = 'Abrir un privado:';
+$lang['helpItemCodeQueryOpen'] = '/query Usuario';
+$lang['helpItemDescQueryClose'] = 'Cerrar privado:';
+$lang['helpItemCodeQueryClose'] = '/query';
+$lang['helpItemDescAction'] = 'Describir acción:';
+$lang['helpItemCodeAction'] = '/action Texto';
+$lang['helpItemDescDescribe'] = 'Describir acción en mensaje privado:';
+$lang['helpItemCodeDescribe'] = '/describe Usuario Texto';
+$lang['helpItemDescIgnore'] = 'Ignorar/Aceptar mensajes de usuarios:';
+$lang['helpItemCodeIgnore'] = '/ignore Usuario';
+$lang['helpItemDescIgnoreList'] = 'Mostrar usuarios ignorados:';
+$lang['helpItemCodeIgnoreList'] = '/ignore';
+$lang['helpItemDescWhereis'] = 'Mostrar canal del usuario:';
+$lang['helpItemCodeWhereis'] = '/whereis Usuario';
+$lang['helpItemDescKick'] = 'Patear usuario (Solo moderadores):';
+$lang['helpItemCodeKick'] = '/kick Usuario [Minutos baneado]';
+$lang['helpItemDescUnban'] = 'Quitar ban usuario (Solo moderadores):';
+$lang['helpItemCodeUnban'] = '/unban Usuario';
+$lang['helpItemDescBans'] = 'Listar usuarios baneados (Solo moderadores):';
+$lang['helpItemCodeBans'] = '/bans';
+$lang['helpItemDescWhois'] = 'Mostrar ips de usuarios (Solo moderadores):';
+$lang['helpItemCodeWhois'] = '/whois Usuario';
+$lang['helpItemDescWho'] = 'Mostrar usuarios conectados:';
+$lang['helpItemCodeWho'] = '/who [Channelname]';
+$lang['helpItemDescList'] = 'Lista de canales disponibles:';
+$lang['helpItemCodeList'] = '/list';
+$lang['helpItemDescRoll'] = 'Tirar dado:';
+$lang['helpItemCodeRoll'] = '/roll [numero]de[lados]';
+$lang['helpItemDescNick'] = 'Cambiar nombre de usuario:';
+$lang['helpItemCodeNick'] = '/nick Usuario';
+$lang['settings'] = 'Configuración';
+$lang['settingsBBCode'] = 'Permitir BBCode:';
+$lang['settingsBBCodeImages'] = 'Permitir BBCode de imagen:';
+$lang['settingsBBCodeColors'] = 'Permitir BBCode de color de fuente:';
+$lang['settingsHyperLinks'] = 'Permitir enlaces:';
+$lang['settingsLineBreaks'] = 'Permitir saltos de línea:';
+$lang['settingsEmoticons'] = 'Permitir emoticonos:';
+$lang['settingsAutoFocus'] = 'Seleccionar el cuadro de ingreso automáticamente:';
+$lang['settingsMaxMessages'] = 'Máximo número de mensajes en la lista del chat:';
+$lang['settingsWordWrap'] = 'Permitir la separación del las palabras largas:';
+$lang['settingsMaxWordLength'] = 'Máximo tamaño de una palabara antes de que se separe:';
+$lang['settingsDateFormat'] = 'Formato de la fecha y hora a mostrar:';
+$lang['settingsPersistFontColor'] = 'Mantener el color de la fuente:';
+$lang['settingsAudioVolume'] = 'Volumen Sonido:';
+$lang['settingsSoundReceive'] = 'Sonido para mensajes entrantes:';
+$lang['settingsSoundSend'] = 'Sonido para mensajes salientes:';
+$lang['settingsSoundEnter'] = 'Sonido para mensajes de conexión y entradas al canal:';
+$lang['settingsSoundLeave'] = 'Sonido para mensajes de desconexión y salidas del canal:';
+$lang['settingsSoundChatBot'] = 'Sonido para mensajes del Chatbot:';
+$lang['settingsSoundError'] = 'Sonido para mensajes de error:';
+$lang['settingsSoundPrivate'] = 'Sonido para mensajes privados:';
+$lang['settingsBlink'] = 'Parpadeo del título de la ventana con nuevos mensajes:';
+$lang['settingsBlinkInterval'] = 'Intervalo de parpadeo en milisegundos:';
+$lang['settingsBlinkIntervalNumber'] = 'Número de intervalos de parpadeo:';
+$lang['playSelectedSound'] = 'Reproducir sonido seleccionado';
+$lang['requiresJavaScript'] = 'Necesita tener activado el Javascript en su navegador..';
+$lang['errorInvalidUser'] = 'Usuario Invalido.';
+$lang['errorUserInUse'] = 'Este nombre de usuario esta siendo utilizado en este momento.';
+$lang['errorBanned'] = 'El Usuario o la IP esta baneada..'; 
+$lang['errorMaxUsersLoggedIn'] = 'El Chat ha alcanzado el número máximo de usuarios conectados.';
+$lang['errorChatClosed'] = 'El Chat está cerrado en estos momentos.';
+$lang['logsTitle'] = 'AJAX Chat - Logs';
+$lang['logsDate'] = 'Fecha';
+$lang['logsTime'] = 'Hora';
+$lang['logsSearch'] = 'Buscar';
+$lang['logsPrivateChannels'] = 'Canales Privados';
+$lang['logsPrivateMessages'] = 'Mensajes Privados';
+?>

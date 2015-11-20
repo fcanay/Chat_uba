@@ -47,32 +47,7 @@
 			<h1>[LANG]title[/LANG]</h1> 
 		</div>
 		<div style="overflow: hidden;">
-			<div style="float:left;">
-				<form id="loginForm" action="[LOGIN_URL/]" method="post" enctype="application/x-www-form-urlencoded">
-					<div id="loginFormContainer">
-						<input type="hidden" name="login" id="loginField" value="login"/>
-						<input type="hidden" name="redirect" id="redirectField" value="[REDIRECT_URL/]"/>
-						<div>
-						[OMIT]
-							<label for="userNameField">[LANG]userName[/LANG]:</label><br />
-						[/OMIT]
-						<input type="hidden" name="userName" id="userNameField" maxlength="[USER_NAME_MAX_LENGTH/]"/></div>
-						[OMIT]<div><label for="passwordField">[LANG]password[/LANG]*:</label><br />
-						<input type="password" name="password" id="passwordField"/></div>
-						<div><label for="channelField">[LANG]channel[/LANG]:</label><br />
-						<select name="channelName" id="channelField">[CHANNEL_OPTIONS/]</select></div>
-						<div><label for="languageSelection">[LANG]language[/LANG]:</label><br />
-						<select id="languageSelection" name="lang" onchange="ajaxChat.switchLanguage(this.value);">[LANGUAGE_OPTIONS/]</select></div>
-						[/OMIT]
-						<div><input type="submit" name="submit" id="loginButton" value="[LANG]login[/LANG]"/></div>
-						[OMIT]
-							<div id="loginRegisteredUsers">* [LANG]registeredUsers[/LANG]</div>
-						[/OMIT]
-					</div>
-				</form>
-				<div id="errorContainer">[ERROR_MESSAGES/]<noscript><div>[LANG]requiresJavaScript[/LANG]</div></noscript></div>
-			</div> 
-			<div style="overflow: hidden;width:50%">
+			<div style="overflow: hidden;width:50%;margin: 0 auto;">
 				<span>
 
 					<h2> Instrucciones </h2>
@@ -111,6 +86,31 @@ luego se podrá desloguear.</h3></li>
 </ul>
 				</span>
 			</div>
+			<div style="float:left;">
+				<form id="loginForm" action="[LOGIN_URL/]" method="post" enctype="application/x-www-form-urlencoded">
+					<div id="loginFormContainer">
+						<input type="hidden" name="login" id="loginField" value="login"/>
+						<input type="hidden" name="redirect" id="redirectField" value="[REDIRECT_URL/]"/>
+						<div>
+						[OMIT]
+							<label for="userNameField">[LANG]userName[/LANG]:</label><br />
+						[/OMIT]
+						<input type="hidden" name="userName" id="userNameField" maxlength="[USER_NAME_MAX_LENGTH/]"/></div>
+						[OMIT]<div><label for="passwordField">[LANG]password[/LANG]*:</label><br />
+						<input type="password" name="password" id="passwordField"/></div>
+						<div><label for="channelField">[LANG]channel[/LANG]:</label><br />
+						<select name="channelName" id="channelField">[CHANNEL_OPTIONS/]</select></div>
+						<div><label for="languageSelection">[LANG]language[/LANG]:</label><br />
+						<select id="languageSelection" name="lang" onchange="ajaxChat.switchLanguage(this.value);">[LANGUAGE_OPTIONS/]</select></div>
+						[/OMIT]
+						<div><input type="submit" name="submit" id="loginButton" value="[LANG]login[/LANG]"/></div>
+						[OMIT]
+							<div id="loginRegisteredUsers">* [LANG]registeredUsers[/LANG]</div>
+						[/OMIT]
+					</div>
+				</form>
+				<div id="errorContainer">[ERROR_MESSAGES/]<noscript><div>[LANG]requiresJavaScript[/LANG]</div></noscript></div>
+			</div> 
 			<div style="overflow: hidden;"> &nbsp;&nbsp;&nbsp;
 			</div>
 		</div>

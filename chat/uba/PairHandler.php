@@ -38,7 +38,7 @@ class PairHandler
 		$obj->opinion_changes = $this->db->getAssoc("SELECT * FROM opinion_modification");
 		$obj->messages = $this->db->getAssoc("SELECT * FROM ajax_chat_messages");
 		$obj->users = $this->db->getAssoc("SELECT * FROM ajax_chat_online");
-		$this->db->query("INSERT INTO results(`data`) VALUES('".json_encode($obj)."')");
+		$this->db->query("INSERT INTO results(`data`,`exp`) VALUES('".json_encode($obj)."'),2");
 	}
 
 	function saveAndReset()
