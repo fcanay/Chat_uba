@@ -55,7 +55,7 @@ class ChannelsHandler
 
 	function moveEveryoneToPublic()
 	{
-		$sql = 'UPDATE ajax_chat_online SET
+		$sql = 'UPDATE '.$this->getDataBaseTable('online').' SET
 				newChannel = 0,
 				channelSwitch 	= 1,
 				dateTime 	= NOW() ;';

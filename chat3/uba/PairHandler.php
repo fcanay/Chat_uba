@@ -13,7 +13,7 @@ class PairHandler
 	{
 		$this->db = $in_db;
 		$this->combinatorics = new Math_Combinatorics;
-		$aux = $this->db->getAssoc("SELECT data FROM current_round_data", true);
+		$aux = $this->db->getAssoc("SELECT data FROM ".$this->getDataBaseTable('current_round_data'), true);
 
 		if($aux)
 			$this->internal_data = json_decode($aux["data"], true);
@@ -35,10 +35,10 @@ class PairHandler
 		$obj = new stdClass();
 		$obj->played_rounds = $this->internal_data["played_rounds"];
 		$obj->game = $this->internal_data["game"];
-		$obj->opinion_changes = $this->db->getAssoc("SELECT * FROM opinion_modification");
-		$obj->messages = $this->db->getAssoc("SELECT * FROM ajax_chat_messages");
-		$obj->users = $this->db->getAssoc("SELECT * FROM ajax_chat_online");
-		$this->db->query("INSERT INTO results(`data`,`exp`) VALUES('".json_encode($obj)."',3)");
+		$obj->opinion_changes = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('opinion_modification'));
+		$obj->messages = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('messages'));
+		$obj->users = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('online'));
+		$this->db->query("INSERT INTO ".$this->getDataBaseTable('results')."(`data`,`exp`) VALUES('".json_encode($obj)."',3)");
 	}
 
 	function saveAndReset()
@@ -50,16 +50,16 @@ class PairHandler
 	function reset()
 	{
 		
-		$result = $this->db->query("DELETE FROM current_round_data;");
-		$result = $this->db->query("DELETE FROM opinion_modification;");
-		$result = $this->db->query("DELETE FROM ajax_chat_messages;");
+		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('current_round_data').";");
+		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('opinion_modification').";");
+		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('messages').";");
 		return true;
 	}
 
 	function flush()
 	{
-		$this->db->query("DELETE FROM current_round_data");
-		$this->db->query("INSERT INTO current_round_data VALUES('".json_encode($this->internal_data)."')");
+		$this->db->query("DELETE FROM ".$this->getDataBaseTable('current_round_data'));
+		$this->db->query("INSERT INTO ".$this->getDataBaseTable('current_round_data')." VALUES('".json_encode($this->internal_data)."')");
 	}
 
 	static function pairContains($pair, $individual)
