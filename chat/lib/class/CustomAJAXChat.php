@@ -239,7 +239,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getCustomChannels() {
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		return $channelsHandler->getChannels();
 	}
 
@@ -264,7 +264,7 @@ class CustomAJAXChat extends AJAXChat {
 
 		
 		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		
 		$pairCombinator->reset();
 		$channelsHandler->reset();
@@ -296,7 +296,7 @@ class CustomAJAXChat extends AJAXChat {
 				$usersDataByID[$userData["userID"]] = $userData;
 		}
 		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		if(($roundPairs = $pairCombinator->getNextRound()) !== false)
 		{
@@ -802,7 +802,7 @@ class CustomAJAXChat extends AJAXChat {
 
 	function insertChatBotMessageInAllChannels($message)
 	{
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		$channels = $channelsHandler->getChannels($nameIndexed = false);
 		

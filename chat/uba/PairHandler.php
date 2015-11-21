@@ -27,7 +27,7 @@ class PairHandler
 			
 	}
 
-	function table_names($name){
+	function getDataBaseTable($name){
 		return $this->table_names[$name];
 	}
 
@@ -45,7 +45,7 @@ class PairHandler
 		$obj->opinion_changes = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('opinion_modification'));
 		$obj->messages = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('messages'));
 		$obj->users = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('online'));
-		$this->db->query("INSERT INTO ".$this->getDataBaseTable('results')." (`data`,`exp`) VALUES('".json_encode($obj)."'),2");
+		$this->db->query("INSERT INTO ".$this->getDataBaseTable('results')." (`data`,`exp`) VALUES('".json_encode($obj)."'),1");
 	}
 
 	function saveAndReset()
