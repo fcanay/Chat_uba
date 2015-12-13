@@ -239,7 +239,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getCustomChannels() {
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		return $channelsHandler->getChannels();
 	}
 
@@ -263,8 +263,8 @@ class CustomAJAXChat extends AJAXChat {
 		}
 
 		
-		$pairCombinator = new PairHandler($this->db);
-		$channelsHandler = new ChannelsHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		
 		$pairCombinator->reset();
 		$channelsHandler->reset();
@@ -291,12 +291,12 @@ class CustomAJAXChat extends AJAXChat {
 	function launchNewRound($textParts) {
 
 		$usersData = $this->getOnlineUsersData();
-		
-		foreach($usersData as $userData)
+		//restart
+		foreach($usersData as $userData){
 				$usersDataByID[$userData["userID"]] = $userData;
-		
-		$pairCombinator = new PairHandler($this->db);
-		$channelsHandler = new ChannelsHandler($this->db);
+		}
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		if(($roundPairs = $pairCombinator->getNextRound()) !== false)
 		{
@@ -511,7 +511,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getOponent(){
-		$pairCombinator = new PairHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 		return $pairCombinator->getOponent($this->getUserID());
 	}
 
@@ -672,7 +672,7 @@ class CustomAJAXChat extends AJAXChat {
 			case '/close_experiment':
 				return $this->closeExperiment();
 			case '/empty_messages':
-				$pairCombinator = new PairHandler($this->db);
+				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->reset();
 				return true;
 			break;
@@ -692,7 +692,7 @@ class CustomAJAXChat extends AJAXChat {
 	function saveOpinions(){
 		$sql  = "INSERT INTO ".$this->getDataBaseTable('opinion_modification')." (userID,value,ronda) ";
 		$sql .= "(SELECT userID,opinionValue,"; 
-		$pairCombinator = new PairHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 		$sql .= count($pairCombinator->getPlayedRounds());
 		$sql .= " FROM ".$this->getDataBaseTable('online')." WHERE userRole = 1);";
 
@@ -712,7 +712,7 @@ class CustomAJAXChat extends AJAXChat {
 				//$this->insertChatBotMessageInAllChannels("/close_experiment");
 				$this->insertChatBotMessage("0", "/restart_admin");
 				$this->changeUsersToState(3);
-				$pairCombinator = new PairHandler($this->db);
+				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->saveAndReset();
 				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
 				return true;
@@ -802,7 +802,7 @@ class CustomAJAXChat extends AJAXChat {
 
 	function insertChatBotMessageInAllChannels($message)
 	{
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		$channels = $channelsHandler->getChannels($nameIndexed = false);
 		

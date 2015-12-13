@@ -93,7 +93,7 @@ var ajaxChat = {
 	stateTime: null,
 	stateFunction: null,
 	state: null,
-	arguments: null,
+	argumentos: null,
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
 		this.httpRequest		= {};
@@ -154,6 +154,7 @@ var ajaxChat = {
 		this.socketServerChatID		= config['socketServerChatID'];
 		this.stateTime 				= config['stateTime'];
 		this.state 					= 0;
+		this.argumentos				= [];
 		/*if (typeof config['lastID'] !== 'undefined'){
 			this.lastID 			= config['lastID'];
 		}*/
@@ -384,9 +385,9 @@ var ajaxChat = {
 			// Replace specials characters in emoticon codes:
 			this.emoticonCodes[i] = this.encodeSpecialChars(this.emoticonCodes[i]);
 			this.DOMbuffer = this.DOMbuffer
-						+ '<a href="javascript:ajaxChat.argumentCliked(\''
+						+ '<a href="javascript:ajaxChat.argumentCliked('
 						+ i
-						+ ',0\');"><img src="'
+						+ ',0);"><img src="'
 						+ this.dirs['emoticons']
 						+ this.emoticonFiles[i]
 						+ '" alt="'

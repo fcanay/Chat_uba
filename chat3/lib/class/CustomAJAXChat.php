@@ -239,7 +239,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getCustomChannels() {
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		return $channelsHandler->getChannels();
 	}
 
@@ -263,8 +263,8 @@ class CustomAJAXChat extends AJAXChat {
 		}
 
 		
-		$pairCombinator = new PairHandler($this->db);
-		$channelsHandler = new ChannelsHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		
 		$pairCombinator->reset();
 		$channelsHandler->reset();
@@ -291,12 +291,12 @@ class CustomAJAXChat extends AJAXChat {
 	function launchNewRound($textParts) {
 
 		$usersData = $this->getOnlineUsersData();
-		
-		foreach($usersData as $userData)
+		//restart
+		foreach($usersData as $userData){
 				$usersDataByID[$userData["userID"]] = $userData;
-		
-		$pairCombinator = new PairHandler($this->db);
-		$channelsHandler = new ChannelsHandler($this->db);
+		}
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		if(($roundPairs = $pairCombinator->getNextRound()) !== false)
 		{
@@ -484,6 +484,10 @@ class CustomAJAXChat extends AJAXChat {
 				if($val !== false) return $val;
 				else return 4;
 			break;
+
+			case 'ARGUMENTS':
+				return 1;
+			break;
 			
 			case 'LOGOUT_BUTTON_TYPE':
 
@@ -511,7 +515,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getOponent(){
-		$pairCombinator = new PairHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 		return $pairCombinator->getOponent($this->getUserID());
 	}
 
@@ -529,6 +533,47 @@ class CustomAJAXChat extends AJAXChat {
 		return $row['opinionValue'];
 	}
 	
+	function getArguments(){
+		$query = 'SELECT value FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
+		$query .= $this->db->makeSafe($this->getUserID()). ';';
+		$result = $this->db->query($query);
+		//return $query;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+		$res = array();
+		while($row = $result->fetch()) {
+			array_push($res, $row['value']);
+		}
+		return $res;
+	}
+
+	function addArgument($argument){
+		$query = "INSERT INTO ".$this->getDataBaseTable('actual_arguments')." (`userID` ,`value`) VALUES ('";
+		$query .= $this->getUserID()."', '". $argument."');";
+		$result = $this->db->query($query);
+		
+		return $result;
+	}
+
+	function removeArgument($argument){
+		$query = "DELETE FROM ".$this->getDataBaseTable('actual_arguments')." WHERE userID = ";
+		$query .= $this->getUserID()." AND value = ". $argument.";";
+		$result = $this->db->query($query);
+		
+		return $result;
+	}
+
+	function saveRoundOpinion(){
+		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,ronda) SELECT userID,value,";
+		$query .= $argument. "FROM ".$this->getDataBaseTable('actual_arguments');
+		$result = $this->db->query($query);
+		
+		return $result;
+
+	}
+
 	function getLastID(){
 		$query = 'SELECT max(id) as last_id FROM '.$this->getDataBaseTable('messages').' WHERE channel = '
 		 . $this->getUserData('channel') . ' ;';
@@ -566,7 +611,7 @@ class CustomAJAXChat extends AJAXChat {
 	
 	function addOpinionChange($value, $client_time){
 		
-		$query = "INSERT INTO ".$this->getDataBaseTable('opinion_change')." (`userID` ,`channelID` ,`value`,`before` ,`client_time` ,`server_time`) VALUES ('";
+		$query = "INSERT INTO ".$this->getDataBaseTable('opinion_changes')." (`userID` ,`channelID` ,`value`,`before` ,`client_time` ,`server_time`) VALUES ('";
 		$query .= $this->getUserID()."', '0', {$value}, ".$this->getUserData("opinionValue").", '{$client_time}', NOW())";
 		$result = $this->db->query($query);
 		
@@ -600,6 +645,7 @@ class CustomAJAXChat extends AJAXChat {
 		{
 			case '/round':
 				$this->saveOpinions();
+				$this->saveRoundOpinion();
 				$currentRound = $this->launchNewRound($textParts);
 				if($currentRound !== false)
 				{
@@ -651,6 +697,14 @@ class CustomAJAXChat extends AJAXChat {
 				$this->addOpinionChange($textParts[1], $textParts[2]." ".$textParts[3]);
 				return true;
 
+			case '/add_argument':
+				$this->addArgument($textParts[1]);
+				return true;
+
+			case '/remove_argument':
+				$this->removeArgument($textParts[1]);
+				return true;
+
 			case '/restart_clock':
 				$this->insertChatBotMessageInAllChannels("/restart_clock");
 				return true;
@@ -672,7 +726,7 @@ class CustomAJAXChat extends AJAXChat {
 			case '/close_experiment':
 				return $this->closeExperiment();
 			case '/empty_messages':
-				$pairCombinator = new PairHandler($this->db);
+				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->reset();
 				return true;
 			break;
@@ -692,7 +746,7 @@ class CustomAJAXChat extends AJAXChat {
 	function saveOpinions(){
 		$sql  = "INSERT INTO ".$this->getDataBaseTable('opinion_modification')." (userID,value,ronda) ";
 		$sql .= "(SELECT userID,opinionValue,"; 
-		$pairCombinator = new PairHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 		$sql .= count($pairCombinator->getPlayedRounds());
 		$sql .= " FROM ".$this->getDataBaseTable('online')." WHERE userRole = 1);";
 
@@ -712,7 +766,7 @@ class CustomAJAXChat extends AJAXChat {
 				//$this->insertChatBotMessageInAllChannels("/close_experiment");
 				$this->insertChatBotMessage("0", "/restart_admin");
 				$this->changeUsersToState(3);
-				$pairCombinator = new PairHandler($this->db);
+				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->saveAndReset();
 				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
 				return true;
@@ -802,7 +856,7 @@ class CustomAJAXChat extends AJAXChat {
 
 	function insertChatBotMessageInAllChannels($message)
 	{
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		$channels = $channelsHandler->getChannels($nameIndexed = false);
 		

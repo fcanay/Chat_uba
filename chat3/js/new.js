@@ -229,6 +229,18 @@ ajaxChat.getChatName = function(userID){
 
 }
 
-ajaxChat.argumentCliked(argument,color){
-	
+ajaxChat.argumentCliked = function(argument,color){
+	var index = this.argumentos.indexOf(argument);
+	if(index == -1 ){ //Arguments is cliked
+		ajaxChat.sendMessage("/add_argument "+ argument);
+		this.argumentos.push(argument);
+		//agregar a la lista
+		//display argument
+	}
+	else{
+		ajaxChat.sendMessage("/remove_argument "+argument);
+		this.argumentos.splice(index, 1);
+		//sacar de la lista
+		//undisplay argument
+	}
 }

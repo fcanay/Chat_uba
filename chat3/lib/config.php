@@ -41,7 +41,7 @@ $config['dbConnection']['user'] = 'root';
 // Database password:
 $config['dbConnection']['pass'] = 'patton55';
 // Database name:
-$config['dbConnection']['name'] = 'chat2';
+$config['dbConnection']['name'] = 'chat';
 // Database type:
 $config['dbConnection']['type'] = 'mysqli';
 // Database link:
@@ -83,17 +83,19 @@ $config['REDIRECT_URL'] = 'google.com';
 
 // Database table names:
 $config['dbTableNames'] = array();
-$config['dbTableNames']['online']		= 'ajax_chat_online';
-$config['dbTableNames']['messages']		= 'ajax_chat_messages';
-$config['dbTableNames']['bans']			= 'ajax_chat_bans';
-$config['dbTableNames']['invitations']	= 'ajax_chat_invitations';
-$config['dbTableNames']['channels']	= 'channels';
+$config['dbTableNames']['online']		= 'ajax_chat_online3';
+$config['dbTableNames']['messages']		= 'ajax_chat_messages3';
+$config['dbTableNames']['bans']			= 'ajax_chat_bans3';
+$config['dbTableNames']['invitations']	= 'ajax_chat_invitations3';
+$config['dbTableNames']['channels']	= 'channels3';
 
-$config['dbTableNames']['current_round_data']	= 'current_round_data';
-$config['dbTableNames']['opinion_changes']	= 'opinion_changes';
-$config['dbTableNames']['opinion_modification']	= 'opinion_modification';
+$config['dbTableNames']['current_round_data']	= 'current_round_data3';
+$config['dbTableNames']['opinion_changes']	= 'opinion_changes3';
+$config['dbTableNames']['opinion_modification']	= 'opinion_modification3';
 $config['dbTableNames']['results']	= 'results';
-$config['dbTableNames']['seen_pairs']	= 'seen_pairs';
+$config['dbTableNames']['seen_pairs']	= 'seen_pairs3';
+$config['dbTableNames']['actual_arguments']	= 'actual_arguments3';
+$config['dbTableNames']['arguments']	= 'arguments3';
 
 // Available languages:
 $config['langAvailable'] = array(

@@ -95,6 +95,8 @@ $config['dbTableNames']['opinion_modification']	= 'opinion_modification';
 $config['dbTableNames']['results']	= 'results';
 $config['dbTableNames']['seen_pairs']	= 'seen_pairs';
 
+
+
 // Available languages:
 $config['langAvailable'] = array(
 	'ar','bg','ca','cy','cz','da','de','el','en','es','et','fa','fi','fr','gl','he','hr','hu','in','it','ja','ka','kr','mk','nl','nl-be','no','pl','pt-br','pt-pt','ro','ru','sk','sl','sr','sv','th','tr','uk','zh','zh-tw'

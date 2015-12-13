@@ -34,6 +34,7 @@ ajaxChat.chronometer = function (i)
     }
 	document.getElementById('chronometer').innerHTML = "<h4>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h4>";
 	document.getElementById('chronometer').style.color = "black" ;
+
 	//	document.getElementById('chronometer').style.font_weight = "bold" ;
 	if(i>0){
 		this.timeout=setTimeout(function(){ajaxChat.chronometer(i-1)},1000);

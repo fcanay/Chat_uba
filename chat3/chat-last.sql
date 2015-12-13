@@ -25,8 +25,8 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `ajax_chat_bans`
 --
 
-DROP TABLE IF EXISTS `ajax_chat_bans`;
-CREATE TABLE `ajax_chat_bans` (
+DROP TABLE IF EXISTS `ajax_chat_bans3`;
+CREATE TABLE `ajax_chat_bans3` (
   `userID` int(11) NOT NULL,
   `userName` varchar(64) COLLATE utf8_bin NOT NULL,
   `dateTime` datetime NOT NULL,
@@ -42,8 +42,8 @@ CREATE TABLE `ajax_chat_bans` (
 -- Estructura de tabla para la tabla `ajax_chat_invitations`
 --
 
-DROP TABLE IF EXISTS `ajax_chat_invitations`;
-CREATE TABLE `ajax_chat_invitations` (
+DROP TABLE IF EXISTS `ajax_chat_invitations3`;
+CREATE TABLE `ajax_chat_invitations3` (
   `userID` int(11) NOT NULL,
   `channel` int(11) NOT NULL,
   `dateTime` datetime NOT NULL,
@@ -57,8 +57,8 @@ CREATE TABLE `ajax_chat_invitations` (
 -- Estructura de tabla para la tabla `ajax_chat_messages`
 --
 
-DROP TABLE IF EXISTS `ajax_chat_messages`;
-CREATE TABLE `ajax_chat_messages` (
+DROP TABLE IF EXISTS `ajax_chat_messages3`;
+CREATE TABLE `ajax_chat_messages3` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `userName` varchar(64) COLLATE utf8_bin NOT NULL,
@@ -83,8 +83,8 @@ CREATE TABLE `ajax_chat_messages` (
 -- Estructura de tabla para la tabla `ajax_chat_online`
 --
 
-DROP TABLE IF EXISTS `ajax_chat_online`;
-CREATE TABLE `ajax_chat_online` (
+DROP TABLE IF EXISTS `ajax_chat_online3`;
+CREATE TABLE `ajax_chat_online3` (
   `userID` int(11) NOT NULL,
   `userName` varchar(64) COLLATE utf8_bin NOT NULL,
   `userRole` int(1) NOT NULL,
@@ -110,8 +110,8 @@ CREATE TABLE `ajax_chat_online` (
 -- Estructura de tabla para la tabla `channels`
 --
 
-DROP TABLE IF EXISTS `channels`;
-CREATE TABLE `channels` (
+DROP TABLE IF EXISTS `channels3`;
+CREATE TABLE `channels3` (
   `id` mediumint(9) NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
@@ -124,8 +124,8 @@ CREATE TABLE `channels` (
 -- Estructura de tabla para la tabla `current_round_data`
 --
 
-DROP TABLE IF EXISTS `current_round_data`;
-CREATE TABLE `current_round_data` (
+DROP TABLE IF EXISTS `current_round_data3`;
+CREATE TABLE `current_round_data3` (
   `data` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -135,8 +135,8 @@ CREATE TABLE `current_round_data` (
 -- Estructura de tabla para la tabla `opinion_changes`
 --
 
-DROP TABLE IF EXISTS `opinion_changes`;
-CREATE TABLE `opinion_changes` (
+DROP TABLE IF EXISTS `opinion_changes3`;
+CREATE TABLE `opinion_changes3` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `channelID` int(11) NOT NULL,
@@ -148,8 +148,8 @@ CREATE TABLE `opinion_changes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
-DROP TABLE IF EXISTS `opinion_modification`;
-CREATE TABLE `opinion_modification` (
+DROP TABLE IF EXISTS `opinion_modification3`;
+CREATE TABLE `opinion_modification3` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `value` int(11) NOT NULL,
@@ -164,19 +164,36 @@ CREATE TABLE `opinion_modification` (
 -- Estructura de tabla para la tabla `results`
 --
 
-DROP TABLE IF EXISTS `results`;
-CREATE TABLE `results` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `exp` int(11),
-  `data` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+--DROP TABLE IF EXISTS `results`;
+--CREATE TABLE `results` (
+--  `id` int(11) NOT NULL AUTO_INCREMENT,
+--  `dateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--  `exp` int(11),
+--  `data` text NOT NULL,
+--  PRIMARY KEY (`id`)
+--) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Volcado de datos para la tabla `results`
 --
+DROP TABLE IF EXISTS `actual_arguments3`;
+CREATE TABLE `actual_arguments3` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,value)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
+DROP TABLE IF EXISTS `arguments3`;
+CREATE TABLE `arguments3` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `value` int(11) NOT NULL,
+  `ronda` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,value,ronda)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------
 
@@ -184,8 +201,8 @@ CREATE TABLE `results` (
 -- Estructura de tabla para la tabla `seen_pairs`
 --
 
-DROP TABLE IF EXISTS `seen_pairs`;
-CREATE TABLE `seen_pairs` (
+DROP TABLE IF EXISTS `seen_pairs3`;
+CREATE TABLE `seen_pairs3` (
   `one` int(11) NOT NULL,
   `other` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
