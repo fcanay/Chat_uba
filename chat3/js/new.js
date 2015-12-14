@@ -59,12 +59,13 @@ ajaxChat.customInitialize = function() {
 
 ajaxChat.opinionInicial = function(){
 	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.initialQuestion;
-	document.getElementById('imagenTablero').width = 800;
-	document.getElementById('imagenTablero').height = 400;
+	document.getElementById('imagenTablero').width = 720;
+	document.getElementById('imagenTablero').height = 360;
 
 	document.getElementById('chessImg').style.display = "block";
 	document.getElementById('chessImg').style.top = "55%";
 
+	document.getElementById('emoticonsContainer').style.display = "block";
 		
 	document.getElementById('bbCodeContainer').style.display = "block";
 	document.getElementById('bbCodeContainer').style.bottom = "";
@@ -81,9 +82,12 @@ ajaxChat.opinionInicial = function(){
 */
 }
 
-ajaxChat.ronda = function(oponent,opinion){
+ajaxChat.ronda = function(oponent,opinion,argumentos){
+	console.log("ronda");
 	this.cambioDeRonda(oponent);
-	setTimeout(function(){ajaxChat.displayRonda(oponent,opinion)},5000);
+	setTimeout(function(){ajaxChat.displayRonda(oponent,opinion,argumentos)},5000);
+	console.log('argumentos');
+	console.log(argumentos);
 	
 
 
@@ -95,30 +99,27 @@ ajaxChat.ronda = function(oponent,opinion){
 */
 }
 
-ajaxChat.displayRonda = function(oponent,opinion){
+ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 	//document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 
-	document.getElementById('chatList').style.display = "block";
+	console.log("displayRonda");
 
 	document.getElementById('emoticonsContainer').style.display = "block";
+	document.getElementById('emoticonsContainer').style.top = "69%";
+
+	document.getElementById('emoticonsContainerOponent').style.display = "block";
 	
-	document.getElementById('inputFieldContainer').style.display = "block";
-	
-	document.getElementById('submitButtonContainer').style.display = "block";
-
-
-
 	document.getElementById('imagenTablero').width = 600;
 	document.getElementById('imagenTablero').height = 300;
 	document.getElementById('imagenTablero').style.animation= "";
 
 	document.getElementById('chessImg').style.display = "block";
 	document.getElementById('chessImg').style.top = "45%";
-	document.getElementById('chessImg').style.left = "70%";
 
-	document.getElementById('bbCodeContainer').style.bottom = "15%";
+	document.getElementById('bbCodeContainer').style.bottom = "20%";
 	document.getElementById('bbCodeContainer').style.display = "block";
 
+	document.getElementById('bbCodeContainerOponent').style.bottom = "11%";
 	document.getElementById('bbCodeContainerOponent').style.display = "block";
 
 	document.getElementById('slider-horizontal-oponent').style.display = "block";
@@ -130,17 +131,22 @@ ajaxChat.displayRonda = function(oponent,opinion){
 	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.roundDos) + " " + oponent + " " + ajaxChat.lang.changeOpinion;
 
+	for(var i=0; i<this.emoticonCodes.length; i++) {
+		document.getElementById('OpArg'+i).style.border= "";
+	}
+	for(var i=0; i<argumentos.length; i++) {
+		document.getElementById('OpArg'+argumentos[i]).style.border= "2px solid #0c95d9";
+	}
 	//setTimeout(function(){ajaxChat.displayImage(oponent)},5000);
 }
 
 ajaxChat.cambioDeRonda = function(oponent){
+	console.log("cambioDeRonda");
 	document.getElementById('chessImg').style.display = "none";
 	document.getElementById('bbCodeContainer').style.display = "none";
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
-	document.getElementById('chatList').style.display = "none";
 	document.getElementById('emoticonsContainer').style.display = "none";
-	document.getElementById('inputFieldContainer').style.display = "none";	
-	document.getElementById('submitButtonContainer').style.display = "none";
+	document.getElementById('emoticonsContainerOponent').style.display = "none";
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 }
 
@@ -200,8 +206,12 @@ ajaxChat.handleStateChange = function(parts){
 			this.opinionInicial();
 			break;
 		case 2:
-			if(parts.length >= 3){
-				this.ronda(parts[1],parseInt(parts[2]));
+			console.log("handleStateChange 2");
+			if(parts.length >= 4){
+				console.log("entre");
+
+				array = this.build_array(parts[3]);
+				this.ronda(parts[1],parseInt(parts[2]),array);
 				//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(parts[2]);
 
 			}
@@ -234,13 +244,28 @@ ajaxChat.argumentCliked = function(argument,color){
 	if(index == -1 ){ //Arguments is cliked
 		ajaxChat.sendMessage("/add_argument "+ argument);
 		this.argumentos.push(argument);
+		document.getElementById('Arg'+argument).style.border= "2px solid #0c95d9";
+
 		//agregar a la lista
 		//display argument
 	}
 	else{
 		ajaxChat.sendMessage("/remove_argument "+argument);
 		this.argumentos.splice(index, 1);
+		document.getElementById('Arg'+argument).style.border= "";
 		//sacar de la lista
 		//undisplay argument
 	}
+}
+
+ajaxChat.build_array = function(array){
+	res = array.split(";");
+	for (i = 0; i < res.length; i++) {
+		console.log(i);
+		console.log(res[i]);
+
+    	res[i] = parseInt(res[i]);
+	}
+	console.log(res);
+	return res;
 }

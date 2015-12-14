@@ -385,7 +385,9 @@ var ajaxChat = {
 			// Replace specials characters in emoticon codes:
 			this.emoticonCodes[i] = this.encodeSpecialChars(this.emoticonCodes[i]);
 			this.DOMbuffer = this.DOMbuffer
-						+ '<a href="javascript:ajaxChat.argumentCliked('
+						+ '<a id="Arg'
+						+i
+						+'" href="javascript:ajaxChat.argumentCliked('
 						+ i
 						+ ',0);"><img src="'
 						+ this.dirs['emoticons']
@@ -398,6 +400,26 @@ var ajaxChat = {
 			}
 		if(this.dom['emoticonsContainer']) {
  			this.updateDOM('emoticonsContainer', this.DOMbuffer);
+ 		}
+ 		this.DOMbuffer = "";
+		for(var i=0; i<this.emoticonCodes.length; i++) {
+			// Replace specials characters in emoticon codes:
+			this.emoticonCodes[i] = this.encodeSpecialChars(this.emoticonCodes[i]);
+			this.DOMbuffer = this.DOMbuffer
+						+ '<a id="OpArg'
+						+ i
+						+ '"><img src="'
+						+ this.dirs['emoticons']
+						+ this.emoticonFiles[i]
+						+ '" alt="'
+						+ this.emoticonNames[i]
+						+ '" title="'
+						+ this.emoticonNames[i]
+						+ '"/></a>';
+			}
+
+		if(this.dom['emoticonsContainerOponent']) {
+ 			this.updateDOM('emoticonsContainerOponent', this.DOMbuffer);
  		}
  		this.DOMbuffer = "";
 	},

@@ -151,7 +151,6 @@
 			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
-			//parse_str('[/ARGUMENTS]',ajaxChat.arguments);
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
 		// ]]>
 	</script>
@@ -185,18 +184,15 @@
 		<!--[if lt IE 7]>
 			<div></div>
 		<![endif]-->
-		
-				
-		<div id="emoticonsContainer" dir="ltr" style="display:block;" class="emoticonsContainerClass" ></div>
-		[<div id="chessImg" style="display:block;">
+		<div id="emoticonsContainer" dir="ltr" style="display:none;" class="emoticonsContainerClass" ></div>
+		<div id="chessImg" style="display:none;">
 		  <img id="imagenTablero" src="img/ts.png" width="600" height="300" style="border:5px solid transparent;"/>
 		</div>
-		<div id="argumentosBlanco" style="display:block;" class="argumentos"></div>
 		<div id="messageContainer">
 			<h1 id="mensajePrincipal">[LANG]wait[/LANG]</h1>
 		</div>
 
-			<div id="bbCodeContainer" style="display:block;">
+			<div id="bbCodeContainer" style="display:none;">
 				<h3 id="opinion-propia" >  Valoración propia</h3> 
 				<div id='opinion_container' style="height:100%;"> 
 						
@@ -226,7 +222,8 @@
 
 			</div>
 	  	
-	</div>
+	  	<div id="emoticonsContainerOponent" dir="ltr" style="display:none;" class="emoticonsContainerClass" ></div>
+		</div>
 		
 </body>
 

@@ -96,8 +96,7 @@ CREATE TABLE `ajax_chat_online3` (
   `opinionValue` int(11) NOT NULL DEFAULT '4',
   `state` int(11) NOT NULL DEFAULT '0',
   `stateSwitch` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`userID`),
-  KEY `userName` (`userName`)
+  PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --

@@ -106,6 +106,7 @@ Dos cajas, una para los argumentos del blanco, otra para los negros.
 dos filas de los argumentos, una para cada caja.
 En el momento de elegir las barras tambien elejimos los argumentos.
 
+
 --Cambiar texto de socex inicial, por el q mando Fede
 
 -----Hecho
@@ -123,3 +124,6 @@ v3:
 Igual q v2, entrada de chat arriba, argumentos van a la entrada. ya no se escribe el nombre del argumento.
 
 v4:
+Agregar q se borren los argumentos al final del juego
+
+Agregar q se guarden los argumentos en los resultados

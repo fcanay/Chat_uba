@@ -44,7 +44,14 @@ class CustomAJAXChat extends AJAXChat {
 				case 1:
 					break;
 				case 2:
-					$res .= ','.$this->getOponent().','.$this->getOponentOpinion();
+					$oponent = $this->getOponent();
+					$res .= ','.$oponent.','.$this->getOponentOpinion($oponent).',';
+					$opArg = $this->getOponentArguments($oponent);
+					foreach ($opArg as $value) {
+						$res .= $value . ';';
+					}
+					$res = rtrim($res, ";");
+					//$res .= '';
 					break;
 				case 3:
 					break;
@@ -519,8 +526,7 @@ class CustomAJAXChat extends AJAXChat {
 		return $pairCombinator->getOponent($this->getUserID());
 	}
 
-	function getOponentOpinion(){
-		$opponent = $this->getOponent();
+	function getOponentOpinion($opponent){
 		$query = 'SELECT opinionValue FROM '.$this->getDataBaseTable('online').' WHERE userID = ';
 		$query .= $opponent . ';';
 		$result = $this->db->query($query);
@@ -531,6 +537,22 @@ class CustomAJAXChat extends AJAXChat {
 		}
 		$row = $result->fetch();
 		return $row['opinionValue'];
+	}
+
+	function getOponentArguments($opponent){
+		$query = 'SELECT value FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
+		$query .= $opponent. ';';
+		$result = $this->db->query($query);
+		//return $query;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+		$res = array();
+		while($row = $result->fetch()) {
+			array_push($res, $row['value']);
+		}
+		return $res;
 	}
 	
 	function getArguments(){
@@ -565,7 +587,8 @@ class CustomAJAXChat extends AJAXChat {
 		return $result;
 	}
 
-	function saveRoundOpinion(){
+	function saveRoundArguments(){
+		return;
 		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,ronda) SELECT userID,value,";
 		$query .= $argument. "FROM ".$this->getDataBaseTable('actual_arguments');
 		$result = $this->db->query($query);
@@ -645,7 +668,7 @@ class CustomAJAXChat extends AJAXChat {
 		{
 			case '/round':
 				$this->saveOpinions();
-				$this->saveRoundOpinion();
+				$this->saveRoundArguments();
 				$currentRound = $this->launchNewRound($textParts);
 				if($currentRound !== false)
 				{

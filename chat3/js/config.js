@@ -45,6 +45,8 @@ var ajaxChatConfig = {
 		styleSelection: 'styleSelection',
 		// The ID of the emoticons container:
 		emoticonsContainer: 'emoticonsContainer',
+		// The ID of the emoticons container:
+		emoticonsContainerOponent: 'emoticonsContainerOponent',
 		// The ID of the color codes container:
 		colorCodesContainer: 'colorCodesContainer',
 		// The ID of the flash interface container:
