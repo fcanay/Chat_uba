@@ -239,7 +239,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getCustomChannels() {
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		return $channelsHandler->getChannels();
 	}
 
@@ -263,10 +263,10 @@ class CustomAJAXChat extends AJAXChat {
 		}
 
 		
-		$pairCombinator = new PairHandler($this->db);
-		$channelsHandler = new ChannelsHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 		
-		$pairCombinator->saveAndReset();
+		$pairCombinator->reset();
 		$channelsHandler->reset();
 
 		if($pairCombinator->initializeFor($ids))
@@ -291,12 +291,12 @@ class CustomAJAXChat extends AJAXChat {
 	function launchNewRound($textParts) {
 
 		$usersData = $this->getOnlineUsersData();
-		
-		foreach($usersData as $userData)
+		//restart
+		foreach($usersData as $userData){
 				$usersDataByID[$userData["userID"]] = $userData;
-		
-		$pairCombinator = new PairHandler($this->db);
-		$channelsHandler = new ChannelsHandler($this->db);
+		}
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		if(($roundPairs = $pairCombinator->getNextRound()) !== false)
 		{
@@ -511,13 +511,13 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getOponent(){
-		$pairCombinator = new PairHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 		return $pairCombinator->getOponent($this->getUserID());
 	}
 
 	function getOponentOpinion(){
 		$opponent = $this->getOponent();
-		$query = 'SELECT opinionValue FROM ajax_chat_online WHERE userID = ';
+		$query = 'SELECT opinionValue FROM '.$this->getDataBaseTable('online').' WHERE userID = ';
 		$query .= $opponent . ';';
 		$result = $this->db->query($query);
 		//return $query;
@@ -530,7 +530,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function getLastID(){
-		$query = 'SELECT max(id) as last_id FROM ajax_chat_messages WHERE channel = '
+		$query = 'SELECT max(id) as last_id FROM '.$this->getDataBaseTable('messages').' WHERE channel = '
 		 . $this->getUserData('channel') . ' ;';
 		$result = $this->db->query($query);
 		if(!$result->error() and $result->numRows() > 0){
@@ -566,7 +566,7 @@ class CustomAJAXChat extends AJAXChat {
 	
 	function addOpinionChange($value, $client_time){
 		
-		$query = "INSERT INTO `opinion_changes` (`userID` ,`channelID` ,`value`,`before` ,`client_time` ,`server_time`) VALUES ('";
+		$query = "INSERT INTO ".$this->getDataBaseTable('opinion_changes')." (`userID` ,`channelID` ,`value`,`before` ,`client_time` ,`server_time`) VALUES ('";
 		$query .= $this->getUserID()."', '0', {$value}, ".$this->getUserData("opinionValue").", '{$client_time}', NOW())";
 		$result = $this->db->query($query);
 		
@@ -672,7 +672,7 @@ class CustomAJAXChat extends AJAXChat {
 			case '/close_experiment':
 				return $this->closeExperiment();
 			case '/empty_messages':
-				$pairCombinator = new PairHandler($this->db);
+				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->reset();
 				return true;
 			break;
@@ -690,11 +690,11 @@ class CustomAJAXChat extends AJAXChat {
 	}
 	
 	function saveOpinions(){
-		$sql  = "INSERT INTO opinion_modification (userID,value,ronda) ";
+		$sql  = "INSERT INTO ".$this->getDataBaseTable('opinion_modification')." (userID,value,ronda) ";
 		$sql .= "(SELECT userID,opinionValue,"; 
-		$pairCombinator = new PairHandler($this->db);
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 		$sql .= count($pairCombinator->getPlayedRounds());
-		$sql .= " FROM ajax_chat_online WHERE userRole = 1);";
+		$sql .= " FROM ".$this->getDataBaseTable('online')." WHERE userRole = 1);";
 
 		$result = $this->db->sqlQuery($sql);
 		
@@ -712,7 +712,7 @@ class CustomAJAXChat extends AJAXChat {
 				//$this->insertChatBotMessageInAllChannels("/close_experiment");
 				$this->insertChatBotMessage("0", "/restart_admin");
 				$this->changeUsersToState(3);
-				$pairCombinator = new PairHandler($this->db);
+				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->saveAndReset();
 				$this->insertChatBotMessage($this->getPrivateMessageID(),$this->getLang("redirectedToEndMessage"));
 				return true;
@@ -802,7 +802,7 @@ class CustomAJAXChat extends AJAXChat {
 
 	function insertChatBotMessageInAllChannels($message)
 	{
-		$channelsHandler = new ChannelsHandler($this->db);
+		$channelsHandler = new ChannelsHandler($this->db,$this->getConfig('dbTableNames'));
 
 		$channels = $channelsHandler->getChannels($nameIndexed = false);
 		

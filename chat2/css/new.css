@@ -9,5 +9,19 @@
 
 
 #content #emoticonsContainer {
-	bottom:20%;
+	top:79%;
+}
+
+#content #inputFieldContainer{
+	position:absolute;
+	left:5%;
+	top:72%;
+	width:30%;
+	overflow:auto;
+}
+
+#content #submitButtonContainer{
+	position:absolute;
+	left:37%;
+	top:72%;
 }

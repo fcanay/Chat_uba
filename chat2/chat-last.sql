@@ -96,8 +96,7 @@ CREATE TABLE `ajax_chat_online` (
   `opinionValue` int(11) NOT NULL DEFAULT '4',
   `state` int(11) NOT NULL DEFAULT '0',
   `stateSwitch` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`userID`),
-  KEY `userName` (`userName`)
+  PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -167,6 +166,8 @@ CREATE TABLE `opinion_modification` (
 DROP TABLE IF EXISTS `results`;
 CREATE TABLE `results` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `exp` int(11),
   `data` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;

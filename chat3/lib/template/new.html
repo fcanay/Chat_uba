@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="[CONTENT_ENCODING/]"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[LANG_CODE/]" lang="[LANG_CODE/]" dir="[BASE_DIRECTION/]">
+
+<head>
+	<meta http-equiv="Content-Type" content="[CONTENT_TYPE/]" />
+	<title>[LANG]title[/LANG]</title>
+	<style type="text/css">
+		body {
+			padding:0;
+			margin:0;
+		}
+
+
+	</style>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
+  
+  
+  <script>
+//<![CDATA[
+  $(function() {
+    $("#slider-horizontal").slider({
+    	range: "min",
+      	step: [STEP/],
+      	min: [MIN_OPINION/],
+      	max: [MAX_OPINION/],
+      	value: [OPINION_VALUE/],
+      	slide: function( event, ui ) {
+        	ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	$( "#amount" ).val( ui.value );
+        	$("#opinion-propia").text("Valoración propia:"+ajaxChatLang.label_names[ui.value]);
+        	($(this).find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(ui.value);
+      	}   
+    }).each(function(){
+		//console.log("hola");
+    	//
+		// Add labels to slider whose values 
+		// are specified by min, max and whose
+		// step is set to 1
+		//
+		// Get the options for this slider
+		var opt = $(this).data().uiSlider.options;
+	  
+		// Get the number of possible values
+		var vals = opt.max - opt.min;
+	  
+		// Space out values
+		for (var i = 0; i <= vals; i++) {
+    		if (i == 0 || i == 8 ){
+    			var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  	    	}
+  	    	else if (i == 1 || i == 7){
+    			var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  	    	}
+  	    	else{
+    			var el = $('<label><img src="img/op'+(i)+'.gif" /></label>').css('left',(i/vals*100)+'%');
+  	    	}
+  	    	$( "#slider-horizontal" ).append(el);
+    	};
+    	$("#opinion-propia").text("Valoración propia:"+ajaxChatLang.label_names[opt.value]);
+    	($(this).find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(opt.value);
+    });
+
+    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+  });
+
+  $(function() {
+    $("#slider-horizontal-oponent").slider({
+    	disabled: true,
+    	range: "min",
+      	step: [STEP/],
+      	min: [MIN_OPINION/],
+      	max: [MAX_OPINION/],
+      	value: 4,
+      	slide: function( event, ui ) {
+        	//ajaxChat.sendMessage("/opinion_modified "+ui.value+" "+ajaxChat.getDatetime());
+        	//$( "#amount" ).val( ui.value );
+      	}   
+    }).each(function(){
+    	//var opt = $(this).data().uiSlider.options;
+    	//$("#opinion-oponent").text("Valoración usuario "+opt.oponent +":"+ajaxChatLang.label_names[opt.value]);
+    	//($(this).find('.ui-slider-handle')[0]).style.background = "#"+ajaxChat.handleColor(opt.value);
+     });
+    //$( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+  });
+  //]]>	
+  </script>
+
+
+	[STYLE_SHEETS/]
+	<!--[if lt IE 7]>
+		<link rel="stylesheet" type="text/css" href="css/ie5-6.css"/>
+		<script type="text/javascript">
+			var isIElt7 = true;
+		</script>
+	<![endif]-->
+	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/new.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/config.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/FABridge.js" type="text/javascript" charset="UTF-8"></script>
+	<link rel="stylesheet" href="css/new.css" />
+	<script type="text/javascript">
+		// <![CDATA[
+			function toggleContainer(containerID, hideContainerIDs) {
+				if(hideContainerIDs) {
+					for(var i=0; i<hideContainerIDs.length; i++) {
+						ajaxChat.showHide(hideContainerIDs[i], 'none');	
+					}
+				}		
+				ajaxChat.showHide(containerID);
+				if(typeof arguments.callee.styleProperty == 'undefined') {
+					if(typeof isIElt7 != 'undefined') {
+						arguments.callee.styleProperty = 'marginRight';
+					} else {
+						arguments.callee.styleProperty = 'right';
+					}
+				}
+				var containerWidth = document.getElementById(containerID).offsetWidth;
+				if(containerWidth) {
+					document.getElementById('chatList').style[arguments.callee.styleProperty] = (containerWidth+28)+'px';	
+				} else {
+					document.getElementById('chatList').style[arguments.callee.styleProperty] = '20px';
+				}				
+			}
+
+			function initialize() {
+				ajaxChat.stateTime = [0,[opinionTime/],[roundTime/],[changeOpinionTime/]];
+			}
+
+			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
+			ajaxChatConfig.sessionName = '[SESSION_NAME/]';
+			ajaxChatConfig.cookieExpiration = parseInt('[COOKIE_EXPIRATION/]');
+			ajaxChatConfig.cookiePath = '[COOKIE_PATH/]';
+			ajaxChatConfig.cookieDomain = '[COOKIE_DOMAIN/]';
+			ajaxChatConfig.cookieSecure = '[COOKIE_SECURE/]';
+			ajaxChatConfig.chatBotName = decodeURIComponent('[CHAT_BOT_NAME/]');
+			ajaxChatConfig.chatBotID = '[CHAT_BOT_ID/]';
+			ajaxChatConfig.allowUserMessageDelete = parseInt('[ALLOW_USER_MESSAGE_DELETE/]');
+			ajaxChatConfig.inactiveTimeout = parseInt('[INACTIVE_TIMEOUT/]');
+			ajaxChatConfig.privateChannelDiff = parseInt('[PRIVATE_CHANNEL_DIFF/]');
+			ajaxChatConfig.privateMessageDiff = parseInt('[PRIVATE_MESSAGE_DIFF/]');
+			ajaxChatConfig.showChannelMessages = parseInt('[SHOW_CHANNEL_MESSAGES/]');
+			ajaxChatConfig.messageTextMaxLength = parseInt('[MESSAGE_TEXT_MAX_LENGTH/]');
+			ajaxChatConfig.socketServerEnabled = parseInt('[SOCKET_SERVER_ENABLED/]');
+			ajaxChatConfig.socketServerHost = decodeURIComponent('[SOCKET_SERVER_HOST/]');
+			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
+			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
+			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
+			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+		// ]]>
+	</script>
+</head>
+
+<body>
+	<div id="content">
+		<div id="headlineContainer">
+			<h1>[LANG]title[/LANG]</h1>
+		</div>
+		
+		<div id="logoutChannelContainer" style="display:none;">
+  			<div style="float:left;">
+  				<input type="[LOGOUT_BUTTON_TYPE/]" id="logoutButton" value="[LANG]logout[/LANG]" onclick="ajaxChat.logout();"/>
+  			</div>
+			<div style="display:[SWITCH_CHANNEL_BUTTON_DIV/];float:left;">
+			<label for="channelSelection">[LANG]channel[/LANG]:</label>
+			<select id="channelSelection" onchange="ajaxChat.switchChannel(this.options[this.selectedIndex].value);">[CHANNEL_OPTIONS/]</select>
+			</div>
+			<div style="display:[STYLE_OPTION_DISPLAY/];float:left;">
+				&nbsp;<label for="styleSelection">[LANG]style[/LANG]:</label>
+				<select id="styleSelection" onchange="ajaxChat.setActiveStyleSheet(ajaxChat.getSelectedStyle());">[STYLE_OPTIONS/]</select>
+			</div>
+		
+  		</div>
+	
+		
+		<div id="clockContainer" style="display:none;">
+			<div id="chronometer"></div>
+		</div>
+		<!--[if lt IE 7]>
+			<div></div>
+		<![endif]-->
+		<div id="emoticonsContainer" dir="ltr" style="display:none;" class="emoticonsContainerClass" ></div>
+		<div id="chessImg" style="display:none;">
+		  <img id="imagenTablero" src="img/ts.png" width="600" height="300" style="border:5px solid transparent;"/>
+		</div>
+		<div id="messageContainer">
+			<h1 id="mensajePrincipal">[LANG]wait[/LANG]</h1>
+		</div>
+
+			<div id="bbCodeContainer" style="display:none;">
+				<h3 id="opinion-propia" >  Valoración propia</h3> 
+				<div id='opinion_container' style="height:100%;"> 
+						
+						<div id="slider-horizontal" style="width:85%;top:-8px;float:left;left:50px;"></div>
+	             </div>
+	             <div class='' style="display:none;">
+					<p>
+					  <label for="amount">Valoración otro jugador</label>
+					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
+					</p>
+				</div>
+
+			</div>
+			
+			<div id="bbCodeContainerOponent" style="display:none;">
+				<h3 id="opinion-oponent" >  Valoración usuario </h3> 
+				<div id='opinion_container' style="height:100%;"> 
+						
+						<div id="slider-horizontal-oponent" style="width:85%;top:-8px;float:left;left:50px;"></div>
+	             </div>
+	             <div class='' style="display:none;">
+					<p>
+					  <label for="amount">Valoración otro jugador</label>
+					  <input type="text" id="amount" style="border:0; background-color:#F1F1F1; color:#f6931f; font-weight:bold;width:30px; display:block;" />
+					</p>
+				</div>
+
+			</div>
+	  	
+	  	<div id="emoticonsContainerOponent" dir="ltr" style="display:none;" class="emoticonsContainerClass" ></div>
+		</div>
+		
+</body>
+
+</html>

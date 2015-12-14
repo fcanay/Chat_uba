@@ -87,6 +87,15 @@ $config['dbTableNames']['online']		= 'ajax_chat_online';
 $config['dbTableNames']['messages']		= 'ajax_chat_messages';
 $config['dbTableNames']['bans']			= 'ajax_chat_bans';
 $config['dbTableNames']['invitations']	= 'ajax_chat_invitations';
+$config['dbTableNames']['channels']	= 'channels';
+
+$config['dbTableNames']['current_round_data']	= 'current_round_data';
+$config['dbTableNames']['opinion_changes']	= 'opinion_changes';
+$config['dbTableNames']['opinion_modification']	= 'opinion_modification';
+$config['dbTableNames']['results']	= 'results';
+$config['dbTableNames']['seen_pairs']	= 'seen_pairs';
+
+
 
 // Available languages:
 $config['langAvailable'] = array(

@@ -8,9 +8,6 @@
 
 -- Agregar q no puedan entrar hasta q se abra el experimento, y no despues de que empezo.
 
--- Conseguir imagenes mate negras y blancas. 1-0 0-1
--- Agrandar las imagenes
--- Subir barra
 -- Hacer tamanios relativos, hacer distancia entre barras constante
 -- Formulario en la pantalla final
 
@@ -63,3 +60,70 @@ Agrandar letra instrucciones
 Agregar un pantalla intermedia con "preparece para la siguiente ronda"
 Flash o algo que avise que cambia la ronda
 
+-----------------------------------------------------------
+
+Version 2:
+Agregar fichas de cada color, letras y numeros
+Agregar cajita para armar frase
+Al mandar los argumentos poner imagen al lado el nombre.
+
+
+Ágregar despues de las intrucciones un pantalla q ensenie a escribir las movidas
+Al poner ok logea pero te deja mirando las instrucciones agregando un mensaje de 'El experimento esta por comenzar'
+
+Agregar en la primera los argumentos. Intentar tabla , posible 	q se desplace adentro.
+
+
+-Ver tema usuarios simultaneos
+Cambiar tema de ingresar concurrentemente.
+
+
+Ver momento intermedio en el cambio de ronda, estan todos en un chat global.
+Cambiar el momento de cambio de ronda q entran todos al chat global.
+
+Opcion: ver los comentarios de las rondas anteriores
+
+En la de espera Mostar una pantalla como la inicial.
+Que le muestre un cartel rojo diciendo q la pantalla esta duplicada 
+Despues un cartel q te diga q en la barra pones la opinion
+Y despues otro cartel q te invite a probar
+recien ahi te logea al chat
+
+Agregar cuestionario
+
+Agregar histograma al final
+ 
+
+
+
+v3:
+Agregar la referencia q abre una pestanita con la tabla de argumentos.
+
+
+v4:
+Argumentos fijos
+Dos cajas, una para los argumentos del blanco, otra para los negros.
+dos filas de los argumentos, una para cada caja.
+En el momento de elegir las barras tambien elejimos los argumentos.
+
+
+--Cambiar texto de socex inicial, por el q mando Fede
+
+-----Hecho
+Sacar otra matriz con las misma variables, pero el valor sea la opinion q vio.
+Sacar Una matriz con ronda en una variable y usuario en la otra. Y el valor se la opinion de ese usuario en esa ronda.
+
+Que el boton de empezar aparezca al final de las instrucciones
+
+Cambiar los nombres del chat por Yo y el otro por 'usuario 4' 
+
+El reloj se vuelve grande un segundo
+
+En el end boton, volver a socex
+v3:
+Igual q v2, entrada de chat arriba, argumentos van a la entrada. ya no se escribe el nombre del argumento.
+
+v4:
+Agregar q se borren los argumentos al final del juego
+
+Agregar q se guarden los argumentos en los resultados
