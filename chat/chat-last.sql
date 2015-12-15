@@ -174,14 +174,14 @@ CREATE TABLE `opinion_modification` (
 -- Estructura de tabla para la tabla `results`
 --
 
-DROP TABLE IF EXISTS `results`;
-CREATE TABLE `results` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `exp` int(11),
-  `data` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+-- DROP TABLE IF EXISTS `results`;
+-- CREATE TABLE `results` (
+--  `id` int(11) NOT NULL AUTO_INCREMENT,
+--  `dateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--  `exp` int(11),
+--  `data` text NOT NULL,
+--  PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- --------------------------------------------------------

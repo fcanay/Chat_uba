@@ -33,7 +33,7 @@ $config['MAX_OPINION'] = 8;
 $config['dbConnection'] = array();
 
 //LOCAL
-/*
+
 // Database hostname:
 $config['dbConnection']['host'] = 'localhost';
 // Database username:
@@ -46,7 +46,7 @@ $config['dbConnection']['name'] = 'chat2';
 $config['dbConnection']['type'] = 'mysqli';
 // Database link:
 $config['dbConnection']['link'] = null;
-*/
+
 //Cloud 9
 /*
 // Database hostname:
@@ -62,7 +62,7 @@ $config['dbConnection']['type'] = null;
 // Database link:
 $config['dbConnection']['link'] = null;
 */
-
+/*
 //SOCEX
 // Database hostname:
 $config['dbConnection']['host'] = 'localhost';
@@ -76,24 +76,24 @@ $config['dbConnection']['name'] = 'balen';
 $config['dbConnection']['type'] = null;
 // Database link:
 $config['dbConnection']['link'] = null;
-
+*/
 
 $config['REDIRECT_URL'] = 'google.com';
 
 
 // Database table names:
 $config['dbTableNames'] = array();
-$config['dbTableNames']['online']		= 'ajax_chat_online';
-$config['dbTableNames']['messages']		= 'ajax_chat_messages';
-$config['dbTableNames']['bans']			= 'ajax_chat_bans';
-$config['dbTableNames']['invitations']	= 'ajax_chat_invitations';
-$config['dbTableNames']['channels']	= 'channels';
+$config['dbTableNames']['online']		= 'ajax_chat_online2';
+$config['dbTableNames']['messages']		= 'ajax_chat_messages2';
+$config['dbTableNames']['bans']			= 'ajax_chat_bans2';
+$config['dbTableNames']['invitations']	= 'ajax_chat_invitations2';
+$config['dbTableNames']['channels']	= 'channels2';
 
-$config['dbTableNames']['current_round_data']	= 'current_round_data';
-$config['dbTableNames']['opinion_changes']	= 'opinion_changes';
-$config['dbTableNames']['opinion_modification']	= 'opinion_modification';
+$config['dbTableNames']['current_round_data']	= 'current_round_data2';
+$config['dbTableNames']['opinion_changes']	= 'opinion_changes2';
+$config['dbTableNames']['opinion_modification']	= 'opinion_modification2';
 $config['dbTableNames']['results']	= 'results';
-$config['dbTableNames']['seen_pairs']	= 'seen_pairs';
+$config['dbTableNames']['seen_pairs']	= 'seen_pairs2';
 
 
 
