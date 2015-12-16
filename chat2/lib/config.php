@@ -41,7 +41,7 @@ $config['dbConnection']['user'] = 'root';
 // Database password:
 $config['dbConnection']['pass'] = 'patton55';
 // Database name:
-$config['dbConnection']['name'] = 'chat2';
+$config['dbConnection']['name'] = 'chat';
 // Database type:
 $config['dbConnection']['type'] = 'mysqli';
 // Database link:

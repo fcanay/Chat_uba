@@ -138,8 +138,6 @@ Argumentos:
 -Agregar para poner una movida como argumento, desplegable de fiche, letra, numero, color como un argumento mas
 -Pasar max Arguments a config
 
--cambiar instrucciones
-	sacar primer frase
 
 
 
@@ -159,3 +157,5 @@ Argumentos:
 -Maxima cantidad de argumentos 6 
 -poner numero a los argumentos
 -Cambiar por nueva version de argumentos
+
+-cambiar instrucciones

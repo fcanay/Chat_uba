@@ -182,7 +182,7 @@ CREATE TABLE `actual_arguments3` (
   `value` int(11) NOT NULL,
   `color` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT uc_Argument UNIQUE (userID,value)
+  CONSTRAINT uc_Argument UNIQUE (userID,value,color)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 DROP TABLE IF EXISTS `arguments3`;
@@ -193,7 +193,7 @@ CREATE TABLE `arguments3` (
   `color` int(11) NOT NULL,
   `ronda` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT uc_Argument UNIQUE (userID,value,ronda)
+  CONSTRAINT uc_Argument UNIQUE (userID,value,color,ronda)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------

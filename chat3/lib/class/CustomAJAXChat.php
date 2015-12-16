@@ -572,6 +572,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 
 	function addArgument($argument,$color){
+
 		$query = "INSERT INTO ".$this->getDataBaseTable('actual_arguments')." (`userID` ,`value`,`color`) VALUES (";
 		$query .= $this->getUserID().", ". $argument.",".$color.");";
 		$result = $this->db->query($query);
@@ -725,7 +726,7 @@ class CustomAJAXChat extends AJAXChat {
 				return true;
 
 			case '/remove_argument':
-				$this->removeArgument($textParts[1],$textParts[1]);
+				$this->removeArgument($textParts[1],$textParts[2]);
 				return true;
 
 			case '/restart_clock':

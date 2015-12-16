@@ -385,16 +385,16 @@ var ajaxChat = {
 		for(var i=0; i<this.emoticonNames.length; i++) {
 			// Replace specials characters in emoticon codes:
 			if(i==0){
-				this.DOMbuffer = this.DOMbuffer + '<h5 style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Estaticos: </h5>'
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Estaticos: </h5>'
 			}
 			if(i==3){
-				this.DOMbuffer = this.DOMbuffer + '<h5 style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Dinamicos: </h5>'
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Dinamicos: </h5>'
 			}
 			if(i==6){
-				this.DOMbuffer = this.DOMbuffer + '<h5 style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Espaciales: </h5>'
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Espaciales: </h5>'
 			}
 			if(i==13){
-				this.DOMbuffer = this.DOMbuffer + '<h5 style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Estructura de Peones y Piezas: </h5>'
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Estructura de Peones y Piezas: </h5>'
 			}
 			this.emoticonCodes[i] = this.encodeSpecialChars(this.emoticonCodes[i]);
 			this.DOMbuffer = this.DOMbuffer

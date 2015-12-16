@@ -44,4 +44,11 @@ p {
 	position:absolute;
 	top:84%;
 	left: 5%;
+	width:75%;
+}
+
+#content #ArgumentContainerOponent{
+	position:absolute;
+	top:92%;
+	left: 5%;
 }

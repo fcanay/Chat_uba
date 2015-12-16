@@ -85,6 +85,8 @@ ajaxChat.opinionInicial = function(){
 ajaxChat.ronda = function(oponent,opinion,argumentos){
 	console.log("ronda");
 	this.cambioDeRonda(oponent);
+	console.log("ronda2");
+
 	setTimeout(function(){ajaxChat.displayRonda(oponent,opinion,argumentos)},5000);
 	console.log('argumentos');
 	console.log(argumentos);
@@ -105,9 +107,12 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 	console.log("displayRonda");
 
 	document.getElementById('emoticonsContainer').style.display = "block";
-	document.getElementById('emoticonsContainer').style.top = "69%";
+	document.getElementById('emoticonsContainer').style.top = "17%";
 
-	document.getElementById('emoticonsContainerOponent').style.display = "block";
+	document.getElementById('ArgumentContainer').style.display = "block";
+	document.getElementById('ArgumentContainer').style.top = "69%";
+
+	document.getElementById('ArgumentContainerOponent').style.display = "block";
 	
 	document.getElementById('imagenTablero').width = 600;
 	document.getElementById('imagenTablero').height = 300;
@@ -130,13 +135,10 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 	document.getElementById('clockContainer').style.display = "block";
 	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.roundDos) + " " + oponent + " " + ajaxChat.lang.changeOpinion;
+	for (var i = argumentos.length - 1; i >= 0; i--) {
+		this.display_oponent_argument(argumentos[i][0],argumentos[i][1]);
+	};
 
-	for(var i=0; i<this.emoticonCodes.length; i++) {
-		document.getElementById('OpArg'+i).style.border= "";
-	}
-	for(var i=0; i<argumentos.length; i++) {
-		document.getElementById('OpArg'+argumentos[i]).style.border= "2px solid #0c95d9";
-	}
 	//setTimeout(function(){ajaxChat.displayImage(oponent)},5000);
 }
 
@@ -146,8 +148,10 @@ ajaxChat.cambioDeRonda = function(oponent){
 	document.getElementById('bbCodeContainer').style.display = "none";
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
 	document.getElementById('emoticonsContainer').style.display = "none";
-	document.getElementById('emoticonsContainerOponent').style.display = "none";
+	document.getElementById('ArgumentContainer').style.display = "none";
+	document.getElementById('ArgumentContainerOponent').style.display = "none";
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
+	this.undisplay_oponent_argument();
 }
 
 ajaxChat.displayImage = function(oponent){
@@ -261,7 +265,7 @@ ajaxChat.argumentCliked = function(argument,color){
 ajaxChat.display_argument = function(argument,color){
 	//var para = document.createElement("p");
 	//para.setAttribute("style","border:1px solid grey");
-	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color));
+	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
 	//para.appendChild(t);
 	img = document.createElement("img");
 	img.setAttribute("src","./img/delete.png");
@@ -302,13 +306,27 @@ ajaxChat.undisplay_argument = function(argument,color){
 	
 }
 
+ajaxChat.display_oponent_argument = function(argument,color){
+	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
+	document.getElementById("ArgumentContainerOponentP").appendChild(t);
+}
+
+ajaxChat.undisplay_oponent_argument = function(){
+	var myNode = document.getElementById("ArgumentContainerOponentP");
+	while (myNode.firstChild) {
+	    myNode.removeChild(myNode.firstChild);
+	}
+}
+
 ajaxChat.build_array = function(array){
 	res = array.split(";");
 	for (i = 0; i < res.length; i++) {
 		console.log(i);
 		console.log(res[i]);
+		res[i] = res[i].split('|');
 
-    	res[i] = parseInt(res[i]);
+    	res[i][0] = parseInt(res[i][0]);
+    	res[i][1] = parseInt(res[i][1]);
 	}
 	console.log(res);
 	return res;
