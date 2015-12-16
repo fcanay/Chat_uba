@@ -184,9 +184,9 @@ a.ui-slider-handle
 {
 	position:absolute;
 	top: 55%;
-    left: 50%;
-    transform:translate(-50%, -50%);
-    -webkit-transform:translate(-50%, -50%);
+    left: 8%;
+    transform:translate(-10%, -50%);
+    -webkit-transform:translate(-10%, -50%);
 
 }
 
