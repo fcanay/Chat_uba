@@ -196,6 +196,30 @@ CREATE TABLE `arguments3` (
   CONSTRAINT uc_Argument UNIQUE (userID,value,color,ronda)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
+
+DROP TABLE IF EXISTS `actual_movidas3`;
+CREATE TABLE `actual_movidas3` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `pieza` varchar(4) NOT NULL,
+  `columna` varchar(4) NOT NULL,
+  `fila` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+
+DROP TABLE IF EXISTS `movidas3`;
+CREATE TABLE `movidas3` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `pieza` varchar(4) NOT NULL,
+  `columna` varchar(4) NOT NULL,
+  `fila` int(11) NOT NULL,
+  `ronda` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila,ronda)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+
 -- --------------------------------------------------------
 
 --

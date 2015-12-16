@@ -94,6 +94,7 @@ var ajaxChat = {
 	stateFunction: null,
 	state: null,
 	argumentos: null,
+	movidas: null,
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
 		this.httpRequest		= {};
@@ -155,6 +156,7 @@ var ajaxChat = {
 		this.stateTime 				= config['stateTime'];
 		this.state 					= 0;
 		this.argumentos				= {};
+		this.movidas				= {};
 		this.maxArguments			= 6
 		/*if (typeof config['lastID'] !== 'undefined'){
 			this.lastID 			= config['lastID'];

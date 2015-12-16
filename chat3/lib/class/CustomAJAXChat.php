@@ -47,8 +47,12 @@ class CustomAJAXChat extends AJAXChat {
 					$oponent = $this->getOponent();
 					$res .= ','.$oponent.','.$this->getOponentOpinion($oponent).',';
 					$opArg = $this->getOponentArguments($oponent);
+					$opMov = $this->getOponentMovidas($oponent);
 					foreach ($opArg as $value) {
 						$res .= $value[0].'|'.$value[1] . ';';
+					}
+					foreach ($opMov as $value) {
+						$res .= $value[0].'|'.$value[1]."|".$value[2] . ';';
 					}
 					$res = rtrim($res, ";");
 					//$res .= '';
@@ -554,6 +558,23 @@ class CustomAJAXChat extends AJAXChat {
 		}
 		return $res;
 	}
+
+	function getOponentMovidas($opponent){
+		$query = 'SELECT pieza,columna,fila FROM '.$this->getDataBaseTable('actual_movidas').' WHERE userID = ';
+		$query .= $opponent. ';';
+		$result = $this->db->query($query);
+		//return $query;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+		$res = array();
+		while($row = $result->fetch()) {
+			array_push($res, array($row['pieza'],$row['columna'],$row['fila']));
+		}
+		return $res;
+	}
+
 	
 	function getArguments(){
 		$query = 'SELECT value,color FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
@@ -588,13 +609,33 @@ class CustomAJAXChat extends AJAXChat {
 		return $result;
 	}
 
-	function saveRoundArguments(){
-		return;
-		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,color,ronda) SELECT userID,value,color,";
-		$query .= $argument. "FROM ".$this->getDataBaseTable('actual_arguments');
+	function addMovida($pieza,$col,$fila){
+		$query = "INSERT INTO ".$this->getDataBaseTable('actual_movidas')." (`userID`,`pieza`,`columna`,`fila`) VALUES (";
+		$query .= $this->getUserID().", ". $pieza.",".$col.",".$fila.");";
 		$result = $this->db->query($query);
 		
 		return $result;
+	}
+
+	function removeMovida($pieza,$col,$fila){
+		$query = "DELETE FROM ".$this->getDataBaseTable('actual_movidas')." WHERE userID = ";
+		$query .= $this->getUserID()." AND pieza = ". $pieza." AND columna = ".$col." AND fila = ".$fila.";";
+		$result = $this->db->query($query);
+		
+		return $result;
+	}
+
+	function saveRoundArgumentsAndMovidas(){
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$ronda = count($pairCombinator->getPlayedRounds());
+		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,color,ronda) SELECT userID,value,color,".$ronda;
+		$query .= " FROM ".$this->getDataBaseTable('actual_arguments').";";
+		$result = $this->db->query($query);
+
+		$query = "INSERT INTO ".$this->getDataBaseTable('movidas')." (userID,pieza,col,fila,ronda) SELECT userID,pieza,col,fila,".$ronda;
+		$query .= " FROM ".$this->getDataBaseTable('actual_movidas').";";
+		$result = $this->db->query($query);
+		
 
 	}
 
@@ -669,7 +710,7 @@ class CustomAJAXChat extends AJAXChat {
 		{
 			case '/round':
 				$this->saveOpinions();
-				$this->saveRoundArguments();
+				$this->saveRoundArgumentsAndMovidas();
 				$currentRound = $this->launchNewRound($textParts);
 				if($currentRound !== false)
 				{
@@ -727,6 +768,14 @@ class CustomAJAXChat extends AJAXChat {
 
 			case '/remove_argument':
 				$this->removeArgument($textParts[1],$textParts[2]);
+				return true;
+
+			case '/add_movida':
+				$this->addMovida($textParts[1],$textParts[2],$textParts[3]);
+				return true;
+
+			case '/remove_movida':
+				$this->removeMovida($textParts[1],$textParts[2],$textParts[3]);
 				return true;
 
 			case '/restart_clock':

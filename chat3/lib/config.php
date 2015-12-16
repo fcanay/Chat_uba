@@ -96,6 +96,8 @@ $config['dbTableNames']['results']	= 'results';
 $config['dbTableNames']['seen_pairs']	= 'seen_pairs3';
 $config['dbTableNames']['actual_arguments']	= 'actual_arguments3';
 $config['dbTableNames']['arguments']	= 'arguments3';
+$config['dbTableNames']['actual_movidas']	= 'actual_movidas3';
+$config['dbTableNames']['movidas']	= 'movidas3';
 
 // Available languages:
 $config['langAvailable'] = array(

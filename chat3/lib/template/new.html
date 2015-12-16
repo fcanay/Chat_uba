@@ -191,6 +191,42 @@
 		<div id="messageContainer">
 			<h1 id="mensajePrincipal">[LANG]wait[/LANG]</h1>
 		</div>
+		<div id="movida" style="display:none;">
+			<P>Seleccione su movida</P> <br /><br />
+			<select id="pieza">
+				<option value="P">Peon</option>
+  				<option value="C">Caballo</option>
+  				<option value="A">Alfil</option>
+ 				<option value="T">Torre</option>
+ 				<option value="D">Dame</option>
+ 				<option value="R">Rey</option>
+			</select>
+
+			<select id="columna">
+				<option value="A">A</option>
+  				<option value="B">B</option>
+  				<option value="C">C</option>
+ 				<option value="D">D</option>
+ 				<option value="E">E</option>
+ 				<option value="F">F</option>
+ 				<option value="G">G</option>
+ 				<option value="H">H</option>
+			</select>
+
+			<select id="fila">
+				<option value="1">1</option>
+  				<option value="2">2</option>
+  				<option value="3">3</option>
+ 				<option value="4">4</option>
+ 				<option value="5">5</option>
+ 				<option value="6">6</option>
+ 				<option value="7">7</option>
+ 				<option value="8">8</option>
+			</select>
+			<br /><br />
+			 <button type="button" onclick="ajaxChat.agregar_movida();">Agregar Movida</button> 
+
+		</div>
 	  	<div id="ArgumentContainer" dir="ltr" style="display:block;" ><p id="ArgumentContainerP"></p></div>
 
 			<div id="bbCodeContainer" style="display:none;">

@@ -52,3 +52,9 @@ p {
 	top:92%;
 	left: 5%;
 }
+
+#content #movida{
+	position:absolute;
+	top:25%;
+	left: 60%;
+}
