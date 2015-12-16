@@ -9,7 +9,8 @@
 
 
 #content #emoticonsContainer {
-	top:79%;
+	top:25%;
+	left:80%;
 }
 
 #content #emoticonsContainerOponent {
@@ -28,4 +29,19 @@
 	position:absolute;
 	left:37%;
 	top:72%;
+}
+
+p {
+    display: block;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0;
+    margin-right: 0;
+} 
+
+
+#content #ArgumentContainer{
+	position:absolute;
+	top:84%;
+	left: 5%;
 }

@@ -240,22 +240,66 @@ ajaxChat.getChatName = function(userID){
 }
 
 ajaxChat.argumentCliked = function(argument,color){
-	var index = this.argumentos.indexOf(argument);
-	if(index == -1 ){ //Arguments is cliked
-		ajaxChat.sendMessage("/add_argument "+ argument);
-		this.argumentos.push(argument);
-		document.getElementById('Arg'+argument).style.border= "2px solid #0c95d9";
+	if(this.argumentos[[argument,color]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
+		ajaxChat.sendMessage("/add_argument "+ argument+" "+color);
+		this.argumentos[[argument,color]] = 0;
+		this.display_argument(argument,color);
 
 		//agregar a la lista
 		//display argument
 	}
+/*
 	else{
-		ajaxChat.sendMessage("/remove_argument "+argument);
-		this.argumentos.splice(index, 1);
-		document.getElementById('Arg'+argument).style.border= "";
+		ajaxChat.sendMessage("/remove_argument "+argument+" "+color);
+		delete this.argumentos[[argument,color]];
+		this.display_argument(argument,color);
 		//sacar de la lista
 		//undisplay argument
+	}*/
+}
+
+ajaxChat.display_argument = function(argument,color){
+	//var para = document.createElement("p");
+	//para.setAttribute("style","border:1px solid grey");
+	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color));
+	//para.appendChild(t);
+	img = document.createElement("img");
+	img.setAttribute("src","./img/delete.png");
+	a = document.createElement("a");
+	a.setAttribute("href","javascript:ajaxChat.remove_argument("+argument+","+color+");");
+	a.appendChild(img);
+	//para.appendChild(a);
+	document.getElementById("ArgumentContainerP").appendChild(t);
+	document.getElementById("ArgumentContainerP").appendChild(a);
+
+}
+ajaxChat.remove_argument= function(argument,color){
+	ajaxChat.sendMessage("/remove_argument "+argument+" "+color);
+	delete this.argumentos[[argument,color]];
+	this.undisplay_argument(argument,color);
+}
+
+
+ajaxChat.color_to_name = function(color){
+	if(color == 0){
+		return "Blanco";
 	}
+	if (color == 1){
+		return "Negro";
+	}
+}
+
+ajaxChat.undisplay_argument = function(argument,color){
+	arg = document.getElementById("ArgumentContainerP");
+	for (i = 1; i < arg.childNodes.length; i+=2) {
+		n = arg.childNodes[i].getAttribute("href");
+		if(n.search(argument+","+color) != -1){
+			arg.removeChild(arg.childNodes[i]);
+			arg.removeChild(arg.childNodes[i-1]);
+			break;
+		}
+	}
+	
 }
 
 ajaxChat.build_array = function(array){

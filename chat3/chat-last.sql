@@ -180,6 +180,7 @@ CREATE TABLE `actual_arguments3` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `value` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT uc_Argument UNIQUE (userID,value)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
@@ -189,6 +190,7 @@ CREATE TABLE `arguments3` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `value` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
   `ronda` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT uc_Argument UNIQUE (userID,value,ronda)

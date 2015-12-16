@@ -16,9 +16,9 @@ var ajaxChatLang = {
 
 	initialQuestion: 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.',
 	round: 'Usted va a ver la valoración del usuario ',
-        roundDos: 'Usted esta viendo la valoración del usuario ',
+   	roundDos: 'Usted esta viendo la valoración del usuario ',
 	changeOpinion: 'Si desea puede actualizar su posición',
-
+	argumentTitle: 'Argumentos:',
 
 	login: '%s logs into the Chat.',
 	logout: '%s logs out of the Chat.',

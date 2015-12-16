@@ -48,7 +48,7 @@ class CustomAJAXChat extends AJAXChat {
 					$res .= ','.$oponent.','.$this->getOponentOpinion($oponent).',';
 					$opArg = $this->getOponentArguments($oponent);
 					foreach ($opArg as $value) {
-						$res .= $value . ';';
+						$res .= $value[0].'|'.$value[1] . ';';
 					}
 					$res = rtrim($res, ";");
 					//$res .= '';
@@ -540,7 +540,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 
 	function getOponentArguments($opponent){
-		$query = 'SELECT value FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
+		$query = 'SELECT value,color FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
 		$query .= $opponent. ';';
 		$result = $this->db->query($query);
 		//return $query;
@@ -550,13 +550,13 @@ class CustomAJAXChat extends AJAXChat {
 		}
 		$res = array();
 		while($row = $result->fetch()) {
-			array_push($res, $row['value']);
+			array_push($res, array($row['value'],$row['color']));
 		}
 		return $res;
 	}
 	
 	function getArguments(){
-		$query = 'SELECT value FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
+		$query = 'SELECT value,color FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
 		$query .= $this->db->makeSafe($this->getUserID()). ';';
 		$result = $this->db->query($query);
 		//return $query;
@@ -571,17 +571,17 @@ class CustomAJAXChat extends AJAXChat {
 		return $res;
 	}
 
-	function addArgument($argument){
-		$query = "INSERT INTO ".$this->getDataBaseTable('actual_arguments')." (`userID` ,`value`) VALUES ('";
-		$query .= $this->getUserID()."', '". $argument."');";
+	function addArgument($argument,$color){
+		$query = "INSERT INTO ".$this->getDataBaseTable('actual_arguments')." (`userID` ,`value`,`color`) VALUES (";
+		$query .= $this->getUserID().", ". $argument.",".$color.");";
 		$result = $this->db->query($query);
 		
 		return $result;
 	}
 
-	function removeArgument($argument){
+	function removeArgument($argument,$color){
 		$query = "DELETE FROM ".$this->getDataBaseTable('actual_arguments')." WHERE userID = ";
-		$query .= $this->getUserID()." AND value = ". $argument.";";
+		$query .= $this->getUserID()." AND value = ". $argument." AND color = ".$color.";";
 		$result = $this->db->query($query);
 		
 		return $result;
@@ -589,7 +589,7 @@ class CustomAJAXChat extends AJAXChat {
 
 	function saveRoundArguments(){
 		return;
-		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,ronda) SELECT userID,value,";
+		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,color,ronda) SELECT userID,value,color,";
 		$query .= $argument. "FROM ".$this->getDataBaseTable('actual_arguments');
 		$result = $this->db->query($query);
 		
@@ -721,11 +721,11 @@ class CustomAJAXChat extends AJAXChat {
 				return true;
 
 			case '/add_argument':
-				$this->addArgument($textParts[1]);
+				$this->addArgument($textParts[1],$textParts[2]);
 				return true;
 
 			case '/remove_argument':
-				$this->removeArgument($textParts[1]);
+				$this->removeArgument($textParts[1],$textParts[1]);
 				return true;
 
 			case '/restart_clock':

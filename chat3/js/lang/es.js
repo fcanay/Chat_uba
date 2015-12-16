@@ -18,7 +18,7 @@ var ajaxChatLang = {
 	round: 'Usted va a ver la valoración del usuario ',
 	roundDos: 'Usted esta viendo la valoración del usuario',
 	changeOpinion: 'Si desea puede actualizar su posición',
-
+	argumentTitle: 'Argumentos:',
 
 	login: '%s entra al Chat.',
 	logout: '%s sale del Chat.',

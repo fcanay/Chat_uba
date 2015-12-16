@@ -127,3 +127,35 @@ v4:
 Agregar q se borren los argumentos al final del juego
 
 Agregar q se guarden los argumentos en los resultados
+
+
+----------------------------
+
+Documento
+
+Argumentos:
+
+-Agregar para poner una movida como argumento, desplegable de fiche, letra, numero, color como un argumento mas
+-Pasar max Arguments a config
+
+-cambiar instrucciones
+	sacar primer frase
+
+
+
+Histograma solo con 3 posibilidades, negra , tablas, blanca
+	-Despues de cierto tiempo se los pasa a la encuesta
+	
+-Agregar una pantalla dummy igual a la de valoracion pero q no guarde info con el tablero sin arrancar
+	-frase: ""
+	-tiempo : 2 min
+
+Hecho:
+Argumentos:
+-Agregar Titulo: 
+-Agregar clases
+-Separar blanco y negro
+-Q sean botones
+-Maxima cantidad de argumentos 6 
+-poner numero a los argumentos
+-Cambiar por nueva version de argumentos
