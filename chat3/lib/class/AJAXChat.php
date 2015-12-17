@@ -367,8 +367,8 @@ class AJAXChat {
 			case 'logs':
 				return AJAX_CHAT_PATH.'lib/template/logs.html';
 			default:
-				if($pass)
-					return AJAX_CHAT_PATH.'lib/template/loggedOutPass.html';
+				if($this->_html == "demo")
+					return AJAX_CHAT_PATH.'lib/template/demo.html';
 				else
 					return AJAX_CHAT_PATH.'lib/template/loggedOut.html';
 		}

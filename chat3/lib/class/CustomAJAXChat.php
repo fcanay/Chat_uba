@@ -597,32 +597,40 @@ class CustomAJAXChat extends AJAXChat {
 		$query = "INSERT INTO ".$this->getDataBaseTable('actual_arguments')." (`userID` ,`value`,`color`) VALUES (";
 		$query .= $this->getUserID().", ". $argument.",".$color.");";
 		$result = $this->db->query($query);
-		
-		return $result;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 	}
 
 	function removeArgument($argument,$color){
 		$query = "DELETE FROM ".$this->getDataBaseTable('actual_arguments')." WHERE userID = ";
 		$query .= $this->getUserID()." AND value = ". $argument." AND color = ".$color.";";
 		$result = $this->db->query($query);
-		
-		return $result;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 	}
 
 	function addMovida($pieza,$col,$fila){
 		$query = "INSERT INTO ".$this->getDataBaseTable('actual_movidas')." (`userID`,`pieza`,`columna`,`fila`) VALUES (";
 		$query .= $this->getUserID().", ". $pieza.",".$col.",".$fila.");";
 		$result = $this->db->query($query);
-		
-		return $result;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 	}
 
 	function removeMovida($pieza,$col,$fila){
 		$query = "DELETE FROM ".$this->getDataBaseTable('actual_movidas')." WHERE userID = ";
 		$query .= $this->getUserID()." AND pieza = ". $pieza." AND columna = ".$col." AND fila = ".$fila.";";
 		$result = $this->db->query($query);
-		
-		return $result;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 	}
 
 	function saveRoundArgumentsAndMovidas(){
@@ -631,12 +639,20 @@ class CustomAJAXChat extends AJAXChat {
 		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,color,ronda) SELECT userID,value,color,".$ronda;
 		$query .= " FROM ".$this->getDataBaseTable('actual_arguments').";";
 		$result = $this->db->query($query);
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 
-		$query = "INSERT INTO ".$this->getDataBaseTable('movidas')." (userID,pieza,col,fila,ronda) SELECT userID,pieza,col,fila,".$ronda;
+		$query = "INSERT INTO ".$this->getDataBaseTable('movidas')." (userID,pieza,columna,fila,ronda) SELECT userID,pieza,columna,fila,".$ronda;
 		$query .= " FROM ".$this->getDataBaseTable('actual_movidas').";";
 		$result = $this->db->query($query);
 		
 
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
 	}
 
 	function getLastID(){

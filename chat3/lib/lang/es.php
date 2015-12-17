@@ -11,6 +11,7 @@
 $lang = array();
 //$lang['askInitialOpinionMessage'] = "Se ha habilitado la barra de opinión. Tienen 1 minuto para marcar cuán de acuerdo o en desacuerdo se sienten con respecto a la propuesta.";
 $lang['askInitialOpinionMessage'] = 'Opinión inicial';
+$lang['fraseDemo'] = 'En esta pantalla usted tiene a disposición el tabler, la barra de valoración y una lista de argumentos que puede usar para justificar su valoración para que usted se familirice con la misma. Además de estos argumentos, usted podrá usar como argumento una movida de piezas.';
 $lang["initGameOkGeneralMessage"] = "¡Bienvenidos al experimento! En unos momentos les pediremos que nos den su opinión inicial sobre la posición expresada en la pantalla. Luego lanzaremos diferentes rondas de chats tras la cuales podrán modificar, o no, su posición original. ";
 $lang["lastRoundEndedMessage"] = "Las rondas de chat terminaron. En breve serán redirigidos a la pantalla de finalización. Por favor, aguarden.";
 $lang["closePhaseMessage"] = " La Ronda está terminando. Tienen 1 minuto para modificar o re-afirmar sus opiniones. ";
