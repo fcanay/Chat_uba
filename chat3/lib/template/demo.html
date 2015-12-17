@@ -10,7 +10,12 @@
 			padding:0;
 			margin:0;
 		}
-
+		h5 {
+			margin:0;
+			-webkit-margin-after:0;
+			-webkit-margin-before:0;
+			-webkit-margin-before:0;
+		}
 
 	</style>
 
@@ -192,8 +197,11 @@
 		<div id="chessImg" style="display:block;">
 		  <img id="imagenTablero" src="img/inicial.png" width="720" height="360" style="border:5px solid transparent;"/>
 		</div>
-		<div id="messageContainer">
-			<h1 id="mensajePrincipal">[LANG]fraseDemo[/LANG]</h1>
+		<div id="messageContainer" style="top:7%;text-align:left;left:5%;width:90%">
+			<h5 id="mensajePrincipal">[LANG]fraseDemo1[/LANG]</h5>
+			<h5 style="margin-top: 0em;margin-bottom: 0em;">[LANG]fraseDemo2[/LANG]</h5>
+			<h5 style="margin-top: 0em;margin-bottom: 0em;">[LANG]fraseDemo3[/LANG]</h5>
+			<h5 style="margin-top: 0em;margin-bottom: 0em;">[LANG]fraseDemo4[/LANG]</h5>
 		</div>
 		<div id="movida" style="display:block;">
 			<P>Seleccione su movida</P> <br /><br />
@@ -202,7 +210,7 @@
   				<option value="C">Caballo</option>
   				<option value="A">Alfil</option>
  				<option value="T">Torre</option>
- 				<option value="D">Dame</option>
+ 				<option value="D">Dama</option>
  				<option value="R">Rey</option>
 			</select>
 
