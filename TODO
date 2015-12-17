@@ -144,9 +144,6 @@ Argumentos:
 Histograma solo con 3 posibilidades, negra , tablas, blanca
 	-Despues de cierto tiempo se los pasa a la encuesta
 	
--Agregar una pantalla dummy igual a la de valoracion pero q no guarde info con el tablero sin arrancar
-	-frase: ""
-	-tiempo : 2 min
 
 Hecho:
 Argumentos:
@@ -159,3 +156,29 @@ Argumentos:
 -Cambiar por nueva version de argumentos
 
 -cambiar instrucciones
+
+-Agregar una pantalla dummy igual a la de valoracion pero q no guarde info con el tablero sin arrancar
+	-frase: ""
+	-tiempo : 2 min
+
+---------------------------------
+
+-q titile la barra
+-Borde a cada argumento
+-Agregar color a movida
+
+Documento
+
+-Problema logueo concurrente
+
+-Histograma
+
+-Encuesta (antes del histograma)
+
+-Agregar demo a versiones 1 y 2
+
+-Problema v3 no guarda argumentos ni movidas
+
+-Cambiar display de fichas para mostrar nombre completo
+
+-Mostrar historia de los argumentos del jugador
