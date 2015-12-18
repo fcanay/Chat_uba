@@ -32,10 +32,6 @@ ajaxChat.chronometer = function (i)
     if(i == 10 && this.state > 0){
 		document.getElementById('imagenTablero').style.animation= "blink .5s step-end infinite alternate";
     }
-    console.log(document);
-    console.log(document.getElementById('chronometer'));
-    console.log($('#chronometer'));
-    console.log($('#chronometer')[0]);
 	document.getElementById('chronometer').innerHTML = "<h4>"+this.checkTime(mins)+":"+this.checkTime(secs)+"</h4>";
 	document.getElementById('chronometer').style.color = "black" ;
 
@@ -89,13 +85,9 @@ ajaxChat.opinionInicial = function(){
 }
 
 ajaxChat.ronda = function(oponent,opinion,argumentos){
-	console.log("ronda");
 	this.cambioDeRonda(oponent);
-	console.log("ronda2");
 
 	setTimeout(function(){ajaxChat.displayRonda(oponent,opinion,argumentos)},5000);
-	console.log('argumentos');
-	console.log(argumentos);
 	
 
 
@@ -110,7 +102,6 @@ ajaxChat.ronda = function(oponent,opinion,argumentos){
 ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 	//document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 
-	console.log("displayRonda");
 
 	document.getElementById('emoticonsContainer').style.display = "block";
 	document.getElementById('emoticonsContainer').style.top = "17%";
@@ -160,7 +151,6 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 }
 
 ajaxChat.cambioDeRonda = function(oponent){
-	console.log("cambioDeRonda");
 	document.getElementById('chessImg').style.display = "none";
 	document.getElementById('bbCodeContainer').style.display = "none";
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
@@ -277,10 +267,6 @@ ajaxChat.agregar_movida = function(){
 	fila = document.getElementById('fila').options[document.getElementById('fila').selectedIndex].value;
 
 
-	console.log("Intentando Agregar Movida");
-	console.log(pieza);
-	console.log(col);
-	console.log(fila);
 
 	if(this.argumentos[[pieza,col,fila]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
 		//console.log("/add_movida '"+ pieza+"' '"+col+"' "+fila);
@@ -292,35 +278,37 @@ ajaxChat.agregar_movida = function(){
 }
 
 ajaxChat.display_movida = function(pieza,col,fila){
-	//var para = document.createElement("p");
-	//para.setAttribute("style","border:1px solid grey");
-	var t = document.createTextNode("  "+pieza+" "+col+fila+"  ");
-	//para.appendChild(t);
+	var para = document.createElement("p");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  ");
+	para.appendChild(t);
 	img = document.createElement("img");
 	img.setAttribute("src","./img/delete.png");
 	a = document.createElement("a");
 	a.setAttribute("href","javascript:ajaxChat.remove_movida('"+pieza+"','"+col+"',"+fila+");");
 	a.appendChild(img);
-	//para.appendChild(a);
-	document.getElementById("ArgumentContainerP").appendChild(t);
-	document.getElementById("ArgumentContainerP").appendChild(a);
+	para.appendChild(a);
+	document.getElementById("ArgumentContainerP").appendChild(para);
+	/*document.getElementById("ArgumentContainerP").appendChild(t);
+	document.getElementById("ArgumentContainerP").appendChild(a);*/
 
 }
 
 
 ajaxChat.display_argument = function(argument,color){
-	//var para = document.createElement("p");
-	//para.setAttribute("style","border:1px solid grey");
+	var para = document.createElement("p");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
 	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
-	//para.appendChild(t);
+	para.appendChild(t);
 	img = document.createElement("img");
 	img.setAttribute("src","./img/delete.png");
 	a = document.createElement("a");
 	a.setAttribute("href","javascript:ajaxChat.remove_argument("+argument+","+color+");");
 	a.appendChild(img);
-	//para.appendChild(a);
-	document.getElementById("ArgumentContainerP").appendChild(t);
-	document.getElementById("ArgumentContainerP").appendChild(a);
+	para.appendChild(a);
+	document.getElementById("ArgumentContainerP").appendChild(para);
+	/*document.getElementById("ArgumentContainerP").appendChild(t);
+	document.getElementById("ArgumentContainerP").appendChild(a);*/
 
 }
 ajaxChat.remove_argument= function(argument,color){
@@ -346,11 +334,10 @@ ajaxChat.color_to_name = function(color){
 
 ajaxChat.undisplay_argument = function(argument,color){
 	arg = document.getElementById("ArgumentContainerP");
-	for (i = 1; i < arg.childNodes.length; i+=2) {
-		n = arg.childNodes[i].getAttribute("href");
+	for (i = 0; i < arg.childNodes.length; i++) {
+		n = arg.childNodes[i].childNodes[1].getAttribute("href");
 		if(n.search(argument+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
-			arg.removeChild(arg.childNodes[i-1]);
 			break;
 		}
 	}	
@@ -358,11 +345,10 @@ ajaxChat.undisplay_argument = function(argument,color){
 
 ajaxChat.undisplay_movida = function(pieza,col,fila){
 	arg = document.getElementById("ArgumentContainerP");
-	for (i = 1; i < arg.childNodes.length; i+=2) {
-		n = arg.childNodes[i].getAttribute("href");
+	for (i = 0; i < arg.childNodes.length; i++) {
+		n = arg.childNodes[i].childNodes[1].getAttribute("href");
 		if(n.search(pieza+"','"+col+"',"+fila) != -1){
 			arg.removeChild(arg.childNodes[i]);
-			arg.removeChild(arg.childNodes[i-1]);
 			break;
 		}
 	}	
@@ -374,7 +360,7 @@ ajaxChat.display_oponent_argument = function(argument,color){
 }
 
 ajaxChat.display_oponent_movida = function(pieza,col,fila){
-	var t = document.createTextNode("  "+pieza+" "+col+fila+"  ");
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  ");
 	document.getElementById("ArgumentContainerOponentP").appendChild(t);
 }
 
