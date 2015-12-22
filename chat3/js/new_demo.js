@@ -337,7 +337,7 @@ ajaxChat.undisplay_argument = function(argument,color){
 	arg = document.getElementById("ArgumentContainerP");
 	for (i = 0; i < arg.childNodes.length; i++) {
 		n = arg.childNodes[i].childNodes[1].getAttribute("href");
-		if(n.search(argument+","+color) != -1){
+		if(n.search("\\("+argument+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
 			break;
 		}
@@ -348,7 +348,7 @@ ajaxChat.undisplay_movida = function(pieza,col,fila,color){
 	arg = document.getElementById("ArgumentContainerP");
 	for (i = 0; i < arg.childNodes.length; i++) {
 		n = arg.childNodes[i].childNodes[1].getAttribute("href");
-		if(n.search(pieza+"','"+col+"',"+fila+","+color) != -1){
+		if(n.search("\\("+pieza+"','"+col+"',"+fila+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
 			break;
 		}

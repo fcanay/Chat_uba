@@ -29,7 +29,7 @@
   }
 
   mysqli_close($conn); 
-  header("Location: http:/repo/chat3/end.html");
+  header("Location: http:/chat3/end.html");
   /*shell_exec("touch ./chat3/TEST");
   shell_exec("python test.py");
   $output = exec("python histograma.py hist");
