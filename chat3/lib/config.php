@@ -25,7 +25,7 @@ $config['roundTime'] = 120;
 // Tiempo de duracion de un cambio de opinion
 $config['roundTime'] = 90;
 // Tiempo de duracion de la demo
-$config['demoTime'] = 10;
+$config['demoTime'] = 120;
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;

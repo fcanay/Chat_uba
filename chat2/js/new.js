@@ -116,7 +116,7 @@ ajaxChat.displayRonda = function(oponent,opinion){
 	document.getElementById('chessImg').style.top = "45%";
 	document.getElementById('chessImg').style.left = "70%";
 
-	document.getElementById('bbCodeContainer').style.bottom = "15%";
+	document.getElementById('bbCodeContainer').style.bottom = "13%";
 	document.getElementById('bbCodeContainer').style.display = "block";
 
 	document.getElementById('bbCodeContainerOponent').style.display = "block";
