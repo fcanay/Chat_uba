@@ -42,7 +42,7 @@ p {
 
 #content #ArgumentContainer{
 	position:absolute;
-	top:84%;
+	top:77%;
 	left: 5%;
 	width:75%;
 }
@@ -57,4 +57,14 @@ p {
 	position:absolute;
 	top:25%;
 	left: 60%;
+}
+
+#content #argumentos-propios{
+	-webkit-margin-after:0;
+	-webkit-margin-before:0;;
+}
+
+#content #argumentos-oponente{
+	-webkit-margin-after:0;
+	-webkit-margin-before:0;;
 }

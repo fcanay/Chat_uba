@@ -63,16 +63,20 @@ ajaxChat.opinionInicial = function(){
 	document.getElementById('imagenTablero').height = 360;
 
 	document.getElementById('chessImg').style.display = "block";
-	document.getElementById('chessImg').style.top = "55%";
+	document.getElementById('chessImg').style.top = "50%";
+
+	document.getElementById('ArgumentContainer').style.display = "block";
 
 	document.getElementById('movida').style.display = "block";
 
 	document.getElementById('emoticonsContainer').style.display = "block";
 		
 	document.getElementById('bbCodeContainer').style.display = "block";
+	document.getElementById('bbCodeContainer').style.width = "90%";
 	document.getElementById('bbCodeContainer').style.bottom = "";
 
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
+	document.getElementById('bbCodeContainerOponent').style.width = "90%";
 
 	document.getElementById('clockContainer').style.display = "block";
 
@@ -140,15 +144,20 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 
 	//Cambiar la opinion del oponente
 	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
+	document.getElementById('argumentos-oponente').innerHTML = "Argumentos usuario " + oponent +":";
 	document.getElementById('clockContainer').style.display = "block";
 	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.roundDos) + " " + oponent + " " + ajaxChat.lang.changeOpinion;
-	for (var i = argumentos.length - 1; i >= 0; i--) {
+	for (var i = 0; i < argumentos.length ; i++) {
 		if(argumentos[i].length == 2){
 			this.display_oponent_argument(argumentos[i][0],argumentos[i][1]);
 		}
+		else if(argumentos[i].length == 4){
+			this.display_oponent_movida(argumentos[i][0],argumentos[i][1],argumentos[i][2],argumentos[i][3]);
+		}
 		else{
-			this.display_oponent_movida(argumentos[i][0],argumentos[i][1],argumentos[i][2]);
+			console.log("Argumento con cantidad incorrecta de parametros");
+			console.log(argumentos[i]);
 		}
 	};
 
@@ -210,8 +219,8 @@ ajaxChat.cambiarOpinion = function(){
 
 }
 
-ajaxChat.end = function(){
-	window.location.replace("end.html");
+ajaxChat.encuesta = function(){
+	window.location.replace("encuesta.php");
 }
 
 ajaxChat.handleStateChange = function(parts){
@@ -238,7 +247,7 @@ ajaxChat.handleStateChange = function(parts){
 			}
 			break;
 		case 3:
-			this.end();
+			this.encuesta();
 			break;
 		default:
 			console.log("WTF");
@@ -269,52 +278,51 @@ ajaxChat.agregar_movida = function(){
 	pieza = document.getElementById('pieza').options[document.getElementById('pieza').selectedIndex].value;
 	col = document.getElementById('columna').options[document.getElementById('columna').selectedIndex].value;
 	fila = document.getElementById('fila').options[document.getElementById('fila').selectedIndex].value;
+	color = document.getElementById('color').options[document.getElementById('color').selectedIndex].value;
 
 
-	console.log("Intentando Agregar Movida");
-	console.log(pieza);
-	console.log(col);
-	console.log(fila);
-
-	if(this.argumentos[[pieza,col,fila]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
-		console.log("/add_movida '"+ pieza+"' '"+col+"' "+fila);
-		ajaxChat.sendMessage("/add_movida '"+ pieza+"' '"+col+"' "+fila);
-		this.argumentos[[pieza,col,fila]] = 0;
-		this.display_movida(pieza,col,fila);
+	if(this.argumentos[[pieza,col,fila,color]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
+		console.log("/add_movida '"+pieza +"' '"+col+"' "+fila+ " "+color);
+		ajaxChat.sendMessage("/add_movida '"+ pieza+"' '"+col+"' "+fila+" "+color);
+		this.argumentos[[pieza,col,fila,color]] = 0;
+		this.display_movida(pieza,col,fila,color);
 	}
 
 }
 
-ajaxChat.display_movida = function(pieza,col,fila){
-	//var para = document.createElement("p");
-	//para.setAttribute("style","border:1px solid grey");
-	var t = document.createTextNode("  "+pieza+" "+col+fila+"  ");
-	//para.appendChild(t);
+ajaxChat.display_movida = function(pieza,col,fila,color){
+	var para = document.createElement("p");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  "+this.color_to_name(color)+" ");
+	para.appendChild(t);
 	img = document.createElement("img");
 	img.setAttribute("src","./img/delete.png");
 	a = document.createElement("a");
-	a.setAttribute("href","javascript:ajaxChat.remove_movida('"+pieza+"','"+col+"',"+fila+");");
+	a.setAttribute("href","javascript:ajaxChat.remove_movida('"+pieza+"','"+col+"',"+fila+","+color+");");
 	a.appendChild(img);
-	//para.appendChild(a);
-	document.getElementById("ArgumentContainerP").appendChild(t);
-	document.getElementById("ArgumentContainerP").appendChild(a);
+	para.appendChild(a);
+	document.getElementById("ArgumentContainerP").appendChild(para);
+	/*document.getElementById("ArgumentContainerP").appendChild(t);
+	document.getElementById("ArgumentContainerP").appendChild(a);*/
 
 }
 
 
 ajaxChat.display_argument = function(argument,color){
-	//var para = document.createElement("p");
-	//para.setAttribute("style","border:1px solid grey");
+	var para = document.createElement("div");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
 	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
-	//para.appendChild(t);
+	para.appendChild(t);
 	img = document.createElement("img");
 	img.setAttribute("src","./img/delete.png");
 	a = document.createElement("a");
 	a.setAttribute("href","javascript:ajaxChat.remove_argument("+argument+","+color+");");
 	a.appendChild(img);
-	//para.appendChild(a);
-	document.getElementById("ArgumentContainerP").appendChild(t);
-	document.getElementById("ArgumentContainerP").appendChild(a);
+	para.appendChild(a);
+	
+	document.getElementById("ArgumentContainerP").appendChild(para);
+	/*document.getElementById("ArgumentContainerP").appendChild(t);
+	document.getElementById("ArgumentContainerP").appendChild(a);*/
 
 }
 ajaxChat.remove_argument= function(argument,color){
@@ -322,10 +330,10 @@ ajaxChat.remove_argument= function(argument,color){
 	delete this.argumentos[[argument,color]];
 	this.undisplay_argument(argument,color);
 }
-ajaxChat.remove_movida= function(pieza,col,fila){
-	ajaxChat.sendMessage("/remove_movida '"+pieza+"' '"+col+"' "+fila );
-	delete this.argumentos[[pieza,col,fila]];
-	this.undisplay_movida(pieza,col,fila);
+ajaxChat.remove_movida= function(pieza,col,fila,color){
+	ajaxChat.sendMessage("/remove_movida '"+pieza+"' '"+col+"' "+fila+" "+color );
+	delete this.argumentos[[pieza,col,fila,color]];
+	this.undisplay_movida(pieza,col,fila,color);
 }
 
 
@@ -340,36 +348,45 @@ ajaxChat.color_to_name = function(color){
 
 ajaxChat.undisplay_argument = function(argument,color){
 	arg = document.getElementById("ArgumentContainerP");
-	for (i = 1; i < arg.childNodes.length; i+=2) {
-		n = arg.childNodes[i].getAttribute("href");
+	for (i = 0; i < arg.childNodes.length; i++) {
+		n = arg.childNodes[i].childNodes[1].getAttribute("href");
 		if(n.search(argument+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
-			arg.removeChild(arg.childNodes[i-1]);
 			break;
 		}
 	}	
 }
 
-ajaxChat.undisplay_movida = function(pieza,col,fila){
+ajaxChat.undisplay_movida = function(pieza,col,fila,color){
 	arg = document.getElementById("ArgumentContainerP");
-	for (i = 1; i < arg.childNodes.length; i+=2) {
-		n = arg.childNodes[i].getAttribute("href");
-		if(n.search(pieza+"','"+col+"',"+fila) != -1){
+	for (i = 0; i < arg.childNodes.length; i++) {
+		n = arg.childNodes[i].childNodes[1].getAttribute("href");
+		if(n.search(pieza+"','"+col+"',"+fila+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
-			arg.removeChild(arg.childNodes[i-1]);
 			break;
 		}
 	}	
 }
 
 ajaxChat.display_oponent_argument = function(argument,color){
+	var para = document.createElement("div");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
+	
 	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
-	document.getElementById("ArgumentContainerOponentP").appendChild(t);
+	para.appendChild(t);
+	document.getElementById("ArgumentContainerOponentP").appendChild(para);
+	//document.getElementById("ArgumentContainerOponentP").appendChild(t);
 }
 
-ajaxChat.display_oponent_movida = function(pieza,col,fila){
-	var t = document.createTextNode("  "+pieza+" "+col+fila+"  ");
-	document.getElementById("ArgumentContainerOponentP").appendChild(t);
+ajaxChat.display_oponent_movida = function(pieza,col,fila,color){
+	var para = document.createElement("div");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
+	
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+" "+this.color_to_name(color)+" ");
+	para.appendChild(t);
+
+	document.getElementById("ArgumentContainerOponentP").appendChild(para);
+	//document.getElementById("ArgumentContainerOponentP").appendChild(t);
 }
 
 ajaxChat.undisplay_oponent_argument = function(){
@@ -380,7 +397,10 @@ ajaxChat.undisplay_oponent_argument = function(){
 }
 
 ajaxChat.build_array = function(array){
+	console.log("build array");
+	console.log(array);
 	res = array.split(";");
+	console.log(res);
 	for (i = 0; i < res.length; i++) {
 		console.log(i);
 		console.log(res[i]);
@@ -389,8 +409,9 @@ ajaxChat.build_array = function(array){
 	    	res[i][0] = parseInt(res[i][0]);
 	    	res[i][1] = parseInt(res[i][1]);
 		}
-		else{
+		else if(res[i].length == 4){
 	    	res[i][2] = parseInt(res[i][2]);
+	    	res[i][3] = parseInt(res[i][3]);
 		}
 	}
 	console.log(res);

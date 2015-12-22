@@ -91,6 +91,7 @@ $config['dbTableNames']['current_round_data']	= 'current_round_data2';
 $config['dbTableNames']['opinion_changes']	= 'opinion_changes2';
 $config['dbTableNames']['opinion_modification']	= 'opinion_modification2';
 $config['dbTableNames']['results']	= 'results';
+$config['dbTableNames']['encuesta']	= 'encuesta';
 $config['dbTableNames']['seen_pairs']	= 'seen_pairs2';
 
 
@@ -143,7 +144,7 @@ $config['defaultChannelID'] = 0;
 $config['limitChannelList'] = null;
 
 // UserID plus this value are private channels (this is also the max userID and max channelID):
-$config['privateChannelDiff'] = 500000000;
+$config['privateChannelDiff'] = 1000;
 // UserID plus this value are used for private messages:
 $config['privateMessageDiff'] = 1000000000;
 
@@ -185,7 +186,7 @@ $config['guestUserPrefix'] = '(';
 // Guest users should be distinguished by either a prefix or a suffix or both (no whitespace):
 $config['guestUserSuffix'] = ')';
 // Guest userIDs may not be lower than this value (and not higher than privateChannelDiff):
-$config['minGuestUserID'] = 400000000;
+$config['minGuestUserID'] = 3;
 
 // Allow/Disallow users to change their userName (Nickname):
 $config['allowNickChange'] = false;

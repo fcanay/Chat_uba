@@ -48,6 +48,7 @@ class PairHandler
 		$obj->arguments = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('arguments'));
 		$obj->movidas = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('movidas'));
 		$this->db->query("INSERT INTO ".$this->getDataBaseTable('results')." (`data`,`exp`) VALUES('".json_encode($obj)."',3)");
+
 	}
 
 	function saveAndReset()

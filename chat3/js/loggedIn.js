@@ -25,7 +25,7 @@ ajaxChat.customOnNewMessage = function(dateObject, userID, userName, userRole, m
 
 ajaxChat.isCustomCommand = function(command)
 {
-	switch(messageText)
+	switch(command)
 	{
 		case '/close_experiment':
 		case '/close_chatbox':
@@ -34,6 +34,7 @@ ajaxChat.isCustomCommand = function(command)
 		case '/start_opinion':
 		case '/restart_clock':
 		case '/opinion':
+		case '/restart_admin':
 		 	return true;
 		break;
 		default:

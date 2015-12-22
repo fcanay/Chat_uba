@@ -163,22 +163,40 @@ Argumentos:
 
 ---------------------------------
 
--q titile la barra
--Borde a cada argumento
--Agregar color a movida
 
-Documento
+-Documento
 
--Problema logueo concurrente
-
--Histograma
-
--Encuesta (antes del histograma)
 
 -Agregar demo a versiones 1 y 2
 
--Problema v3 no guarda argumentos ni movidas
+-Mostrar historia de los argumentos del jugador
 
+-Aumentar Tiempo de ronda 2/3 minutos
+
+-Agrandar argumentos seleccionasdos e imagen de eliminacion
+
+
+---HECHO:
 -Cambiar display de fichas para mostrar nombre completo
 
--Mostrar historia de los argumentos del jugador
+-Problema v3 no guarda argumentos ni movidas
+
+-Agregar control cuando los argumentos del oponentes son nulos, q no aparezca undefined
+
+-Chekear q este activo el titilar antes de pasar de ronda
+
+-Agregar titulo a arriba de los argumentos propios y los del oponente
+
+-Borde a cada argumento
+
+-Argumento 20 no se puede clikear
+
+-Agregar color a movida
+
+-Histograma (Falta automatizar generacion y agregar a pantalla)
+
+-Encuesta (antes del histograma)
+
+-Ver q al terminar la ultima ronda el admin no siga
+
+-Problema logueo concurrente

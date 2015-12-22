@@ -152,6 +152,14 @@
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+			function check_conect() {
+				console.log("check conect");
+				if(ajaxChat.userID == null || ajaxChat.userName == null){
+					console.log("not conected");
+					location.reload();
+				}
+			}
+			setTimeout(function(){check_conect},500);
 		// ]]>
 	</script>
 </head>
@@ -194,7 +202,7 @@
 		<div id="movida" style="display:none;">
 			<P>Seleccione su movida</P> <br /><br />
 			<select id="pieza">
-				<option value="P">Peon</option>
+				<option value="P">Peón</option>
   				<option value="C">Caballo</option>
   				<option value="A">Alfil</option>
  				<option value="T">Torre</option>
@@ -223,11 +231,16 @@
  				<option value="7">7</option>
  				<option value="8">8</option>
 			</select>
+			
+			<select id="color">
+				<option value="0">Blanco</option>
+  				<option value="1">Negro</option>
+			</select>
 			<br /><br />
 			 <button type="button" onclick="ajaxChat.agregar_movida();">Agregar Movida</button> 
 
 		</div>
-	  	<div id="ArgumentContainer" dir="ltr" style="display:block;" ><p id="ArgumentContainerP"></p></div>
+	  	<div id="ArgumentContainer" dir="ltr" style="display:none;" ><h3 id="argumentos-propios" >  Argumentos Propios:</h3> <p id="ArgumentContainerP"></p></div>
 
 			<div id="bbCodeContainer" style="display:none;">
 				<h3 id="opinion-propia" >  Valoración propia</h3> 
@@ -259,7 +272,7 @@
 
 			</div>
 	  	
-	  	<div id="ArgumentContainerOponent" dir="ltr" style="display:none;" ><p id="ArgumentContainerOponentP"></p></div>
+	  	<div id="ArgumentContainerOponent" dir="ltr" style="display:none;" ><h3 id="argumentos-oponente" >  Argumentos usuario :</h3> <p id="ArgumentContainerOponentP"></p></div>
 		</div>
 		
 </body>

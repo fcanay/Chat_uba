@@ -116,7 +116,7 @@ class CustomAJAXChat extends AJAXChat {
 				$onlineUsersData = $this->getOnlineUsersData();
 				
 				//if($userName == "admin") return null;
-				
+				/*
 				$id = 2;
 				//echo "<pre>";
 				//print_r($onlineUsersData);
@@ -126,10 +126,10 @@ class CustomAJAXChat extends AJAXChat {
 					
 					$id++;
 				}
-					
+					*/
 				
 				$userData = array();
-				$userData['userID'] = $id;
+				$userData['userID'] = $this->createGuestUserID();
 				$userData['userName'] = $this->trimUserName($userName);
 				$userData['userRole'] = AJAX_CHAT_USER;
 				$userData['channels'] = array_values($this->getAllChannels());
@@ -612,6 +612,9 @@ class CustomAJAXChat extends AJAXChat {
 				}
 				else{
 					$this->closeExperiment();
+					$this->insertChatBotMessage("0", "/restart_admin");		
+					shell_exec("./histograma.py hist 2>ERROR >SALIDA");
+
 				}
 				return true;
 			break;
@@ -710,7 +713,7 @@ class CustomAJAXChat extends AJAXChat {
 	function closeExperiment(){
 		/*dump something to some place & unlog users*/
 				//$this->insertChatBotMessageInAllChannels("/close_experiment");
-				$this->insertChatBotMessage("0", "/restart_admin");
+				//$this->insertChatBotMessage("0", "/restart_admin");
 				$this->changeUsersToState(3);
 				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->saveAndReset();

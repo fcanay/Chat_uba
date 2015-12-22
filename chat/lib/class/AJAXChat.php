@@ -430,7 +430,7 @@ class AJAXChat {
 
 		// Check if userID or userName are already listed online:
 		if($this->isUserOnline($userData['userID']) || $this->isUserNameInUse($userData['userName'])) {
-			if($userData['userRole'] == AJAX_CHAT_USER || $userData['userRole'] == AJAX_CHAT_MODERATOR || $userData['userRole'] == AJAX_CHAT_ADMIN) {
+			if($userData['userRole'] == AJAX_CHAT_MODERATOR || $userData['userRole'] == AJAX_CHAT_ADMIN) {
 				// Set the registered user inactive and remove the inactive users so the user can be logged in again:
 				//$this->setInactive($userData['userID'], $userData['userName']);
 				$this->removeInactive();
