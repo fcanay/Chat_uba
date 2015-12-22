@@ -808,8 +808,8 @@ class CustomAJAXChat extends AJAXChat {
 				$this->receiveForm();
 				return true;
 
-			case '/remove_movida':
-				$this->removeMovida($textParts[1],$textParts[2],$textParts[3],$textParts[4]);
+			case '/add_movida':
+				$this->addMovida($textParts[1],$textParts[2],$textParts[3],$textParts[4]);
 				return true;
 
 			case '/remove_movida':

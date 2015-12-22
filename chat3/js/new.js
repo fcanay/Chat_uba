@@ -282,7 +282,7 @@ ajaxChat.agregar_movida = function(){
 
 
 	if(this.argumentos[[pieza,col,fila,color]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
-		console.log("/add_movida '"+pieza +"' '"+col+"' "+fila+ " "+color);
+		console.log("/add_movida '"+pieza+"' '"+col+"' "+fila+" "+color);
 		ajaxChat.sendMessage("/add_movida '"+ pieza+"' '"+col+"' "+fila+" "+color);
 		this.argumentos[[pieza,col,fila,color]] = 0;
 		this.display_movida(pieza,col,fila,color);
@@ -350,7 +350,7 @@ ajaxChat.undisplay_argument = function(argument,color){
 	arg = document.getElementById("ArgumentContainerP");
 	for (i = 0; i < arg.childNodes.length; i++) {
 		n = arg.childNodes[i].childNodes[1].getAttribute("href");
-		if(n.search(argument+","+color) != -1){
+		if(n.search("\\("+argument+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
 			break;
 		}
@@ -361,7 +361,7 @@ ajaxChat.undisplay_movida = function(pieza,col,fila,color){
 	arg = document.getElementById("ArgumentContainerP");
 	for (i = 0; i < arg.childNodes.length; i++) {
 		n = arg.childNodes[i].childNodes[1].getAttribute("href");
-		if(n.search(pieza+"','"+col+"',"+fila+","+color) != -1){
+		if(n.search("\\('"+pieza+"','"+col+"',"+fila+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
 			break;
 		}
