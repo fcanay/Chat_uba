@@ -129,7 +129,7 @@ class CustomAJAXChat extends AJAXChat {
 					
 				
 				$userData = array();
-				$userData['userID'] = $id;
+				$userData['userID'] = $this->createGuestUserID();
 				$userData['userName'] = $this->trimUserName($userName);
 				$userData['userRole'] = AJAX_CHAT_USER;
 				$userData['channels'] = array_values($this->getAllChannels());

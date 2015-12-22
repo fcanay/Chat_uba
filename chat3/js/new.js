@@ -152,8 +152,8 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 		if(argumentos[i].length == 2){
 			this.display_oponent_argument(argumentos[i][0],argumentos[i][1]);
 		}
-		else if(argumentos[i].length == 3){
-			this.display_oponent_movida(argumentos[i][0],argumentos[i][1],argumentos[i][2]);
+		else if(argumentos[i].length == 4){
+			this.display_oponent_movida(argumentos[i][0],argumentos[i][1],argumentos[i][2],argumentos[i][3]);
 		}
 		else{
 			console.log("Argumento con cantidad incorrecta de parametros");
@@ -219,8 +219,8 @@ ajaxChat.cambiarOpinion = function(){
 
 }
 
-ajaxChat.end = function(){
-	window.location.replace("end.html");
+ajaxChat.encuesta = function(){
+	window.location.replace("encuesta.php");
 }
 
 ajaxChat.handleStateChange = function(parts){
@@ -247,7 +247,7 @@ ajaxChat.handleStateChange = function(parts){
 			}
 			break;
 		case 3:
-			this.end();
+			this.encuesta();
 			break;
 		default:
 			console.log("WTF");
@@ -278,26 +278,27 @@ ajaxChat.agregar_movida = function(){
 	pieza = document.getElementById('pieza').options[document.getElementById('pieza').selectedIndex].value;
 	col = document.getElementById('columna').options[document.getElementById('columna').selectedIndex].value;
 	fila = document.getElementById('fila').options[document.getElementById('fila').selectedIndex].value;
+	color = document.getElementById('color').options[document.getElementById('color').selectedIndex].value;
 
 
-	if(this.argumentos[[pieza,col,fila]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
-		console.log("/add_movida '"+pieza +"' '"+col+"' "+fila);
-		ajaxChat.sendMessage("/add_movida '"+ pieza+"' '"+col+"' "+fila);
-		this.argumentos[[pieza,col,fila]] = 0;
-		this.display_movida(pieza,col,fila);
+	if(this.argumentos[[pieza,col,fila,color]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
+		console.log("/add_movida '"+pieza +"' '"+col+"' "+fila+ " "+color);
+		ajaxChat.sendMessage("/add_movida '"+ pieza+"' '"+col+"' "+fila+" "+color);
+		this.argumentos[[pieza,col,fila,color]] = 0;
+		this.display_movida(pieza,col,fila,color);
 	}
 
 }
 
-ajaxChat.display_movida = function(pieza,col,fila){
+ajaxChat.display_movida = function(pieza,col,fila,color){
 	var para = document.createElement("p");
 	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
-	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  ");
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  "+this.color_to_name(color)+" ");
 	para.appendChild(t);
 	img = document.createElement("img");
 	img.setAttribute("src","./img/delete.png");
 	a = document.createElement("a");
-	a.setAttribute("href","javascript:ajaxChat.remove_movida('"+pieza+"','"+col+"',"+fila+");");
+	a.setAttribute("href","javascript:ajaxChat.remove_movida('"+pieza+"','"+col+"',"+fila+","+color+");");
 	a.appendChild(img);
 	para.appendChild(a);
 	document.getElementById("ArgumentContainerP").appendChild(para);
@@ -329,10 +330,10 @@ ajaxChat.remove_argument= function(argument,color){
 	delete this.argumentos[[argument,color]];
 	this.undisplay_argument(argument,color);
 }
-ajaxChat.remove_movida= function(pieza,col,fila){
-	ajaxChat.sendMessage("/remove_movida '"+pieza+"' '"+col+"' "+fila );
-	delete this.argumentos[[pieza,col,fila]];
-	this.undisplay_movida(pieza,col,fila);
+ajaxChat.remove_movida= function(pieza,col,fila,color){
+	ajaxChat.sendMessage("/remove_movida '"+pieza+"' '"+col+"' "+fila+" "+color );
+	delete this.argumentos[[pieza,col,fila,color]];
+	this.undisplay_movida(pieza,col,fila,color);
 }
 
 
@@ -356,11 +357,11 @@ ajaxChat.undisplay_argument = function(argument,color){
 	}	
 }
 
-ajaxChat.undisplay_movida = function(pieza,col,fila){
+ajaxChat.undisplay_movida = function(pieza,col,fila,color){
 	arg = document.getElementById("ArgumentContainerP");
 	for (i = 0; i < arg.childNodes.length; i++) {
 		n = arg.childNodes[i].childNodes[1].getAttribute("href");
-		if(n.search(pieza+"','"+col+"',"+fila) != -1){
+		if(n.search(pieza+"','"+col+"',"+fila+","+color) != -1){
 			arg.removeChild(arg.childNodes[i]);
 			break;
 		}
@@ -377,11 +378,11 @@ ajaxChat.display_oponent_argument = function(argument,color){
 	//document.getElementById("ArgumentContainerOponentP").appendChild(t);
 }
 
-ajaxChat.display_oponent_movida = function(pieza,col,fila){
+ajaxChat.display_oponent_movida = function(pieza,col,fila,color){
 	var para = document.createElement("div");
 	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
 	
-	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  ");
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+" "+this.color_to_name(color)+" ");
 	para.appendChild(t);
 
 	document.getElementById("ArgumentContainerOponentP").appendChild(para);
@@ -408,11 +409,9 @@ ajaxChat.build_array = function(array){
 	    	res[i][0] = parseInt(res[i][0]);
 	    	res[i][1] = parseInt(res[i][1]);
 		}
-		else if (res[i].length == 3) {
+		else if(res[i].length == 4){
 	    	res[i][2] = parseInt(res[i][2]);
-		}
-		else{
-
+	    	res[i][3] = parseInt(res[i][3]);
 		}
 	}
 	console.log(res);

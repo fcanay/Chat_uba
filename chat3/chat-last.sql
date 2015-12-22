@@ -204,8 +204,9 @@ CREATE TABLE `actual_movidas3` (
   `pieza` varchar(4) NOT NULL,
   `columna` varchar(4) NOT NULL,
   `fila` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila)
+  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila,color)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 DROP TABLE IF EXISTS `movidas3`;
@@ -215,11 +216,20 @@ CREATE TABLE `movidas3` (
   `pieza` varchar(4) NOT NULL,
   `columna` varchar(4) NOT NULL,
   `fila` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
   `ronda` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila,ronda)
+  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila,color,ronda)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
+
+DROP TABLE IF EXISTS `encuesta`;
+CREATE TABLE `encuesta` (
+  `resultId` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`resultId`,`userID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 -- --------------------------------------------------------
 
 --

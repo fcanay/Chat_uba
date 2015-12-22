@@ -163,15 +163,10 @@ Argumentos:
 
 ---------------------------------
 
--Agregar color a movida
 
 -Documento
 
 -Problema logueo concurrente
-
--Histograma (Falta automatizar generacion y agregar a pantalla)
-
--Encuesta (antes del histograma)
 
 -Agregar demo a versiones 1 y 2
 
@@ -181,6 +176,7 @@ Argumentos:
 
 -Agrandar argumentos seleccionasdos e imagen de eliminacion
 
+-Ver q al terminar la ultima ronda el admin no siga
 
 ---HECHO:
 -Cambiar display de fichas para mostrar nombre completo
@@ -196,3 +192,9 @@ Argumentos:
 -Borde a cada argumento
 
 -Argumento 20 no se puede clikear
+
+-Agregar color a movida
+
+-Histograma (Falta automatizar generacion y agregar a pantalla)
+
+-Encuesta (antes del histograma)

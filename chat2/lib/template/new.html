@@ -152,6 +152,14 @@
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+			function check_conect() {
+				console.log("check conect");
+				if(ajaxChat.userID == null || ajaxChat.userName == null){
+					console.log("not conected");
+					location.reload();
+				}
+			}
+			setTimeout(function(){check_conect},500);
 		// ]]>
 	</script>
 </head>

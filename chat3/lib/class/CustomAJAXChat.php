@@ -52,7 +52,7 @@ class CustomAJAXChat extends AJAXChat {
 						$res .= $value[0].'|'.$value[1] . ';';
 					}
 					foreach ($opMov as $value) {
-						$res .= $value[0].'|'.$value[1]."|".$value[2] . ';';
+						$res .= $value[0].'|'.$value[1]."|".$value[2]."|".$value[3] . ';';
 					}
 					$res = rtrim($res, ";");
 					//$res .= '';
@@ -127,7 +127,7 @@ class CustomAJAXChat extends AJAXChat {
 				$onlineUsersData = $this->getOnlineUsersData();
 				
 				//if($userName == "admin") return null;
-				
+				/*
 				$id = 2;
 				//echo "<pre>";
 				//print_r($onlineUsersData);
@@ -137,10 +137,10 @@ class CustomAJAXChat extends AJAXChat {
 					
 					$id++;
 				}
-					
+					*/
 				
 				$userData = array();
-				$userData['userID'] = $id;
+				$userData['userID'] = $this->createGuestUserID();
 				$userData['userName'] = $this->trimUserName($userName);
 				$userData['userRole'] = AJAX_CHAT_USER;
 				$userData['channels'] = array_values($this->getAllChannels());
@@ -560,7 +560,7 @@ class CustomAJAXChat extends AJAXChat {
 	}
 
 	function getOponentMovidas($opponent){
-		$query = 'SELECT pieza,columna,fila FROM '.$this->getDataBaseTable('actual_movidas').' WHERE userID = ';
+		$query = 'SELECT pieza,columna,fila,color FROM '.$this->getDataBaseTable('actual_movidas').' WHERE userID = ';
 		$query .= $opponent. ';';
 		$result = $this->db->query($query);
 		//return $query;
@@ -570,7 +570,7 @@ class CustomAJAXChat extends AJAXChat {
 		}
 		$res = array();
 		while($row = $result->fetch()) {
-			array_push($res, array($row['pieza'],$row['columna'],$row['fila']));
+			array_push($res, array($row['pieza'],$row['columna'],$row['fila'],$row['color']));
 		}
 		return $res;
 	}
@@ -613,9 +613,9 @@ class CustomAJAXChat extends AJAXChat {
 		}
 	}
 
-	function addMovida($pieza,$col,$fila){
-		$query = "INSERT INTO ".$this->getDataBaseTable('actual_movidas')." (`userID`,`pieza`,`columna`,`fila`) VALUES (";
-		$query .= $this->getUserID().", ". $pieza.",".$col.",".$fila.");";
+	function addMovida($pieza,$col,$fila,$color){
+		$query = "INSERT INTO ".$this->getDataBaseTable('actual_movidas')." (`userID`,`pieza`,`columna`,`fila`,`color`) VALUES (";
+		$query .= $this->getUserID().", ". $pieza.",".$col.",".$fila.",".$color.");";
 		$result = $this->db->query($query);
 		if($result->error()) {
 				echo $result->getError();
@@ -623,9 +623,9 @@ class CustomAJAXChat extends AJAXChat {
 		}
 	}
 
-	function removeMovida($pieza,$col,$fila){
+	function removeMovida($pieza,$col,$fila,$color){
 		$query = "DELETE FROM ".$this->getDataBaseTable('actual_movidas')." WHERE userID = ";
-		$query .= $this->getUserID()." AND pieza = ". $pieza." AND columna = ".$col." AND fila = ".$fila.";";
+		$query .= $this->getUserID()." AND pieza = ". $pieza." AND columna = ".$col." AND fila = ".$fila." AND color = ".$color.";";
 		$result = $this->db->query($query);
 		if($result->error()) {
 				echo $result->getError();
@@ -644,7 +644,7 @@ class CustomAJAXChat extends AJAXChat {
 				die();
 		}
 
-		$query = "INSERT INTO ".$this->getDataBaseTable('movidas')." (userID,pieza,columna,fila,ronda) SELECT userID,pieza,columna,fila,".$ronda;
+		$query = "INSERT INTO ".$this->getDataBaseTable('movidas')." (userID,pieza,columna,fila,color,ronda) SELECT userID,pieza,columna,fila,color,".$ronda;
 		$query .= " FROM ".$this->getDataBaseTable('actual_movidas').";";
 		$result = $this->db->query($query);
 		
@@ -653,6 +653,21 @@ class CustomAJAXChat extends AJAXChat {
 				echo $result->getError();
 				die();
 		}
+	}
+
+	function receiveForm(){
+		if(isset($_POST)){
+			if(isset($_POST['estrategia1'])){
+				$this->changeUsersToState(8);
+			}
+			else{
+				$this->changeUsersToState(9);
+			}
+		}
+		else{
+			$this->changeUsersToState(10);
+		}
+
 	}
 
 	function getLastID(){
@@ -739,6 +754,9 @@ class CustomAJAXChat extends AJAXChat {
 				}
 				else{
 					$this->closeExperiment();
+					$this->insertChatBotMessage("0", "/restart_admin");		
+					shell_exec("./histograma.py hist 2>ERROR >SALIDA");
+
 				}
 				return true;
 			break;
@@ -786,12 +804,16 @@ class CustomAJAXChat extends AJAXChat {
 				$this->removeArgument($textParts[1],$textParts[2]);
 				return true;
 
-			case '/add_movida':
-				$this->addMovida($textParts[1],$textParts[2],$textParts[3]);
+			case '/receive_form':
+				$this->receiveForm();
 				return true;
 
 			case '/remove_movida':
-				$this->removeMovida($textParts[1],$textParts[2],$textParts[3]);
+				$this->removeMovida($textParts[1],$textParts[2],$textParts[3],$textParts[4]);
+				return true;
+
+			case '/remove_movida':
+				$this->removeMovida($textParts[1],$textParts[2],$textParts[3],$textParts[4]);
 				return true;
 
 			case '/restart_clock':
@@ -853,7 +875,6 @@ class CustomAJAXChat extends AJAXChat {
 	function closeExperiment(){
 		/*dump something to some place & unlog users*/
 				//$this->insertChatBotMessageInAllChannels("/close_experiment");
-				$this->insertChatBotMessage("0", "/restart_admin");
 				$this->changeUsersToState(3);
 				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->saveAndReset();
