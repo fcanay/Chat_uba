@@ -21,10 +21,10 @@ $config = array();
 
 $config['opinionTime'] = 180;
 // Tiempo de duracion de una ronda
-$config['roundTime'] = 90;
+$config['roundTime'] = 120;
 // Tiempo de duracion de un cambio de opinion
 $config['changeOpinionTime'] = 30;
-$config['demoTime'] = 120;
+$config['demoTime'] = 10;
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;
