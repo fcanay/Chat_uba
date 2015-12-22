@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="charset=UTF-8" />
+	<link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="css/Oxygen.css" title="Oxygen" />
+
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/resources/demos/style.css" />
+  <script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/new.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/config.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/FABridge.js" type="text/javascript" charset="UTF-8"></script>
+	<link rel="stylesheet" href="css/new.css" />
+
+	<script type="text/javascript">
+		// <![CDATA[
+			function toggleContainer(containerID, hideContainerIDs) {
+				if(hideContainerIDs) {
+					for(var i=0; i<hideContainerIDs.length; i++) {
+						ajaxChat.showHide(hideContainerIDs[i], 'none');	
+					}
+				}		
+				ajaxChat.showHide(containerID);
+				if(typeof arguments.callee.styleProperty == 'undefined') {
+					if(typeof isIElt7 != 'undefined') {
+						arguments.callee.styleProperty = 'marginRight';
+					} else {
+						arguments.callee.styleProperty = 'right';
+					}
+				}
+				var containerWidth = document.getElementById(containerID).offsetWidth;
+				if(containerWidth) {
+					document.getElementById('chatList').style[arguments.callee.styleProperty] = (containerWidth+28)+'px';	
+				} else {
+					document.getElementById('chatList').style[arguments.callee.styleProperty] = '20px';
+				}				
+			}
+
+			function initialize() {
+				ajaxChat.stateTime = [0,[opinionTime/],[roundTime/],[changeOpinionTime/]];
+			}
+
+			ajaxChatConfig.loginChannelID = parseInt('[LOGIN_CHANNEL_ID/]');
+			ajaxChatConfig.sessionName = '[SESSION_NAME/]';
+			ajaxChatConfig.cookieExpiration = parseInt('[COOKIE_EXPIRATION/]');
+			ajaxChatConfig.cookiePath = '[COOKIE_PATH/]';
+			ajaxChatConfig.cookieDomain = '[COOKIE_DOMAIN/]';
+			ajaxChatConfig.cookieSecure = '[COOKIE_SECURE/]';
+			ajaxChatConfig.chatBotName = decodeURIComponent('[CHAT_BOT_NAME/]');
+			ajaxChatConfig.chatBotID = '[CHAT_BOT_ID/]';
+			ajaxChatConfig.allowUserMessageDelete = parseInt('[ALLOW_USER_MESSAGE_DELETE/]');
+			ajaxChatConfig.inactiveTimeout = parseInt('[INACTIVE_TIMEOUT/]');
+			ajaxChatConfig.privateChannelDiff = parseInt('[PRIVATE_CHANNEL_DIFF/]');
+			ajaxChatConfig.privateMessageDiff = parseInt('[PRIVATE_MESSAGE_DIFF/]');
+			ajaxChatConfig.showChannelMessages = parseInt('[SHOW_CHANNEL_MESSAGES/]');
+			ajaxChatConfig.messageTextMaxLength = parseInt('[MESSAGE_TEXT_MAX_LENGTH/]');
+			ajaxChatConfig.socketServerEnabled = parseInt('[SOCKET_SERVER_ENABLED/]');
+			ajaxChatConfig.socketServerHost = decodeURIComponent('[SOCKET_SERVER_HOST/]');
+			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
+			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
+			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
+			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+
+			$(document).ready(function() {
+				$('#userID')[0].value = ajaxChat.userID;
+				setTimeout(function(){$('#userID')[0].value = ajaxChat.userID},1000);
+    		});
+
+		// ]]>
+	</script>
+
+</head> 
+
+<body>
+<h1>Cuestionario Básico</h1>
+
+<h2>Estimado participante:</h2>
+<h4>
+Te pedimos que respondas a una serie de preguntas en el siguiente cuestionario. Por favor, registra tu respuesta de manera textual. A través de esta breve encuesta, tus respuestas serán útiles para mejorar la interpretación de los resultados del experimento, y sólo será utilizada para los propósitos del experimento. </h4>
+
+<h4>En caso de tener alguna pregunta con respecto a la encuesta, por favor, levanta la mano y uno de los expertos te ayudará.</h4>
+
+<h4>Muchas gracias por tu tiempo y sugerencias.</h4>
+
+ <form action="receive_encuesta.php" method="post">
+ <input type="hidden" name="userID" id="userID" value="10" />
+	<ul>
+	  <li>¿Qué estrategia seguiste para formar tu opinión en el primer periodo?:</li><br />
+	  <textarea cols="40" rows="5" name="estrategia1"></textarea>
+	  <br />
+	 <li>¿Qué estrategia seguiste para tomar decisiones en los períodos siguientes?</li><br />
+	   <textarea cols="40" rows="5" name="estrategia2" ></textarea>
+	  <br />
+	  <li>¿Usaste la información sobre tus decisiones anteriores y la opinión de tu oponente? ¿Cómo lo hiciste?:</li><br />
+	   <textarea cols="40" rows="5" name="info" ></textarea>
+	    <br />
+	  <li>¿Cómo valorarías tus conocimientos sobre el ajedrez?:</li><br />
+	   <textarea cols="40" rows="5" name="nivel_ajedrez" ></textarea>
+	    <br />
+	  <li>En caso de tener puntaje ELO de la FIDE, indícalo.:</li><br />
+	   <textarea cols="40" rows="5" name="elo" ></textarea>
+	    <br />
+	  <li>¿Jugás en sitios web? En caso de hacerlo, si  lo recuerdas, indicá un puntaje aproximado en tales sitios.:</li><br />
+	   <textarea cols="40" rows="5" name="sitio_web" ></textarea>
+	  <br /><br />
+	</ul>
+  <input type="submit" value="Submit" onclick="javascript:window.location.replace('end.html');"/>
+</form> 
+
+</body>
+</html>

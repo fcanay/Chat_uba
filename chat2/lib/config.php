@@ -93,6 +93,7 @@ $config['dbTableNames']['current_round_data']	= 'current_round_data2';
 $config['dbTableNames']['opinion_changes']	= 'opinion_changes2';
 $config['dbTableNames']['opinion_modification']	= 'opinion_modification2';
 $config['dbTableNames']['results']	= 'results';
+$config['dbTableNames']['encuesta']	= 'encuesta';
 $config['dbTableNames']['seen_pairs']	= 'seen_pairs2';
 
 

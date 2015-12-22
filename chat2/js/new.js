@@ -186,8 +186,8 @@ ajaxChat.cambiarOpinion = function(){
 
 }
 
-ajaxChat.end = function(){
-	window.location.replace("end.html");
+ajaxChat.encuesta = function(){
+	window.location.replace("encuesta.php");
 }
 
 ajaxChat.handleStateChange = function(parts){
@@ -210,7 +210,7 @@ ajaxChat.handleStateChange = function(parts){
 			}
 			break;
 		case 3:
-			this.end();
+			this.encuesta();
 			break;
 		default:
 			console.log("WTF");
