@@ -152,6 +152,7 @@
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+			ajaxChat.setActiveStyleSheet("prosilver");
 			function check_conect() {
 				console.log("check conect");
 				if(ajaxChat.userID == null || ajaxChat.userName == null){

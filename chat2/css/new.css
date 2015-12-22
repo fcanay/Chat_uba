@@ -2,20 +2,20 @@
 	position:absolute;
 	left:5%;
 	height:50%;
-	top:20%;
+	top:18%;
 	width:30%;
 	overflow:auto;
 }
 
 
 #content #emoticonsContainer {
-	top:79%;
+	top:77%;
 }
 
 #content #inputFieldContainer{
 	position:absolute;
 	left:5%;
-	top:72%;
+	top:69%;
 	width:30%;
 	overflow:auto;
 }
@@ -23,5 +23,5 @@
 #content #submitButtonContainer{
 	position:absolute;
 	left:37%;
-	top:72%;
+	top:70%;
 }
