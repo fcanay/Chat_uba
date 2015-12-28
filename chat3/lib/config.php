@@ -21,9 +21,15 @@ $config = array();
 
 $config['opinionTime'] = 180;
 // Tiempo de duracion de una ronda
-$config['roundTime'] = 90;
-// Tiempo de duracion de la demo
-$config['demoTime'] = 120;
+$config['roundTime'] = 120;
+//
+$config['demoTime'] = 180;
+
+$config['tablero'] = 'ts';
+$config['extension_tablero'] = 'png';
+
+
+
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;

@@ -59,11 +59,16 @@ ajaxChat.customInitialize = function() {
 
 ajaxChat.opinionInicial = function(){
 	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.initialQuestion;
-	document.getElementById('imagenTablero').width = 720;
-	document.getElementById('imagenTablero').height = 360;
+	document.getElementById('imagenTablero').width = 350;
+	document.getElementById('imagenTablero').height = 350;
 
 	document.getElementById('chessImg').style.display = "block";
 	document.getElementById('chessImg').style.top = "50%";
+	document.getElementById('chessImg').style.left = "15%";
+
+	document.getElementById('buttonChangeImage').style.display = "block";
+	document.getElementById('buttonChangeImage').style.top = "50%";
+	document.getElementById('buttonChangeImage').style.left = "45%";
 
 	document.getElementById('ArgumentContainer').style.display = "block";
 
@@ -116,22 +121,21 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 	document.getElementById('emoticonsContainer').style.top = "17%";
 
 	document.getElementById('ArgumentContainer').style.display = "block";
-	document.getElementById('ArgumentContainer').style.top = "69%";
+	document.getElementById('ArgumentContainer').style.top = "65%";
 
 	document.getElementById('ArgumentContainerOponent').style.display = "block";
 
 	document.getElementById('movida').style.display = "block";
 	
-	document.getElementById('imagenTablero').width = 600;
+	document.getElementById('imagenTablero').width = 300;
 	document.getElementById('imagenTablero').height = 300;
 	document.getElementById('imagenTablero').style.animation= "";
 
 	document.getElementById('chessImg').style.display = "block";
-	document.getElementById('chessImg').style.top = "45%";
-	document.getElementById('chessImg').style.left = "0%";
-	document.getElementById('chessImg').style.webkitTransform = "translate(10%, -50%)";
-	document.getElementById('chessImg').style.transform = "translate(10%, -50%)";
-	document.getElementById('chessImg').style.MozTransform = "translate(10%, -50%)";
+	document.getElementById('chessImg').style.top = "40%";
+
+	document.getElementById('buttonChangeImage').style.display = "block";
+	document.getElementById('buttonChangeImage').style.top = "35%";
 
 	document.getElementById('bbCodeContainer').style.bottom = "20%";
 	document.getElementById('bbCodeContainer').style.display = "block";
@@ -173,6 +177,7 @@ ajaxChat.cambioDeRonda = function(oponent){
 	document.getElementById('ArgumentContainer').style.display = "none";
 	document.getElementById('movida').style.display = "none";
 	document.getElementById('ArgumentContainerOponent').style.display = "none";
+	document.getElementById('buttonChangeImage').style.display = "none";	
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 	this.undisplay_oponent_argument();
 }
@@ -416,4 +421,10 @@ ajaxChat.build_array = function(array){
 	}
 	console.log(res);
 	return res;
+}
+
+ajaxChat.changeImage = function(){
+	var imagen = document.getElementById("imagenTablero");
+	imagen.src = imagen.src.replace(this.tablero + this.imagen,this.tablero + ((this.imagen + 1)%2));
+	this.imagen = (this.imagen + 1) % 2; 
 }

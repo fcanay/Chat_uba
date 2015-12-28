@@ -45,7 +45,9 @@ class PairHandler
 		$obj->opinion_changes = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('opinion_modification'));
 		$obj->messages = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('messages'));
 		$obj->users = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('online'));
+		$obj->arguments = $this->db->getAssoc("SELECT * FROM ".$this->getDataBaseTable('arguments'));
 		$this->db->query("INSERT INTO ".$this->getDataBaseTable('results')." (`data`,`exp`) VALUES('".json_encode($obj)."',2)");
+
 	}
 
 	function saveAndReset()
@@ -60,6 +62,8 @@ class PairHandler
 		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('current_round_data').";");
 		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('opinion_modification').";");
 		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('messages').";");
+		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('arguments').";");
+		$result = $this->db->query("DELETE FROM ".$this->getDataBaseTable('actual_arguments').";");
 		return true;
 	}
 

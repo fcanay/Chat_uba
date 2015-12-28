@@ -45,6 +45,8 @@ var ajaxChatConfig = {
 		styleSelection: 'styleSelection',
 		// The ID of the emoticons container:
 		emoticonsContainer: 'emoticonsContainer',
+		// The ID of the emoticons container:
+		emoticonsContainerOponent: 'emoticonsContainerOponent',
 		// The ID of the color codes container:
 		colorCodesContainer: 'colorCodesContainer',
 		// The ID of the flash interface container:
@@ -182,32 +184,26 @@ var ajaxChatConfig = {
 
  	// Defines the list of allowed emoticon codes:
 	emoticonNames: [
-		'ventaja de desarrollo',
-		'mayor espacio',
-		'con ataque',
-		'con iniciativa',
-		'con contrajuego',
-		'zugzwang',
-		'mate',
-		'con la idea de',
-		'movida única',
-		'es mejor',
-		'fila',
-		'diagonal',
-		'centro',
-		'flanco rey',
-		'flanco dama',
-		'punto débil',
-		'final',
-		'par de alfiles',
-		'alfiles de distinto color',
-		'alfiles del mismo color',
-		'peones unidos',
-		'peones separados',
-		'peones doblados',
-		'peón pasado',
-		'ventaja en número de peones',
-		'material compensado'		
+		'1-Ventaja Material',
+		'2-Ventaja de Desarrollo',
+		'3-Ventaja de Espacio',
+		'4-Con Ataque',
+		'5-Iniciativa',
+		'6-Contrajuego',
+		'7-Diagonal',
+		'8-Centro',
+		'9-Lines',
+		'10-Columna',
+		'11-Flanco Rey',
+		'12-Flanco Dama',
+		'13-Casilla Debil',
+		'14-Peones Unidos',
+		'15-Peon Doblado',
+		'16-Peon Aislado',
+		'17-Peon Pasado',
+		'18-Alfiles vs Caballos',
+		'19-Alfiles de Distinto Color',
+		'20-Material Compensado'
  	],
 	
  	// Defines the list of emoticon files associated with the emoticon codes:

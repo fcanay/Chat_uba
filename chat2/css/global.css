@@ -70,8 +70,6 @@
 #content #inputFieldContainer {
 	position:absolute;
 	left:20px;
-	right:20px;
-	bottom:90px;
 	padding-right:4px;
 }
 #content #submitButtonContainer {
@@ -121,7 +119,7 @@
 	padding:3px;
 	z-index:1;
 }
-#content #emoticonsContainer {
+#content #emoticonsContainer, #content #emoticonsContainerOponent{
 	position:absolute;
 	left:20px;
 	bottom:57px;
@@ -150,11 +148,11 @@
     width:22px;
 	height:22px;
 }
-#content #emoticonsContainer a {
+#content #emoticonsContainer a, #content #emoticonsContainerOponent a{
 	margin-left:1px;
 	margin-right:1px;
 }
-#content #emoticonsContainer img {
+#content #emoticonsContainer img, #content #emoticonsContainerOponent img{
 	vertical-align:middle;
 	margin-bottom:2px;
 }

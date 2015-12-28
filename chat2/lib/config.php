@@ -21,9 +21,13 @@ $config = array();
 
 $config['opinionTime'] = 180;
 // Tiempo de duracion de una ronda
-$config['roundTime'] = 90;
-// Tiempo de duracion de un cambio de opinion
-$config['changeOpinionTime'] = 30;
+$config['roundTime'] = 180; //Anterior 120
+//
+$config['tablero'] = 'ts';
+$config['extension_tablero'] = 'png';
+
+
+
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;
@@ -33,6 +37,7 @@ $config['MAX_OPINION'] = 8;
 $config['dbConnection'] = array();
 
 //LOCAL
+$config['changeOpinionTime'] = 30;
 
 // Database hostname:
 $config['dbConnection']['host'] = 'localhost';
@@ -95,8 +100,8 @@ $config['dbTableNames']['opinion_modification']	= 'opinion_modification2';
 $config['dbTableNames']['results']	= 'results';
 $config['dbTableNames']['encuesta']	= 'encuesta';
 $config['dbTableNames']['seen_pairs']	= 'seen_pairs2';
-
-
+$config['dbTableNames']['actual_arguments']	= 'actual_arguments2';
+$config['dbTableNames']['arguments']	= 'arguments2';
 
 // Available languages:
 $config['langAvailable'] = array(

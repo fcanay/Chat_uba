@@ -8,26 +8,25 @@
  */
 
 $lang = array();
-$lang['askInitialOpinionMessage'] = 'Opinión inicial';
 $lang['fraseDemo1'] = 'En esta pantalla usted tiene 2 minutos para familiarizarse con los elementos del experimento:';
 $lang['fraseDemo2'] = '-El tablero';
 $lang['fraseDemo3'] = '-La posibilidad de proponer una movida y una lista de argumentos. Ambos elementos podrán ser usados para fundamentar su valoración de la posición en el tablero.Usted puede seleccionar hasta 6 argumentos, incluyendo movidas.';
 $lang['fraseDemo4'] = '-la barra de valoración que cuenta con 9 posiciones: las tres de la izquierda corresponden a una eventual victoria de las piezas blancas, las tres de la derecha a una eventual victoria de las negras y las tres del centro a un eventual resultado de tablas';
-$lang["initGameOkGeneralMessage"] = "¡Bienvenidos al experimento! En unos momentos les pediremos que nos den su opinión inicial sobre la posición expresada en la pantalla. Luego lanzaremos diferentes rondas de chats tras la cuales podrán modificar, o no, su posición original. ";
-$lang["lastRoundEndedMessage"] = "Las rondas de chat terminaron. En breve serán redirigidos a la pantalla de finalización. Por favor, aguarden.";
-$lang["closePhaseMessage"] = " La Ronda está terminando. Tienen 1 minuto para modificar o re-afirmar sus opiniones. ";
-$lang["redirectedToEndMessage"] = "(Aviso) Los usuarios fueron redirigidos a la pantalla de finalización. El experimento terminó.";
-$lang["roundStartMessage"] = "Bienvenidos a la Ronda número CURRENT_ROUND. Conversarán entre USER1 y USER2 durante 5 minutos.";
-$lang["roundStartPublicMessage"] = "Comienza la ronda CURRENT_ROUND";
-$lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron calculados correctamente. Ya puede comenzar a lanzar las rondas de chat.";
 
 $lang["wait"] = 'Espera a que empiece el experimento';
-$lang["initialQuestion"] = 'Valore la posición';
-//$lang["initialQuestionPart2"] = ' seconds to valueate the position and express your opinion in the bar bellow';
+
+
+
+
+
+
+
+
 $lang["round"] = 'Usted va a ver la valoración del usuario ';
 $lang["roundDos"] = 'Usted esta viendo la valoración del usuario ';
 $lang["changeOpinion"] = 'Si desea puede actualizar su posición';
 //$lang["changeOpinionPart2"] = ' seconds to change your opinion';
+//$lang["initialQuestionPart2"] = ' seconds to valueate the position and express your opinion in the bar bellow';
 
 $lang['title'] = 'SocEx';
 $lang['userName'] = 'Username';
@@ -37,6 +36,15 @@ $lang['logout'] = 'Desconectar';
 $lang['channel'] = 'Channel';
 $lang['style'] = 'Style';
 $lang['language'] = 'Language';
+$lang["initialQuestion"] = 'Valore la posición';
+$lang["pairsCalculatedNotifyModeratorMessage"] = " (Aviso) Los rounds fueron calculados correctamente. Ya puede comenzar a lanzar las rondas de chat.";
+$lang["roundStartPublicMessage"] = "Comienza la ronda CURRENT_ROUND";
+$lang["roundStartMessage"] = "Bienvenidos a la Ronda número CURRENT_ROUND. Conversarán entre USER1 y USER2 durante 5 minutos.";
+$lang["redirectedToEndMessage"] = "(Aviso) Los usuarios fueron redirigidos a la pantalla de finalización. El experimento terminó.";
+$lang["closePhaseMessage"] = " La Ronda está terminando. Tienen 1 minuto para modificar o re-afirmar sus opiniones. ";
+$lang["lastRoundEndedMessage"] = "Las rondas de chat terminaron. En breve serán redirigidos a la pantalla de finalización. Por favor, aguarden.";
+$lang["initGameOkGeneralMessage"] = "¡Bienvenidos al experimento! En unos momentos les pediremos que nos den su opinión inicial sobre la posición expresada en la pantalla. Luego lanzaremos diferentes rondas de chats tras la cuales podrán modificar, o no, su posición original. ";
+$lang['askInitialOpinionMessage'] = 'Opinión inicial';
 $lang['inputLineBreak'] = 'Press SHIFT+ENTER to input a line break';
 $lang['messageSubmit'] = 'Submit';
 $lang['registeredUsers'] = 'Registered Users';

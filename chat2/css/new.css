@@ -1,7 +1,7 @@
 #content #chatList {
 	position:absolute;
 	left:5%;
-	height:50%;
+	height:40%;
 	top:18%;
 	width:30%;
 	overflow:auto;
@@ -9,19 +9,61 @@
 
 
 #content #emoticonsContainer {
-	top:77%;
+	top:25%;
+	left:80%;
+}
+
+#content #emoticonsContainerOponent {
+	top:93%;
 }
 
 #content #inputFieldContainer{
 	position:absolute;
 	left:5%;
-	top:69%;
+	top:59%;
 	width:30%;
-	overflow:auto;
 }
 
 #content #submitButtonContainer{
 	position:absolute;
 	left:37%;
-	top:70%;
+	top:63%;
+}
+
+p {
+    display: block;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0;
+    margin-right: 0;
+} 
+
+
+#content #ArgumentContainer{
+	position:absolute;
+	top:77%;
+	left: 5%;
+	width:75%;
+}
+
+#content #ArgumentContainerOponent{
+	position:absolute;
+	top:92%;
+	left: 5%;
+}
+
+#content #argumentos-propios{
+	-webkit-margin-after:0;
+	-webkit-margin-before:0;
+}
+
+#content #argumentos-oponente{
+	-webkit-margin-after:0;
+	-webkit-margin-before:0;
+}
+
+#content #buttonChangeImage{
+	position:absolute;
+	top:50%;
+	left: 70%;
 }

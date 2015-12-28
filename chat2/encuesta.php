@@ -11,7 +11,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 
 
-ini_set("session.save_path", "/home/balen/session");
+//ini_set("session.save_path", "/home/balen/session");
 
 
 // Path to the chat directory:

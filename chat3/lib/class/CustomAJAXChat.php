@@ -516,6 +516,14 @@ class CustomAJAXChat extends AJAXChat {
 				else return 'none';
 			break;
 
+			case 'TABLERO':
+				return $this->getConfig('tablero');
+				break;
+
+			case 'EXTENSION_TABLERO':
+				return $this->getConfig('extension_tablero');
+				break;
+
 			default:
 				if($this->getLang($tag) !== null) return $this->getLang($tag);
 				if($this->getConfig($tag) !== null) return $this->getConfig($tag);

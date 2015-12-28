@@ -93,6 +93,10 @@ var ajaxChat = {
 	stateTime: null,
 	stateFunction: null,
 	state: null,
+	argumentos: null,
+	imagen: 0,
+	tablero: null,
+	extension_tablero: null,
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
 		this.httpRequest		= {};
@@ -153,6 +157,8 @@ var ajaxChat = {
 		this.socketServerChatID		= config['socketServerChatID'];
 		this.stateTime 				= config['stateTime'];
 		this.state 					= 0;
+		this.argumentos				= {};
+		this.maxArguments			= 6
 		/*if (typeof config['lastID'] !== 'undefined'){
 			this.lastID 			= config['lastID'];
 		}*/
@@ -378,26 +384,54 @@ var ajaxChat = {
 	},
 
 	initEmoticons: function() {
-		this.DOMbuffer = "";
-		for(var i=0; i<this.emoticonCodes.length; i++) {
+		this.DOMbuffer = "<p>"+this.lang['argumentTitle']+"</p><p>";
+		for(var i=0; i<this.emoticonNames.length; i++) {
 			// Replace specials characters in emoticon codes:
+			if(i==0){
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Estaticos: </h5>'
+			}
+			if(i==3){
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Dinamicos: </h5>'
+			}
+			if(i==6){
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Espaciales: </h5>'
+			}
+			if(i==13){
+				this.DOMbuffer = this.DOMbuffer + '<h5 style="margin:0;-webkit-margin-before: 0em;-webkit-margin-after: 0em;">Estructura de Peones y Piezas: </h5>'
+			}
 			this.emoticonCodes[i] = this.encodeSpecialChars(this.emoticonCodes[i]);
 			this.DOMbuffer = this.DOMbuffer
-						+ '<a href="javascript:ajaxChat.sendMessage(\''
-						+ this.scriptLinkEncode(this.emoticonCodes[i])
-						+ '\');"><img src="'
+						+ this.emoticonNames[i]
+						+ '   <a href="javascript:ajaxChat.argumentCliked('
+						+ (i+1)
+						+ ',0);"> '
+						+ ' <img src="'
 						+ this.dirs['emoticons']
-						+ this.emoticonFiles[i]
-						+ '" alt="'
-						+ this.emoticonNames[i]
-						+ '" title="'
-						+ this.emoticonNames[i]
-						+ '"/></a>';
+						+ 'white.png"/></a>'
+						+ '   <a href="javascript:ajaxChat.argumentCliked('
+						+ (i+1)
+						+ ',1);"> '
+						+ ' <img src="'
+						+ this.dirs['emoticons']
+						+ 'black.png"/></a>'
+						+ '<br />';
 			}
+ 		this.DOMbuffer = this.DOMbuffer + "</p>";
+		/*
+
+						+ '<a id="Arg'
+						+i
+						+'" href="javascript:ajaxChat.argumentCliked('
+						+ i
+						+ ',0);"> '
+
+*/
 		if(this.dom['emoticonsContainer']) {
  			this.updateDOM('emoticonsContainer', this.DOMbuffer);
  		}
+
  		this.DOMbuffer = "";
+		
 	},
 	
 	initColorCodes: function() {
