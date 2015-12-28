@@ -17,9 +17,9 @@ def main(file_hist):
 
 
 def load_results():
-	db = MySQLdb.connect(host="localhost",user="root",passwd="patton55",db="chat")
+#	db = MySQLdb.connect(host="localhost",user="root",passwd="patton55",db="chat")
 
-	#db = MySQLdb.connect(host="localhost",user="balen",passwd="Aid8Tez8EeNg4ea1",db="balen")
+	db = MySQLdb.connect(host="localhost",user="balen",passwd="Aid8Tez8EeNg4ea1",db="balen")
 
 	cursor = db.cursor()
 

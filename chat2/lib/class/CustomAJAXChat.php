@@ -44,7 +44,14 @@ class CustomAJAXChat extends AJAXChat {
 				case 1:
 					break;
 				case 2:
-					$res .= ','.$this->getOponent().','.$this->getOponentOpinion();
+					$oponent = $this->getOponent();
+					$res .= ','.$oponent.','.$this->getOponentOpinion($oponent).',';
+					$opArg = $this->getOponentArguments($oponent);
+					foreach ($opArg as $value) {
+						$res .= $value[0].'|'.$value[1] . ';';
+					}
+					$res = rtrim($res, ";");
+					//$res .= '';
 					break;
 				case 3:
 					break;
@@ -484,6 +491,10 @@ class CustomAJAXChat extends AJAXChat {
 				if($val !== false) return $val;
 				else return 4;
 			break;
+
+			case 'ARGUMENTS':
+				return 1;
+			break;
 			
 			case 'LOGOUT_BUTTON_TYPE':
 
@@ -501,6 +512,14 @@ class CustomAJAXChat extends AJAXChat {
 				else return 'none';
 			break;
 
+			case 'TABLERO':
+				return $this->getConfig('tablero');
+				break;
+
+			case 'EXTENSION_TABLERO':
+				return $this->getConfig('extension_tablero');
+				break;
+
 			default:
 				if($this->getLang($tag) !== null) return $this->getLang($tag);
 				if($this->getConfig($tag) !== null) return $this->getConfig($tag);
@@ -515,8 +534,7 @@ class CustomAJAXChat extends AJAXChat {
 		return $pairCombinator->getOponent($this->getUserID());
 	}
 
-	function getOponentOpinion(){
-		$opponent = $this->getOponent();
+	function getOponentOpinion($opponent){
 		$query = 'SELECT opinionValue FROM '.$this->getDataBaseTable('online').' WHERE userID = ';
 		$query .= $opponent . ';';
 		$result = $this->db->query($query);
@@ -528,7 +546,87 @@ class CustomAJAXChat extends AJAXChat {
 		$row = $result->fetch();
 		return $row['opinionValue'];
 	}
+
+	function getOponentArguments($opponent){
+		$query = 'SELECT value,color FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
+		$query .= $opponent. ';';
+		$result = $this->db->query($query);
+		//return $query;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+		$res = array();
+		while($row = $result->fetch()) {
+			array_push($res, array($row['value'],$row['color']));
+		}
+		return $res;
+	}
 	
+	function getArguments(){
+		$query = 'SELECT value,color FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
+		$query .= $this->db->makeSafe($this->getUserID()). ';';
+		$result = $this->db->query($query);
+		//return $query;
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+		$res = array();
+		while($row = $result->fetch()) {
+			array_push($res, $row['value']);
+		}
+		return $res;
+	}
+
+	function addArgument($argument,$color){
+
+		$query = "INSERT INTO ".$this->getDataBaseTable('actual_arguments')." (`userID` ,`value`,`color`) VALUES (";
+		$query .= $this->getUserID().", ". $argument.",".$color.");";
+		$result = $this->db->query($query);
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+	}
+
+	function removeArgument($argument,$color){
+		$query = "DELETE FROM ".$this->getDataBaseTable('actual_arguments')." WHERE userID = ";
+		$query .= $this->getUserID()." AND value = ". $argument." AND color = ".$color.";";
+		$result = $this->db->query($query);
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+	}
+
+	function saveRoundArguments(){
+		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
+		$ronda = count($pairCombinator->getPlayedRounds());
+		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,color,ronda) SELECT userID,value,color,".$ronda;
+		$query .= " FROM ".$this->getDataBaseTable('actual_arguments').";";
+		$result = $this->db->query($query);
+		if($result->error()) {
+				echo $result->getError();
+				die();
+		}
+	}
+
+	function receiveForm(){
+		if(isset($_POST)){
+			if(isset($_POST['estrategia1'])){
+				$this->changeUsersToState(8);
+			}
+			else{
+				$this->changeUsersToState(9);
+			}
+		}
+		else{
+			$this->changeUsersToState(10);
+		}
+
+	}
+
 	function getLastID(){
 		$query = 'SELECT max(id) as last_id FROM '.$this->getDataBaseTable('messages').' WHERE channel = '
 		 . $this->getUserData('channel') . ' ;';
@@ -600,6 +698,7 @@ class CustomAJAXChat extends AJAXChat {
 		{
 			case '/round':
 				$this->saveOpinions();
+				$this->saveRoundArguments();
 				$currentRound = $this->launchNewRound($textParts);
 				if($currentRound !== false)
 				{
@@ -652,6 +751,18 @@ class CustomAJAXChat extends AJAXChat {
 			
 			case '/opinion_change':
 				$this->addOpinionChange($textParts[1], $textParts[2]." ".$textParts[3]);
+				return true;
+
+			case '/add_argument':
+				$this->addArgument($textParts[1],$textParts[2]);
+				return true;
+
+			case '/remove_argument':
+				$this->removeArgument($textParts[1],$textParts[2]);
+				return true;
+
+			case '/receive_form':
+				$this->receiveForm();
 				return true;
 
 			case '/restart_clock':

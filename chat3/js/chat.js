@@ -95,6 +95,9 @@ var ajaxChat = {
 	state: null,
 	argumentos: null,
 	movidas: null,
+	imagen: 0,
+	tablero: null,
+	extension_tablero: null,
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
 		this.httpRequest		= {};
@@ -432,6 +435,7 @@ var ajaxChat = {
  		this.DOMbuffer = "";
 		
 	},
+	
 	initColorCodes: function() {
 		if(this.dom['colorCodesContainer']) {
 			this.DOMbuffer = "";

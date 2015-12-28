@@ -152,6 +152,8 @@
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+			ajaxChat.tablero = '[TABLERO/]'; 
+			ajaxChat.extension_tablero = '[EXTENSION_TABLERO/]'; 
 			ajaxChat.setActiveStyleSheet("prosilver");
 			function check_conect() {
 				console.log("check conect");
@@ -203,13 +205,14 @@
 		</div>
 				
 		<div id="emoticonsContainer" dir="ltr" style="display:none;" class="emoticonsContainerClass" ></div>
-		[<div id="chessImg" style="display:none;">
-		  <img id="imagenTablero" src="img/chesss.png" width="600" height="300" style="border:5px solid transparent;"/>
+		<div id="chessImg" style="display:none;">
+		  <img id="imagenTablero" src="img/[TABLERO/]0.[EXTENSION_TABLERO/]" width="300" height="300" style="border:5px solid transparent;"/>
 		</div>
-		
+		<button type="button" id="buttonChangeImage" onclick="ajaxChat.changeImage();" style="display:none;"> <img src="img/switch.png" width="40" height="40"/> </button>
 		<div id="messageContainer">
 			<h1 id="mensajePrincipal">[LANG]wait[/LANG]</h1>
 		</div>
+		<div id="ArgumentContainer" dir="ltr" style="display:none;" ><h3 id="argumentos-propios" >  Argumentos Propios:</h3> <p id="ArgumentContainerP"></p></div>
 
 			<div id="bbCodeContainer" style="display:none;">
 				<h3 id="opinion-propia" >  Valoración propia</h3> 
@@ -245,7 +248,8 @@
 				<input type="button" id="submitButton" value="Listo" onclick="ajaxChat.sendMessageWrapper('/submit_initial_opinion');"/>
 			</div>
 	  	
-	</div>
+	  	<div id="ArgumentContainerOponent" dir="ltr" style="display:none;" ><h3 id="argumentos-oponente" >  Argumentos usuario :</h3> <p id="ArgumentContainerOponentP"></p></div>
+		</div>
 		
 </body>
 

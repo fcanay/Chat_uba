@@ -200,3 +200,28 @@ Argumentos:
 -Ver q al terminar la ultima ronda el admin no siga
 
 -Problema logueo concurrente
+
+------------------------------------- 23 / 12
+
+- Comprobar q titila y no se superponen las cosas,
+
+- Ver eliminar argumento de segunda fila
+
+EXP 2:
+
+
+-Problema aparece el cambio de channel
+
+-Ver tema mensajes del administrador
+
+-Cambiar a un tablero y q se pueda switchear el lado
+
+Armar Salida:
+
+Dos matrices la tuya y la q vez para argumentos y jugadas
+
+hecho:
+
+-Borrar simbolos, poner argumentos (igual version 3).
+
+-Ampliar tiempo de chat

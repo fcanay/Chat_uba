@@ -394,3 +394,9 @@ ajaxChat.build_array = function(array){
 ajaxChat.handleLogout = function(url) {
 		return;
 }
+
+ajaxChat.changeImage = function(){
+	var imagen = document.getElementById("imagenTablero");
+	imagen.src = imagen.src.replace(this.tablero + this.imagen,this.tablero + ((this.imagen + 1)%2));
+	this.imagen = (this.imagen + 1) % 2; 
+}

@@ -175,7 +175,26 @@ CREATE TABLE `opinion_modification2` (
 --
 -- Volcado de datos para la tabla `results`
 --
+DROP TABLE IF EXISTS `actual_arguments2`;
+CREATE TABLE `actual_arguments2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `value` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,value,color)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
+DROP TABLE IF EXISTS `arguments2`;
+CREATE TABLE `arguments2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `value` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
+  `ronda` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,value,color,ronda)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------
 

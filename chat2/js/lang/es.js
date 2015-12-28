@@ -10,6 +10,7 @@
 // Ajax Chat language Object:
 var ajaxChatLang = {
 	label_names: ['Mate Blancas','Ventaja Decisiva Blanca','Ventaja Blanca','Leve Ventaja Blanca','Parejos','Leve Ventaja Negra','Ventaja Negra','Ventaja Decisiva Negra','Mate Negras'],
+	piezas: {P:'Peón',C:'Caballo',A:'Alfil',T:'Torre',D:'Dama',R:'Rey'},
 	startGame: 'Crear set de rondas',
 	startChatRound : 'Lanzar ronda de chats',
 	ErrorInvalidCountUsers: 'Error: La cantidad de usuarios es impar (%s).',
@@ -18,7 +19,7 @@ var ajaxChatLang = {
 	round: 'Usted va a ver la valoración del usuario ',
 	roundDos: 'Usted esta viendo la valoración del usuario',
 	changeOpinion: 'Si desea puede actualizar su posición',
-
+	argumentTitle: 'Argumentos:',
 
 	login: '%s entra al Chat.',
 	logout: '%s sale del Chat.',

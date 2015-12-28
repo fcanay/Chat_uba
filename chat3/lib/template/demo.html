@@ -157,6 +157,8 @@
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
 			ajaxChatLang.roundStartMessage = "[roundStartMessage/]";
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
+			ajaxChat.tablero = '[TABLERO/]'; 
+			ajaxChat.extension_tablero = '[EXTENSION_TABLERO/]'; 
 			$(document).ready(function() {
 				ajaxChat.chronometer([demoTime/]);
     		});
@@ -194,9 +196,10 @@
 			<div></div>
 		<![endif]-->
 		<div id="emoticonsContainer" dir="ltr" style="display:block;" class="emoticonsContainerClass" ></div>
-		<div id="chessImg" style="display:block;top:50%;">
-		  <img id="imagenTablero" src="img/inicial.png" width="720" height="360" style="border:5px solid transparent;"/>
+		<div id="chessImg" style="display:block;top:50%;left:18%">
+		  <img id="imagenTablero" src="img/[TABLERO/]0.[EXTENSION_TABLERO/]" width="350" height="350" style="border:5px solid transparent;"/>
 		</div>
+		<button type="button" id="buttonChangeImage" onclick="ajaxChat.changeImage();" style="display:block;left:45%"> <img src="img/switch.png" width="40" height="40"/> </button>
 		<div id="messageContainer" style="top:7%;text-align:left;left:5%;width:90%">
 			<h5 id="mensajePrincipal">[LANG]fraseDemo1[/LANG]</h5>
 			<h5 style="margin-top: 0em;margin-bottom: 0em;">[LANG]fraseDemo2[/LANG]</h5>
