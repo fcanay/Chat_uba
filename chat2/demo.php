@@ -23,16 +23,10 @@ require(AJAX_CHAT_PATH.'lib/custom.php');
 require(AJAX_CHAT_PATH.'lib/classes.php');
 
 
+
 // Initialize the chat:
-$ajaxChat = new CustomAJAXChat(false);
+$ajaxChat = new CustomAJAXChat('demo');
 
-$pairCombinator = new PairHandler($ajaxChat->db);
-$channelsHandler = new ChannelsHandler($ajaxChat->db);
-
-$channelsHandler->deleteChannels();
-$channelsHandler->createChannels(10);
-
-echo "<pre>";
 
 
 

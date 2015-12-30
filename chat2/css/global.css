@@ -70,6 +70,8 @@
 #content #inputFieldContainer {
 	position:absolute;
 	left:20px;
+	right:20px;
+	bottom:90px;
 	padding-right:4px;
 }
 #content #submitButtonContainer {

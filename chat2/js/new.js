@@ -64,12 +64,15 @@ ajaxChat.opinionInicial = function(){
 
 	document.getElementById('chessImg').style.display = "block";
 	document.getElementById('chessImg').style.top = "50%";
-	document.getElementById('chessImg').style.left = "40%";
+	document.getElementById('chessImg').style.left = "15%";
 
 	document.getElementById('buttonChangeImage').style.display = "block";
+	document.getElementById('buttonChangeImage').style.top = "50%";
+	document.getElementById('buttonChangeImage').style.left = "45%";
 
 	document.getElementById('ArgumentContainer').style.display = "block";
 
+	document.getElementById('movida').style.display = "block";
 
 	document.getElementById('emoticonsContainer').style.display = "block";
 		
@@ -112,37 +115,33 @@ ajaxChat.ronda = function(oponent,opinion,argumentos){
 ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 	//document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 
-	document.getElementById('chatList').style.display = "block";
+	console.log("displayRonda");
 
 	document.getElementById('emoticonsContainer').style.display = "block";
-	document.getElementById('emoticonsContainer').style.top = "20%";
-	
-	document.getElementById('inputFieldContainer').style.display = "block";
-	
-	document.getElementById('submitButtonContainer').style.display = "block";
+	document.getElementById('emoticonsContainer').style.top = "17%";
 
 	document.getElementById('ArgumentContainer').style.display = "block";
-	document.getElementById('ArgumentContainer').style.top = "66%";
+	document.getElementById('ArgumentContainer').style.top = "65%";
 
 	document.getElementById('ArgumentContainerOponent').style.display = "block";
 
+	document.getElementById('movida').style.display = "block";
+	
 	document.getElementById('imagenTablero').width = 300;
 	document.getElementById('imagenTablero').height = 300;
 	document.getElementById('imagenTablero').style.animation= "";
 
 	document.getElementById('chessImg').style.display = "block";
 	document.getElementById('chessImg').style.top = "40%";
-	document.getElementById('chessImg').style.left = "45%";
 
 	document.getElementById('buttonChangeImage').style.display = "block";
 	document.getElementById('buttonChangeImage').style.top = "35%";
-	document.getElementById('buttonChangeImage').style.left = "70%";
 
 	document.getElementById('bbCodeContainer').style.bottom = "20%";
 	document.getElementById('bbCodeContainer').style.display = "block";
 
+	document.getElementById('bbCodeContainerOponent').style.bottom = "11%";
 	document.getElementById('bbCodeContainerOponent').style.display = "block";
-	document.getElementById('bbCodeContainerOponent').style.bottom = "10%";
 
 	document.getElementById('slider-horizontal-oponent').style.display = "block";
 	this.aux(opinion);
@@ -157,6 +156,9 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 		if(argumentos[i].length == 2){
 			this.display_oponent_argument(argumentos[i][0],argumentos[i][1]);
 		}
+		else if(argumentos[i].length == 4){
+			this.display_oponent_movida(argumentos[i][0],argumentos[i][1],argumentos[i][2],argumentos[i][3]);
+		}
 		else{
 			console.log("Argumento con cantidad incorrecta de parametros");
 			console.log(argumentos[i]);
@@ -167,16 +169,15 @@ ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 }
 
 ajaxChat.cambioDeRonda = function(oponent){
+	console.log("cambioDeRonda");
 	document.getElementById('chessImg').style.display = "none";
 	document.getElementById('bbCodeContainer').style.display = "none";
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
-	document.getElementById('chatList').style.display = "none";
 	document.getElementById('emoticonsContainer').style.display = "none";
 	document.getElementById('ArgumentContainer').style.display = "none";
+	document.getElementById('movida').style.display = "none";
 	document.getElementById('ArgumentContainerOponent').style.display = "none";
-	document.getElementById('inputFieldContainer').style.display = "none";	
-	document.getElementById('submitButtonContainer').style.display = "none";
-	document.getElementById('buttonChangeImage').style.display = "none";
+	document.getElementById('buttonChangeImage').style.display = "none";	
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 	this.undisplay_oponent_argument();
 }
@@ -278,6 +279,40 @@ ajaxChat.argumentCliked = function(argument,color){
 	}
 }
 
+ajaxChat.agregar_movida = function(){
+	pieza = document.getElementById('pieza').options[document.getElementById('pieza').selectedIndex].value;
+	col = document.getElementById('columna').options[document.getElementById('columna').selectedIndex].value;
+	fila = document.getElementById('fila').options[document.getElementById('fila').selectedIndex].value;
+	color = document.getElementById('color').options[document.getElementById('color').selectedIndex].value;
+
+
+	if(this.argumentos[[pieza,col,fila,color]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
+		console.log("/add_movida '"+pieza+"' '"+col+"' "+fila+" "+color);
+		ajaxChat.sendMessage("/add_movida '"+ pieza+"' '"+col+"' "+fila+" "+color);
+		this.argumentos[[pieza,col,fila,color]] = 0;
+		this.display_movida(pieza,col,fila,color);
+	}
+
+}
+
+ajaxChat.display_movida = function(pieza,col,fila,color){
+	var para = document.createElement("p");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  "+this.color_to_name(color)+" ");
+	para.appendChild(t);
+	img = document.createElement("img");
+	img.setAttribute("src","./img/delete.png");
+	a = document.createElement("a");
+	a.setAttribute("href","javascript:ajaxChat.remove_movida('"+pieza+"','"+col+"',"+fila+","+color+");");
+	a.appendChild(img);
+	para.appendChild(a);
+	document.getElementById("ArgumentContainerP").appendChild(para);
+	/*document.getElementById("ArgumentContainerP").appendChild(t);
+	document.getElementById("ArgumentContainerP").appendChild(a);*/
+
+}
+
+
 ajaxChat.display_argument = function(argument,color){
 	var para = document.createElement("div");
 	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
@@ -300,6 +335,12 @@ ajaxChat.remove_argument= function(argument,color){
 	delete this.argumentos[[argument,color]];
 	this.undisplay_argument(argument,color);
 }
+ajaxChat.remove_movida= function(pieza,col,fila,color){
+	ajaxChat.sendMessage("/remove_movida '"+pieza+"' '"+col+"' "+fila+" "+color );
+	delete this.argumentos[[pieza,col,fila,color]];
+	this.undisplay_movida(pieza,col,fila,color);
+}
+
 
 ajaxChat.color_to_name = function(color){
 	if(color == 0){
@@ -321,6 +362,16 @@ ajaxChat.undisplay_argument = function(argument,color){
 	}	
 }
 
+ajaxChat.undisplay_movida = function(pieza,col,fila,color){
+	arg = document.getElementById("ArgumentContainerP");
+	for (i = 0; i < arg.childNodes.length; i++) {
+		n = arg.childNodes[i].childNodes[1].getAttribute("href");
+		if(n.search("\\('"+pieza+"','"+col+"',"+fila+","+color) != -1){
+			arg.removeChild(arg.childNodes[i]);
+			break;
+		}
+	}	
+}
 
 ajaxChat.display_oponent_argument = function(argument,color){
 	var para = document.createElement("div");
@@ -332,6 +383,16 @@ ajaxChat.display_oponent_argument = function(argument,color){
 	//document.getElementById("ArgumentContainerOponentP").appendChild(t);
 }
 
+ajaxChat.display_oponent_movida = function(pieza,col,fila,color){
+	var para = document.createElement("div");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
+	
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+" "+this.color_to_name(color)+" ");
+	para.appendChild(t);
+
+	document.getElementById("ArgumentContainerOponentP").appendChild(para);
+	//document.getElementById("ArgumentContainerOponentP").appendChild(t);
+}
 
 ajaxChat.undisplay_oponent_argument = function(){
 	var myNode = document.getElementById("ArgumentContainerOponentP");
@@ -352,6 +413,10 @@ ajaxChat.build_array = function(array){
 		if(res[i].length == 2){
 	    	res[i][0] = parseInt(res[i][0]);
 	    	res[i][1] = parseInt(res[i][1]);
+		}
+		else if(res[i].length == 4){
+	    	res[i][2] = parseInt(res[i][2]);
+	    	res[i][3] = parseInt(res[i][3]);
 		}
 	}
 	console.log(res);

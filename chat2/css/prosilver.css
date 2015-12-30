@@ -110,7 +110,7 @@
 	#content a {
 		color:#333333;
 	}
-	#content #chatList, #content #onlineListContainer, #content #helpContainer, #content #settingsContainer, #content #colorCodesContainer, #content #emoticonsContainer {
+	#content #chatList, #content #onlineListContainer, #content #helpContainer, #content #settingsContainer, #content #colorCodesContainer, #content #emoticonsContainer, #content #emoticonsContainerOponent {
 		background-color:#FFF;
 	}
 	#content #colorCodesContainer {

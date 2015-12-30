@@ -76,7 +76,7 @@
 		border: 1px solid #565656;
 		background-color:#383838;
 	}
-	#content #bbCodeContainer, #content #emoticonsContainer #content #emoticonsContainerOponent {
+	#content #bbCodeContainer, #content #emoticonsContainer  {
 		background-color:#383838;
 		padding: 5px;
 	}

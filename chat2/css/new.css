@@ -1,8 +1,8 @@
 #content #chatList {
 	position:absolute;
 	left:5%;
-	height:40%;
-	top:18%;
+	height:50%;
+	top:20%;
 	width:30%;
 	overflow:auto;
 }
@@ -20,14 +20,15 @@
 #content #inputFieldContainer{
 	position:absolute;
 	left:5%;
-	top:59%;
+	top:72%;
 	width:30%;
+	overflow:auto;
 }
 
 #content #submitButtonContainer{
 	position:absolute;
 	left:37%;
-	top:63%;
+	top:72%;
 }
 
 p {
@@ -50,6 +51,12 @@ p {
 	position:absolute;
 	top:92%;
 	left: 5%;
+}
+
+#content #movida{
+	position:absolute;
+	top:25%;
+	left: 60%;
 }
 
 #content #argumentos-propios{
