@@ -214,14 +214,21 @@ EXP 2:
 
 -Ver tema mensajes del administrador
 
--Cambiar a un tablero y q se pueda switchear el lado
 
-Armar Salida:
-
-Dos matrices la tuya y la q vez para argumentos y jugadas
 
 hecho:
+-Cambiar a un tablero y q se pueda switchear el lado
 
 -Borrar simbolos, poner argumentos (igual version 3).
 
 -Ampliar tiempo de chat
+--------------------
+
+
+-Directorio Resultados:
+	-Directorio N exp - Fecha - Sesion
+		-Vector de usuarios
+		-Matriz de opinion
+		-Matriz oponente
+		-Matriz de argumentos
+		-Json los comentarios agrupados

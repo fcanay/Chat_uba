@@ -12,6 +12,7 @@
 // Example - Overriding the replaceCustomCommands method:
 ajaxChat.replaceCustomCommands = function(text, textParts) {
 	
+		console.log(textParts[0]);
 	if(ajaxChat.isCustomCommand(textParts[0])){
 		switch(textParts[0])
 		{
@@ -62,6 +63,7 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 	}
 	return text;
 }
+
 
 ajaxChat.goToExitScreen = function()
 {	

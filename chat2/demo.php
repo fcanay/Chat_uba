@@ -11,7 +11,6 @@
 error_reporting(E_ALL ^ E_NOTICE);
 
 
-//ini_set("session.save_path", "/home/balen/session");
 
 
 // Path to the chat directory:
@@ -26,7 +25,7 @@ require(AJAX_CHAT_PATH.'lib/classes.php');
 
 
 // Initialize the chat:
-$ajaxChat = new CustomAJAXChat('encuesta');
+$ajaxChat = new CustomAJAXChat('demo');
 
 
 

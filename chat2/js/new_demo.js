@@ -39,7 +39,7 @@ ajaxChat.chronometer = function (i)
 	if(i>0){
 		this.timeout=setTimeout(function(){ajaxChat.chronometer(i-1)},1000);
 	}else{
-		//this.cambiarOpinion();
+		document.getElementById('loginForm').submit();
 	}
 }
 
@@ -58,29 +58,23 @@ ajaxChat.customInitialize = function() {
 }
 
 ajaxChat.opinionInicial = function(){
-	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.initialQuestion;
-	document.getElementById('imagenTablero').width = 350;
-	document.getElementById('imagenTablero').height = 350;
+	//document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.initialQuestion;
+	//document.getElementById('imagenTablero').width = 720;
+	//document.getElementById('imagenTablero').height = 360;
 
-	document.getElementById('chessImg').style.display = "block";
-	document.getElementById('chessImg').style.top = "50%";
-	document.getElementById('chessImg').style.left = "40%";
+	//document.getElementById('chessImg').style.display = "block";
+	document.getElementById('chessImg').style.top = "55%";
 
-	document.getElementById('buttonChangeImage').style.display = "block";
+	//document.getElementById('movida').style.display = "block";
 
-	document.getElementById('ArgumentContainer').style.display = "block";
-
-
-	document.getElementById('emoticonsContainer').style.display = "block";
+	//document.getElementById('emoticonsContainer').style.display = "block";
 		
-	document.getElementById('bbCodeContainer').style.display = "block";
-	document.getElementById('bbCodeContainer').style.width = "90%";
+	//document.getElementById('bbCodeContainer').style.display = "block";
 	document.getElementById('bbCodeContainer').style.bottom = "";
 
-	document.getElementById('bbCodeContainerOponent').style.display = "none";
-	document.getElementById('bbCodeContainerOponent').style.width = "90%";
+	//document.getElementById('bbCodeContainerOponent').style.display = "none";
 
-	document.getElementById('clockContainer').style.display = "block";
+	//document.getElementById('clockContainer').style.display = "block";
 
 /*
 	$('#mensajePrincipal').innerHTML = 'Evalúe la siguiente posición sabiendo que es el turno de las Blancas. Para mayor comodidad en el análisis, los tableros muestran la misma posición desde ambos lados.';
@@ -91,13 +85,9 @@ ajaxChat.opinionInicial = function(){
 }
 
 ajaxChat.ronda = function(oponent,opinion,argumentos){
-	console.log("ronda");
 	this.cambioDeRonda(oponent);
-	console.log("ronda2");
 
 	setTimeout(function(){ajaxChat.displayRonda(oponent,opinion,argumentos)},5000);
-	console.log('argumentos');
-	console.log(argumentos);
 	
 
 
@@ -112,54 +102,48 @@ ajaxChat.ronda = function(oponent,opinion,argumentos){
 ajaxChat.displayRonda = function(oponent,opinion,argumentos){
 	//document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 
-	document.getElementById('chatList').style.display = "block";
 
 	document.getElementById('emoticonsContainer').style.display = "block";
-	document.getElementById('emoticonsContainer').style.top = "20%";
-	
-	document.getElementById('inputFieldContainer').style.display = "block";
-	
-	document.getElementById('submitButtonContainer').style.display = "block";
+	document.getElementById('emoticonsContainer').style.top = "17%";
 
 	document.getElementById('ArgumentContainer').style.display = "block";
-	document.getElementById('ArgumentContainer').style.top = "66%";
+	document.getElementById('ArgumentContainer').style.top = "69%";
 
 	document.getElementById('ArgumentContainerOponent').style.display = "block";
 
-	document.getElementById('imagenTablero').width = 300;
+	document.getElementById('movida').style.display = "block";
+	
+	document.getElementById('imagenTablero').width = 600;
 	document.getElementById('imagenTablero').height = 300;
 	document.getElementById('imagenTablero').style.animation= "";
 
 	document.getElementById('chessImg').style.display = "block";
-	document.getElementById('chessImg').style.top = "40%";
-	document.getElementById('chessImg').style.left = "45%";
-
-	document.getElementById('buttonChangeImage').style.display = "block";
-	document.getElementById('buttonChangeImage').style.top = "35%";
-	document.getElementById('buttonChangeImage').style.left = "70%";
+	document.getElementById('chessImg').style.top = "45%";
+	document.getElementById('chessImg').style.left = "0%";
+	document.getElementById('chessImg').style.webkitTransform = "translate(10%, -50%)";
+	document.getElementById('chessImg').style.transform = "translate(10%, -50%)";
+	document.getElementById('chessImg').style.MozTransform = "translate(10%, -50%)";
 
 	document.getElementById('bbCodeContainer').style.bottom = "20%";
 	document.getElementById('bbCodeContainer').style.display = "block";
 
+	document.getElementById('bbCodeContainerOponent').style.bottom = "11%";
 	document.getElementById('bbCodeContainerOponent').style.display = "block";
-	document.getElementById('bbCodeContainerOponent').style.bottom = "10%";
 
 	document.getElementById('slider-horizontal-oponent').style.display = "block";
 	this.aux(opinion);
 
 	//Cambiar la opinion del oponente
 	document.getElementById('opinion-oponent').innerHTML = "Valoración usuario " + oponent +":"+  ajaxChat.lang.label_names[opinion];
-	document.getElementById('argumentos-oponente').innerHTML = "Argumentos usuario " + oponent +":";
 	document.getElementById('clockContainer').style.display = "block";
 	//document.querySelectorAll(".ui-slider-handle")[1].style.background = "#"+ajaxChat.handleColor(opinion);
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.roundDos) + " " + oponent + " " + ajaxChat.lang.changeOpinion;
-	for (var i = 0; i < argumentos.length ; i++) {
+	for (var i = argumentos.length - 1; i >= 0; i--) {
 		if(argumentos[i].length == 2){
 			this.display_oponent_argument(argumentos[i][0],argumentos[i][1]);
 		}
-		else{
-			console.log("Argumento con cantidad incorrecta de parametros");
-			console.log(argumentos[i]);
+		else if(argumentos[i].length == 4){
+			this.display_oponent_movida(argumentos[i][0],argumentos[i][1],argumentos[i][2],argumentos[i][3]);
 		}
 	};
 
@@ -170,13 +154,10 @@ ajaxChat.cambioDeRonda = function(oponent){
 	document.getElementById('chessImg').style.display = "none";
 	document.getElementById('bbCodeContainer').style.display = "none";
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
-	document.getElementById('chatList').style.display = "none";
 	document.getElementById('emoticonsContainer').style.display = "none";
 	document.getElementById('ArgumentContainer').style.display = "none";
+	document.getElementById('movida').style.display = "none";
 	document.getElementById('ArgumentContainerOponent').style.display = "none";
-	document.getElementById('inputFieldContainer').style.display = "none";	
-	document.getElementById('submitButtonContainer').style.display = "none";
-	document.getElementById('buttonChangeImage').style.display = "none";
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 	this.undisplay_oponent_argument();
 }
@@ -223,11 +204,13 @@ ajaxChat.cambiarOpinion = function(){
 
 }
 
-ajaxChat.encuesta = function(){
-	window.location.replace("encuesta.php");
+ajaxChat.end = function(){
+	window.location.replace("end.html");
 }
 
 ajaxChat.handleStateChange = function(parts){
+	console.log("state change en demo");
+	return;
 	parts = parts.split(",");
 	this.state = parseInt(parts[0]);
 	console.log("Handle State Change " + parts.toString());
@@ -251,7 +234,7 @@ ajaxChat.handleStateChange = function(parts){
 			}
 			break;
 		case 3:
-			this.encuesta();
+			this.end();
 			break;
 		default:
 			console.log("WTF");
@@ -272,14 +255,49 @@ ajaxChat.getChatName = function(userID){
 
 ajaxChat.argumentCliked = function(argument,color){
 	if(this.argumentos[[argument,color]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
-		ajaxChat.sendMessage("/add_argument "+ argument+" "+color);
+		//ajaxChat.sendMessage("/add_argument "+ argument+" "+color);
 		this.argumentos[[argument,color]] = 0;
 		this.display_argument(argument,color);
 	}
 }
 
+ajaxChat.agregar_movida = function(){
+	pieza = document.getElementById('pieza').options[document.getElementById('pieza').selectedIndex].value;
+	col = document.getElementById('columna').options[document.getElementById('columna').selectedIndex].value;
+	fila = document.getElementById('fila').options[document.getElementById('fila').selectedIndex].value;
+	color = document.getElementById('color').options[document.getElementById('color').selectedIndex].value;
+
+
+
+	if(this.argumentos[[pieza,col,fila,color]] == undefined &&  Object.keys(this.argumentos).length < this.maxArguments){ //Arguments is cliked
+		//console.log("/add_movida '"+ pieza+"' '"+col+"' "+fila);
+		//ajaxChat.sendMessage("/add_movida '"+ pieza+"' '"+col+"' "+fila);
+		this.argumentos[[pieza,col,fila,color]] = 0;
+		this.display_movida(pieza,col,fila,color);
+	}
+
+}
+
+ajaxChat.display_movida = function(pieza,col,fila,color){
+	var para = document.createElement("p");
+	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+"  "+this.color_to_name(color)+" ");
+	para.appendChild(t);
+	img = document.createElement("img");
+	img.setAttribute("src","./img/delete.png");
+	a = document.createElement("a");
+	a.setAttribute("href","javascript:ajaxChat.remove_movida('"+pieza+"','"+col+"',"+fila+","+color+");");
+	a.appendChild(img);
+	para.appendChild(a);
+	document.getElementById("ArgumentContainerP").appendChild(para);
+	/*document.getElementById("ArgumentContainerP").appendChild(t);
+	document.getElementById("ArgumentContainerP").appendChild(a);*/
+
+}
+
+
 ajaxChat.display_argument = function(argument,color){
-	var para = document.createElement("div");
+	var para = document.createElement("p");
 	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
 	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
 	para.appendChild(t);
@@ -289,17 +307,22 @@ ajaxChat.display_argument = function(argument,color){
 	a.setAttribute("href","javascript:ajaxChat.remove_argument("+argument+","+color+");");
 	a.appendChild(img);
 	para.appendChild(a);
-	
 	document.getElementById("ArgumentContainerP").appendChild(para);
 	/*document.getElementById("ArgumentContainerP").appendChild(t);
 	document.getElementById("ArgumentContainerP").appendChild(a);*/
 
 }
 ajaxChat.remove_argument= function(argument,color){
-	ajaxChat.sendMessage("/remove_argument "+argument+" "+color);
+	//ajaxChat.sendMessage("/remove_argument "+argument+" "+color);
 	delete this.argumentos[[argument,color]];
 	this.undisplay_argument(argument,color);
 }
+ajaxChat.remove_movida= function(pieza,col,fila,color){
+	//ajaxChat.sendMessage("/remove_movida '"+pieza+"' '"+col+"' "+fila );
+	delete this.argumentos[[pieza,col,fila,color]];
+	this.undisplay_movida(pieza,col,fila,color);
+}
+
 
 ajaxChat.color_to_name = function(color){
 	if(color == 0){
@@ -321,17 +344,26 @@ ajaxChat.undisplay_argument = function(argument,color){
 	}	
 }
 
-
-ajaxChat.display_oponent_argument = function(argument,color){
-	var para = document.createElement("div");
-	para.setAttribute("style","border:2px solid grey;display:inline-block;margin-left:2px;margin-right:2px");
-	
-	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
-	para.appendChild(t);
-	document.getElementById("ArgumentContainerOponentP").appendChild(para);
-	//document.getElementById("ArgumentContainerOponentP").appendChild(t);
+ajaxChat.undisplay_movida = function(pieza,col,fila,color){
+	arg = document.getElementById("ArgumentContainerP");
+	for (i = 0; i < arg.childNodes.length; i++) {
+		n = arg.childNodes[i].childNodes[1].getAttribute("href");
+		if(n.search("\\("+pieza+"','"+col+"',"+fila+","+color) != -1){
+			arg.removeChild(arg.childNodes[i]);
+			break;
+		}
+	}	
 }
 
+ajaxChat.display_oponent_argument = function(argument,color){
+	var t = document.createTextNode("  "+this.emoticonNames[argument-1]+" "+this.color_to_name(color)+"  ");
+	document.getElementById("ArgumentContainerOponentP").appendChild(t);
+}
+
+ajaxChat.display_oponent_movida = function(pieza,col,fila,color){
+	var t = document.createTextNode("  "+this.lang.piezas[pieza]+" "+col+fila+" "+this.color_to_name(color)+" ");
+	document.getElementById("ArgumentContainerOponentP").appendChild(t);
+}
 
 ajaxChat.undisplay_oponent_argument = function(){
 	var myNode = document.getElementById("ArgumentContainerOponentP");
@@ -341,10 +373,7 @@ ajaxChat.undisplay_oponent_argument = function(){
 }
 
 ajaxChat.build_array = function(array){
-	console.log("build array");
-	console.log(array);
 	res = array.split(";");
-	console.log(res);
 	for (i = 0; i < res.length; i++) {
 		console.log(i);
 		console.log(res[i]);
@@ -353,9 +382,17 @@ ajaxChat.build_array = function(array){
 	    	res[i][0] = parseInt(res[i][0]);
 	    	res[i][1] = parseInt(res[i][1]);
 		}
+		else if(res[i].length == 4){
+	    	res[i][2] = parseInt(res[i][2]);
+	    	res[i][2] = parseInt(res[i][3]);
+		}
 	}
 	console.log(res);
 	return res;
+}
+
+ajaxChat.handleLogout = function(url) {
+		return;
 }
 
 ajaxChat.changeImage = function(){

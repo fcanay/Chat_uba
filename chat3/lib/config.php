@@ -21,7 +21,7 @@ $config = array();
 
 $config['opinionTime'] = 180;
 // Tiempo de duracion de una ronda
-$config['roundTime'] = 120;
+$config['roundTime'] = 180; //Anterior 120
 //
 $config['demoTime'] = 180;
 
@@ -104,8 +104,6 @@ $config['dbTableNames']['encuesta']	= 'encuesta';
 $config['dbTableNames']['seen_pairs']	= 'seen_pairs3';
 $config['dbTableNames']['actual_arguments']	= 'actual_arguments3';
 $config['dbTableNames']['arguments']	= 'arguments3';
-$config['dbTableNames']['actual_movidas']	= 'actual_movidas3';
-$config['dbTableNames']['movidas']	= 'movidas3';
 
 // Available languages:
 $config['langAvailable'] = array(

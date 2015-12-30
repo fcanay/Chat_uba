@@ -47,12 +47,8 @@ class CustomAJAXChat extends AJAXChat {
 					$oponent = $this->getOponent();
 					$res .= ','.$oponent.','.$this->getOponentOpinion($oponent).',';
 					$opArg = $this->getOponentArguments($oponent);
-					$opMov = $this->getOponentMovidas($oponent);
 					foreach ($opArg as $value) {
 						$res .= $value[0].'|'.$value[1] . ';';
-					}
-					foreach ($opMov as $value) {
-						$res .= $value[0].'|'.$value[1]."|".$value[2]."|".$value[3] . ';';
 					}
 					$res = rtrim($res, ";");
 					//$res .= '';
@@ -566,23 +562,6 @@ class CustomAJAXChat extends AJAXChat {
 		}
 		return $res;
 	}
-
-	function getOponentMovidas($opponent){
-		$query = 'SELECT pieza,columna,fila,color FROM '.$this->getDataBaseTable('actual_movidas').' WHERE userID = ';
-		$query .= $opponent. ';';
-		$result = $this->db->query($query);
-		//return $query;
-		if($result->error()) {
-				echo $result->getError();
-				die();
-		}
-		$res = array();
-		while($row = $result->fetch()) {
-			array_push($res, array($row['pieza'],$row['columna'],$row['fila'],$row['color']));
-		}
-		return $res;
-	}
-
 	
 	function getArguments(){
 		$query = 'SELECT value,color FROM '.$this->getDataBaseTable('actual_arguments').' WHERE userID = ';
@@ -621,42 +600,12 @@ class CustomAJAXChat extends AJAXChat {
 		}
 	}
 
-	function addMovida($pieza,$col,$fila,$color){
-		$query = "INSERT INTO ".$this->getDataBaseTable('actual_movidas')." (`userID`,`pieza`,`columna`,`fila`,`color`) VALUES (";
-		$query .= $this->getUserID().", ". $pieza.",".$col.",".$fila.",".$color.");";
-		$result = $this->db->query($query);
-		if($result->error()) {
-				echo $result->getError();
-				die();
-		}
-	}
-
-	function removeMovida($pieza,$col,$fila,$color){
-		$query = "DELETE FROM ".$this->getDataBaseTable('actual_movidas')." WHERE userID = ";
-		$query .= $this->getUserID()." AND pieza = ". $pieza." AND columna = ".$col." AND fila = ".$fila." AND color = ".$color.";";
-		$result = $this->db->query($query);
-		if($result->error()) {
-				echo $result->getError();
-				die();
-		}
-	}
-
-	function saveRoundArgumentsAndMovidas(){
+	function saveRoundArguments(){
 		$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 		$ronda = count($pairCombinator->getPlayedRounds());
 		$query = "INSERT INTO ".$this->getDataBaseTable('arguments')." (userID,value,color,ronda) SELECT userID,value,color,".$ronda;
 		$query .= " FROM ".$this->getDataBaseTable('actual_arguments').";";
 		$result = $this->db->query($query);
-		if($result->error()) {
-				echo $result->getError();
-				die();
-		}
-
-		$query = "INSERT INTO ".$this->getDataBaseTable('movidas')." (userID,pieza,columna,fila,color,ronda) SELECT userID,pieza,columna,fila,color,".$ronda;
-		$query .= " FROM ".$this->getDataBaseTable('actual_movidas').";";
-		$result = $this->db->query($query);
-		
-
 		if($result->error()) {
 				echo $result->getError();
 				die();
@@ -749,7 +698,7 @@ class CustomAJAXChat extends AJAXChat {
 		{
 			case '/round':
 				$this->saveOpinions();
-				$this->saveRoundArgumentsAndMovidas();
+				$this->saveRoundArguments();
 				$currentRound = $this->launchNewRound($textParts);
 				if($currentRound !== false)
 				{
@@ -816,14 +765,6 @@ class CustomAJAXChat extends AJAXChat {
 				$this->receiveForm();
 				return true;
 
-			case '/add_movida':
-				$this->addMovida($textParts[1],$textParts[2],$textParts[3],$textParts[4]);
-				return true;
-
-			case '/remove_movida':
-				$this->removeMovida($textParts[1],$textParts[2],$textParts[3],$textParts[4]);
-				return true;
-
 			case '/restart_clock':
 				$this->insertChatBotMessageInAllChannels("/restart_clock");
 				return true;
@@ -883,6 +824,7 @@ class CustomAJAXChat extends AJAXChat {
 	function closeExperiment(){
 		/*dump something to some place & unlog users*/
 				//$this->insertChatBotMessageInAllChannels("/close_experiment");
+				//$this->insertChatBotMessage("0", "/restart_admin");
 				$this->changeUsersToState(3);
 				$pairCombinator = new PairHandler($this->db,$this->getConfig('dbTableNames'));
 				$pairCombinator->saveAndReset();

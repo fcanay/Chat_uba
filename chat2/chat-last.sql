@@ -196,6 +196,40 @@ CREATE TABLE `arguments2` (
   CONSTRAINT uc_Argument UNIQUE (userID,value,color,ronda)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
+
+DROP TABLE IF EXISTS `actual_movidas2`;
+CREATE TABLE `actual_movidas2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `pieza` varchar(4) NOT NULL,
+  `columna` varchar(4) NOT NULL,
+  `fila` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila,color)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+
+DROP TABLE IF EXISTS `movidas2`;
+CREATE TABLE `movidas2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `pieza` varchar(4) NOT NULL,
+  `columna` varchar(4) NOT NULL,
+  `fila` int(11) NOT NULL,
+  `color` int(11) NOT NULL,
+  `ronda` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT uc_Argument UNIQUE (userID,pieza,columna,fila,color,ronda)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+
+
+DROP TABLE IF EXISTS `encuesta`;
+CREATE TABLE `encuesta` (
+  `resultId` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`resultId`,`userID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 -- --------------------------------------------------------
 
 --
