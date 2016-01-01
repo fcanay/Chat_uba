@@ -359,11 +359,17 @@ class AJAXChat {
 					$res = 'cambiarOpinion.html';
 					break;
 				case 4:
+					$res = 'encuesta.html';
+					break;
+				case 5:
 					$res = 'end.html';
 					break;
 				}
 				//return AJAX_CHAT_PATH.'lib/template/'. $res;
-				return AJAX_CHAT_PATH.'lib/template/new.html';
+				if($this->_html == "encuesta")
+					return AJAX_CHAT_PATH.'lib/template/encuesta.html';
+				else
+					return AJAX_CHAT_PATH.'lib/template/new.html';
 			case 'logs':
 				return AJAX_CHAT_PATH.'lib/template/logs.html';
 			default:

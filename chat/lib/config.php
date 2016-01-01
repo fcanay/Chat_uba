@@ -24,6 +24,9 @@ $config['opinionTime'] = 120;
 $config['roundTime'] = 45;
 // Tiempo de duracion de un cambio de opinion
 $config['changeOpinionTime'] = 30;
+
+$config['tablero'] = 'ts';
+$config['extension_tablero'] = 'png';
 //Valores posibles de Opinion
 $config['STEP'] = 1;
 $config['MIN_OPINION'] = 0;
@@ -92,9 +95,8 @@ $config['dbTableNames']['current_round_data']	= 'current_round_data';
 $config['dbTableNames']['opinion_changes']	= 'opinion_changes';
 $config['dbTableNames']['opinion_modification']	= 'opinion_modification';
 $config['dbTableNames']['results']	= 'results';
+$config['dbTableNames']['encuesta']	= 'encuesta';
 $config['dbTableNames']['seen_pairs']	= 'seen_pairs';
-
-
 
 // Available languages:
 $config['langAvailable'] = array(
@@ -144,7 +146,7 @@ $config['defaultChannelID'] = 0;
 $config['limitChannelList'] = null;
 
 // UserID plus this value are private channels (this is also the max userID and max channelID):
-$config['privateChannelDiff'] = 500000000;
+$config['privateChannelDiff'] = 1000;
 // UserID plus this value are used for private messages:
 $config['privateMessageDiff'] = 1000000000;
 
@@ -186,7 +188,7 @@ $config['guestUserPrefix'] = '(';
 // Guest users should be distinguished by either a prefix or a suffix or both (no whitespace):
 $config['guestUserSuffix'] = ')';
 // Guest userIDs may not be lower than this value (and not higher than privateChannelDiff):
-$config['minGuestUserID'] = 400000000;
+$config['minGuestUserID'] = 3;
 
 // Allow/Disallow users to change their userName (Nickname):
 $config['allowNickChange'] = false;

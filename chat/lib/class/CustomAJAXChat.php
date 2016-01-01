@@ -116,7 +116,7 @@ class CustomAJAXChat extends AJAXChat {
 				$onlineUsersData = $this->getOnlineUsersData();
 				
 				//if($userName == "admin") return null;
-				
+				/*
 				$id = 2;
 				//echo "<pre>";
 				//print_r($onlineUsersData);
@@ -126,10 +126,10 @@ class CustomAJAXChat extends AJAXChat {
 					
 					$id++;
 				}
-					
+					*/
 				
 				$userData = array();
-				$userData['userID'] = $id;
+				$userData['userID'] = $this->createGuestUserID();
 				$userData['userName'] = $this->trimUserName($userName);
 				$userData['userRole'] = AJAX_CHAT_USER;
 				$userData['channels'] = array_values($this->getAllChannels());
@@ -501,6 +501,14 @@ class CustomAJAXChat extends AJAXChat {
 				else return 'none';
 			break;
 
+			case 'TABLERO':
+				return $this->getConfig('tablero');
+				break;
+
+			case 'EXTENSION_TABLERO':
+				return $this->getConfig('extension_tablero');
+				break;
+
 			default:
 				if($this->getLang($tag) !== null) return $this->getLang($tag);
 				if($this->getConfig($tag) !== null) return $this->getConfig($tag);
@@ -612,6 +620,9 @@ class CustomAJAXChat extends AJAXChat {
 				}
 				else{
 					$this->closeExperiment();
+					$this->insertChatBotMessage("0", "/restart_admin");		
+					shell_exec("./histograma.py hist 2>ERROR >SALIDA");
+
 				}
 				return true;
 			break;

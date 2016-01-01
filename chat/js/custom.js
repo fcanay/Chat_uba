@@ -17,45 +17,46 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 		{
 		case '/start_exp':
 			//if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("opinion.php");
-			return true;
+			return "";
 			return false;
 			
 		case '/round':
 			if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("ronda.php");
-			return false;
+			return text;
 		
 		case '/change_opinion':
-			return true;
+			return "";
 			if(this.userRole !== '2' && this.userRole !== '3') window.location.replace("cambiarOpinion.php");
 			return false;
 		
 		case '/restart_clock':
 			ajaxChat.restartChronometer(0);
+			return "";
 			//return "restarteado!";
 		case '/start_opinion':
 			if(this.userRole !== '2' && this.userRole !== '3') ajaxChat.startOpinion();
-			return false;
+			return "";
 		break;
 		case '/end_opinion':
 			if(this.userRole !== '2' && this.userRole !== '3') ajaxChat.endOpinion();
-			return false;
+			return "";
 		break;
 
 		case '/open_chatbox':
 			ajaxChat.toggleChatbox(true);
-			return false;
+			return text;
 		break;
 		case '/close_chatbox':
 			ajaxChat.toggleChatbox(false);
-			return false;
+			return "";
 		break;
 
 		case '/close_experiment':
 			if(this.userRole !== '2' && this.userRole !== '3')  ajaxChat.goToExitScreen();
-			return false;
+			return text;
 		case '/restart_admin':
 			if(this.userRole == '2' || this.userRole == '3')  ajaxChat.restart();
-			return false;
+			return "";
 		break;
 		}
 	}
