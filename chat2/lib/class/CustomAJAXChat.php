@@ -764,6 +764,14 @@ class CustomAJAXChat extends AJAXChat {
 					$this->closeExperiment();
 					$this->insertChatBotMessage("0", "/restart_admin");		
 					shell_exec("./histograma.py hist 2>ERROR >SALIDA");
+					$d = date("d:m:y");
+					$dir = "../results/Exp2-".$d;
+					$num = 1;
+					while(file_exists($dir."-".$num)){
+						$num++;
+					}
+					shell_exec("mkdir ".$dir."-".$num. " 2>ERROR_mk >SALIDA_mk");
+					shell_exec("./analizador.py ".$dir."-".$num."/ 2>ERROR_A >SALIDA_A");
 
 				}
 				return true;

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import json
 import csv
 import numpy
@@ -7,17 +9,16 @@ import MySQLdb
 
 def main(folder):
 	game_results = load_results()
-	print game_results
 	players,players_map = get_players(game_results)
 	print_vector(players,folder+"/players_vector")
 	opinion_matrix = get_opinion_matrix(game_results,players_map)
 	print_matrix(opinion_matrix,folder+"/opinion")
 	oponent_matrix = get_oponent_matrix(game_results,players_map)
 	print_matrix(oponent_matrix,folder+"/oponent")
-	argument_matrix = get_argument_matrix(game_results,players_map)
-	print_matrix(argument_matrix,folder+"/arguments")
-	messages = get_messages(game_results,players_map)
-	dump_jason(messages,folder+"/messages")
+	#argument_matrix = get_argument_matrix(game_results,players_map)
+	#print_matrix(argument_matrix,folder+"/arguments")
+	#messages = get_messages(game_results,players_map)
+	#dump_jason(messages,folder+"/messages")
 
 
 
@@ -29,8 +30,8 @@ def load_results():
 	cursor = db.cursor()
 
 	# execute SQL select statement
-	#cursor.execute("SELECT data FROM results WHERE id = (SELECT max(id) FROM results)")
-	cursor.execute("SELECT data FROM results WHERE id = 454")
+	cursor.execute("SELECT data FROM results WHERE id = (SELECT max(id) FROM results)")
+	#cursor.execute("SELECT data FROM results WHERE id = 454")
 
 	# commit your changes
 	db.commit()
@@ -89,24 +90,47 @@ def get_argument_matrix(game_results,players_map):
 def get_messages(game_results,players_map):
 	pattern = re.compile("Comienza la ronda (\d*)")
 	n = number_of_players(game_results)
-	res_aux =  [[] for i in xrange(0,n+1)]
+	res_aux =  [[] for i in xrange(0,n)]
+	print res_aux
+
 	for m in game_results['messages']:
 		if m["userRole"] == "4":
+			print m["text"]
 			matches = pattern.match(m["text"])
 			if matches:
 				ronda = int(matches.groups()[0])
+				print "match"
+				print ronda
 			continue
 		if m["userRole"] == "1":
+			print ronda
+			print m
 			res_aux[ronda].append(m)
+			print res_aux[ronda]
 	#Tengo los mensajes agrupados por ronda, falta dentro de eso agrupar por par de usuarios
-	res =  [[] for i in xrange(0,n+1)]
+	print "-------------------------------------------"
+	print res_aux
+	res =  [[] for i in xrange(0,n)]
 	for i in xrange(1,len(res_aux)):
-		aux = [[] for i in xrange(0,n/2)]
+		aux = [[] for j in xrange(0,n/2)]
+		print "aux"
+		print aux
+		print "res_aux[i]"
+		print res_aux[i]
+		print "res_aux"
+		print res_aux
 		for r in res_aux[i]:
-			for j in xrange(0,len(game_results['game'][i])):
-				if r["userID"] in game_results['game'][i][j]:
+			print r
+			for j in xrange(0,len(game_results['game'][i-1])):
+				if r["userID"] in game_results['game'][i-1][j]:
 					aux[j].append(r)
 		res[i] = aux
+		print "res"
+
+		print res
+	print "-------------------------------------------"
+
+	print res
 	return res
 			
 
