@@ -92,6 +92,9 @@ var ajaxChat = {
 	stateTime: null,
 	stateFunction: null,
 	state: null,
+	imagen: 0,
+	tablero: null,
+	extension_tablero: null,
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
 		this.httpRequest		= {};

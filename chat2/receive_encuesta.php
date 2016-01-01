@@ -29,7 +29,7 @@
   }
 
   mysqli_close($conn); 
-  header("Location: http:/chat2/end.html");
+  header("Location: http://socex.df.uba.ar/chat2/end.html");
   /*shell_exec("touch ./chat3/TEST");
   shell_exec("python test.py");
   $output = exec("python histograma.py hist");

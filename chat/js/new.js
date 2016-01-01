@@ -59,11 +59,13 @@ ajaxChat.customInitialize = function() {
 
 ajaxChat.opinionInicial = function(){
 	document.getElementById('mensajePrincipal').innerHTML = ajaxChat.lang.initialQuestion;
-	document.getElementById('imagenTablero').width = 800;
-	document.getElementById('imagenTablero').height = 400;
+	document.getElementById('imagenTablero').width = 350;
+	document.getElementById('imagenTablero').height = 350;
 
 	document.getElementById('chessImg').style.display = "block";
-	document.getElementById('chessImg').style.top = "55%";
+	document.getElementById('chessImg').style.top = "50%";
+	
+	document.getElementById('buttonChangeImage').style.display = "block";
 
 		
 	document.getElementById('bbCodeContainer').style.display = "block";
@@ -98,12 +100,14 @@ ajaxChat.ronda = function(oponent,opinion){
 ajaxChat.displayRonda = function(oponent,opinion){
 	//document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 
-	document.getElementById('imagenTablero').width = 600;
+	document.getElementById('imagenTablero').width = 300;
 	document.getElementById('imagenTablero').height = 300;
 	document.getElementById('imagenTablero').style.animation= "";
 
 	document.getElementById('chessImg').style.display = "block";
 	document.getElementById('chessImg').style.top = "45%";
+
+	document.getElementById('buttonChangeImage').style.display = "block";
 
 	document.getElementById('bbCodeContainer').style.bottom = "15%";
 	document.getElementById('bbCodeContainer').style.display = "block";
@@ -126,6 +130,7 @@ ajaxChat.cambioDeRonda = function(oponent){
 	document.getElementById('chessImg').style.display = "none";
 	document.getElementById('bbCodeContainer').style.display = "none";
 	document.getElementById('bbCodeContainerOponent').style.display = "none";
+	document.getElementById('buttonChangeImage').style.display = "none";	
 	document.getElementById('mensajePrincipal').innerHTML = (ajaxChat.lang.round) + " " + oponent;
 }
 
@@ -171,8 +176,8 @@ ajaxChat.cambiarOpinion = function(){
 
 }
 
-ajaxChat.end = function(){
-	window.location.replace("end.html");
+ajaxChat.encuesta = function(){
+	window.location.replace("encuesta.php");
 }
 
 ajaxChat.handleStateChange = function(parts){
@@ -195,11 +200,17 @@ ajaxChat.handleStateChange = function(parts){
 			}
 			break;
 		case 3:
-			this.end();
+			this.encuesta();
 			break;
 		default:
 			console.log("WTF");
 			break;
 	}
 	this.restartChronometer(this.stateTime[this.state]);
+}
+
+ajaxChat.changeImage = function(){
+	var imagen = document.getElementById("imagenTablero");
+	imagen.src = imagen.src.replace(this.tablero + this.imagen,this.tablero + ((this.imagen + 1)%2));
+	this.imagen = (this.imagen + 1) % 2; 
 }

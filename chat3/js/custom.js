@@ -101,7 +101,7 @@ ajaxChat.nextState = function(state)
 		state = 2;
 	}
 	this.state = state;
-	this.restartCountdown(this.stateTime[state]);
+	this.restartCountdown(this.stateTime[state]+5);
 
 }
 		

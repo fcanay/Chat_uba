@@ -206,3 +206,9 @@ a.ui-slider-handle
 @keyframes blink { 
    50% { border-color: #ff0000; } 
 }
+
+#content #buttonChangeImage{
+	position:absolute;
+	top:50%;
+	left: 70%;
+}

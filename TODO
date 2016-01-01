@@ -232,3 +232,20 @@ hecho:
 		-Matriz oponente
 		-Matriz de argumentos
 		-Json los comentarios agrupados
+
+
+-----------------------------
+Demo:
+	achicar tablero para subir argumentos, y q no se bloquee el boton de X
+
+Done:
+	-demo achicar barra a 80 %
+	-Agregar a los js y css ?version=num_version para q no los cachee
+	-Pasar si pase problema conccurente a v1
+	-Agregar encuesta y devolucion v1
+	-Agregar switch de tablero v1
+	-Agregar 5 segundos de changui
+	-Frase de abajo de la demo no wrappea
+	-No se pueden borrar las movidas
+	- Poner explicito q los h esten en negrita
+	-Safari no acepta ./ en la redireccion (cambiar por redireccion explicita)
